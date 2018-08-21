@@ -2,10 +2,10 @@
 
 ## Get Start
 
-- Laravel
-- Vue
-- Tools & Etc
-    - PHPStorm
-    - Visual Studio Code
-    - Docker
+* Laravel
+* Vue
+* Tools & Etc
+  * PHPStorm
+  * Visual Studio Code
+  * Docker
 

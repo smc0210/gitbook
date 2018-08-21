@@ -4,10 +4,10 @@
 
 ## Laravel
 
-* [laravel 1](laravel/laravel-1.md)
+* [Untitled](laravel/untitled.md)
 
 ## tools & ETC
 
-* [phpstorm](tools/phpstorm.md)
-* [docker](tools/docker.md)
+* [phpstorm](tools-and-etc/phpstorm.md)
+* [docker](tools-and-etc/docker.md)
 

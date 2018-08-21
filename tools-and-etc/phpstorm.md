@@ -2,23 +2,22 @@
 
 ## TOC
 
-- [phpstorm](#phpstorm)
-    - [TOC](#toc)
-    - [1. ide-helper](#1-ide-helper)
-    - [2. php-cs-fixer](#2-php-cs-fixer)
-        - [2-2. Usage](#2-2-usage)
-    - [3. xdebug](#3-xdebug)
-    - [4. phpunit](#4-phpunit)
-    - [5. PHPStorm Setting](#5-phpstorm-setting)
-        - [5-1. git bash inside phpstorm](#5-1-git-bash-inside-phpstorm)
+* [phpstorm](phpstorm.md#phpstorm)
+  * [TOC](phpstorm.md#toc)
+  * [1. ide-helper](phpstorm.md#1-ide-helper)
+  * [2. php-cs-fixer](phpstorm.md#2-php-cs-fixer)
+    * [2-2. Usage](phpstorm.md#2-2-usage)
+  * [3. xdebug](phpstorm.md#3-xdebug)
+  * [4. phpunit](phpstorm.md#4-phpunit)
+  * [5. PHPStorm Setting](phpstorm.md#5-phpstorm-setting)
+    * [5-1. git bash inside phpstorm](phpstorm.md#5-1-git-bash-inside-phpstorm)
 
 ## 1. ide-helper
 
 [laravel-ide-helper Github repository](https://github.com/barryvdh/laravel-ide-helper)
 
-
 {% hint style="info" %}
- 만약 checkout이나 소스 연동 문제로 `정의로 이동` 기능이 작동 안할경우 아래 커맨드로 갱신
+만약 checkout이나 소스 연동 문제로 `정의로 이동` 기능이 작동 안할경우 아래 커맨드로 갱신
 {% endhint %}
 
 ```bash
@@ -41,6 +40,7 @@ inline 방식
 # php-cs-fixer option Rule로 변경
 fix --rules=@PSR2,@Symfony,no_unused_imports,indentation_type $FileDir$/$FileName$
 ```
+
 config file 방식
 
 ```text
@@ -53,7 +53,6 @@ fix --config=.php_cs $FileDir$/$FileName$
 [PHPStorm - xdebug 셋팅](https://www.jetbrains.com/help/phpstorm/configuring-xdebug.html)
 
 > php.ini
-
 
 ```markup
 ; Off -> On 으로 수정
