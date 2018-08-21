@@ -2,11 +2,10 @@
 
 ## Get Start
 
-```bash
-# package install
-yarn add
-
-# server start
-yarn dev
-```
+- Laravel
+- Vue
+- Tools & Etc
+    - PHPStorm
+    - Visual Studio Code
+    - Docker
 
