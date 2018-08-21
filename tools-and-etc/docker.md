@@ -10,7 +10,7 @@
 "나에게 Docker의 매력은 간단히 격리된 환경을 만들 수 있다는 것과, 그러한 환경을 재사용할 수 있다는 점이다."런타임 환경을 한 번 만들어 패키지로 만들면, 이 패키지를 다른 어떤 머신에서도 다시 사용할 수 있다. 또한 여기서 실행되는 모든 것은 마치 가상머신과 같이 호스트로부터 격리되어있다. 무엇보다도 이런 모든 일들이 빠르고 간단히 가능하다.
 {% endhint %}
 
-## TL;DR, 지금 바로 Docker 개발 환경 구축하기
+## 지금 바로 Docker 개발 환경 구축하기
 
 * [24시간 동안 Docker 개발 한경 구축하기(A Docker Dev Environment in 24 Hours!)](http://blog.relateiq.com/a-docker-dev-environment-in-24-hours-part-2-of-2/)
 * [(Docker와 함께 개발환경 구축하기)Building a Development Environment With Docker](http://tersesystems.com/2013/11/20/building-a-development-environment-with-docker/)
