@@ -1,9 +1,8 @@
 # phpstorm
 
-## 목차
+## TOC
 
 * [phpStorm](phpstorm.md#phpstorm)
-  * [목차](phpstorm.md#목차)
   * [1. ide-helper](phpstorm.md#1-ide-helper)
   * [2. php-cs-fixer](phpstorm.md#2-php-cs-fixer)
     * [2-2. Usage](phpstorm.md#2-2-usage)
@@ -14,7 +13,7 @@
 
 ## 1. ide-helper
 
-### [laravel-ide-helper Github repository](https://github.com/barryvdh/laravel-ide-helper)
+[laravel-ide-helper Github repository](https://github.com/barryvdh/laravel-ide-helper)
 
 만약 checkout이나 소스 연동 문제로 `정의로 이동` 기능이 작동 안할경우 아래 커맨드로 갱신
 
