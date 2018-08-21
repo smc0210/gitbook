@@ -1,12 +1,4 @@
-# nuber-server
-
-## Requirements
-
-* Node.js
-* Typescript
-* POSTGRESQL
-* GraphQL
-* React
+# Git - Book
 
 ## Get Start
 
