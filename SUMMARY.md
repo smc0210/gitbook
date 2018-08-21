@@ -6,12 +6,6 @@
 
 * [laravel 1](laravel/laravel-1.md)
 
-## Vue.js
-
-## node.js
-
-## typescript
-
 ## tools
 
 * [phpstorm](tools/phpstorm.md)
