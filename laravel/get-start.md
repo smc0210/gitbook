@@ -1,5 +1,5 @@
 
-# laravel Getting start
+# Get Started
 
 ## 1. environment setting
 
@@ -10,7 +10,7 @@
 
 
 ```xml
-127.0.0.1  laravel.course.test
+127.0.0.1  laravel.course.testgit
 127.0.0.1  lumen.course.test
 ```
 
