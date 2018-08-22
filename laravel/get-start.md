@@ -1,4 +1,4 @@
-# get started
+# Get Started
 
 ## 1. environment setting
 
