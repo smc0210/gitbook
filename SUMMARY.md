@@ -8,6 +8,6 @@
 
 ## tools & ETC
 
-* [phpstorm](tools-and-etc/phpstorm.md)
-* [docker](tools-and-etc/docker.md)
+* [PhpStorm](tools-and-etc/phpstorm.md)
+* [Docker](tools-and-etc/docker.md)
 
