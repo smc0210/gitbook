@@ -4,7 +4,7 @@
 
 ## Laravel
 
-* [get start](laravel/get-start.md)
+* [get started](laravel/get-start.md)
 
 ## tools & ETC
 
