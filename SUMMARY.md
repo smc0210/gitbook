@@ -37,3 +37,7 @@
 * [PhpStorm](tools-and-etc/phpstorm.md)
 * [Docker](tools-and-etc/docker.md)
 * [Visual Studio Code](tools-and-etc/visual-studio-code.md)
+* [Yarn & NPM](tools-and-etc/yarn-and-npm.md)
+* [webpack](tools-and-etc/webpack.md)
+* [Gulp](tools-and-etc/gulp.md)
+
