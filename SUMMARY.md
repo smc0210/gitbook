@@ -7,7 +7,12 @@
 * [Node.js](language/node.js.md)
 * [Typescript](language/typescript.md)
 * [React](language/react.md)
-* [Vue.js](language/vue.js.md)
+* [Vue.js](language/vue.js/README.md)
+  * [ES6](language/vue.js/es6.md)
+  * [Life Cycle](language/vue.js/life-cycle.md)
+  * [Component](language/vue.js/component.md)
+  * [Route](language/vue.js/route.md)
+  * [Template](language/vue.js/template.md)
 * [PHP](language/php.md)
 * [Python](language/python.md)
 
