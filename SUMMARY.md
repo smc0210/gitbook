@@ -10,7 +10,7 @@
 * [Vue.js](language/vue.js.md)
 * [PHP](language/php.md)
 * [Python](language/python.md)
-* 
+
 ## Laravel
 
 * [Get Started](laravel/get-start.md)
