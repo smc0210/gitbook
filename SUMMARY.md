@@ -2,7 +2,7 @@
 
 * [Git - Book](README.md)
 
-## Language
+## Language & Framework
 
 * [Node.js](language/node.js.md)
 * [Typescript](language/typescript.md)
@@ -15,24 +15,21 @@
   * [Template](language/vue.js/template.md)
 * [PHP](language/php.md)
 * [Python](language/python.md)
-* [MySQL & MariaDB](sql/mysql-and-mariadb.md)
-* [GraphQL](sql/graphql.md)
-* [PostgreSQL](sql/postgresql.md)
+* [MySQL & MariaDB](language/mysql-and-mariadb.md)
+* [GraphQL](language/graphql.md)
+* [PostgreSQL](language/postgresql.md)
+* [Laravel](language/laravel.md)
+* [Get Started](language/laravel-1.md)
+* [API Test Page](api-test-page.md)
 
-## Laravel
-
-* [Get Started](laravel/get-start.md)
-* [API Test Page](laravel/api-test-page.md)
-
-## AWS
-
-* [EC2](aws/ec2.md)
-
-## OS
+## Environment
 
 * [CentOS](os/centos.md)
 * [Ubuntu](os/ubuntu.md)
 * [Shell](os/shell.md)
+* [AWS](os/aws/README.md)
+  * [EC2](os/aws/ec2.md)
+  * [RDS](os/aws/rds.md)
 
 ## Tools & ETC
 
