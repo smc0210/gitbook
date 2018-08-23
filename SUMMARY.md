@@ -21,8 +21,6 @@
 * [Vue.js](language/vue.js.md)
 * [PHP](language/php.md)
 * [Python](language/python.md)
-* [SQL](language/sql.md)
-* [NoSQL](language/nosql.md)
 
 ## AWS
 
@@ -31,4 +29,10 @@
 * [CentOS](os/centos.md)
 * [Ubuntu](os/ubuntu.md)
 * [Shell](os/shell.md)
+
+## SQL
+
+* [MySQL & MariaDB](sql/mysql-and-mariadb.md)
+* [GraphQL](sql/graphql.md)
+* [PostgreSQL](sql/postgresql.md)
 
