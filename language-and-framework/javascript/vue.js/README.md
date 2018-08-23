@@ -41,15 +41,15 @@
   </body>
 </html>
 ```
-## 3. [Simple ES6](https://github.com/smc0210/toyVuejs/tree/master/ES6)
+## 3. [Simple ES6](https://ocaso.gitbook.io/infodoc/language-and-framework/javascript/vue.js/es6)
 
-## 4. [Life Cycle](https://github.com/smc0210/toyVuejs/tree/master/Lifecycle)
+## 4. [Life Cycle](https://ocaso.gitbook.io/infodoc/language-and-framework/javascript/vue.js/life-cycle)
 
-## 5. [Component](https://github.com/smc0210/toyVuejs/tree/master/Component)
+## 5. [Component](https://ocaso.gitbook.io/infodoc/language-and-framework/javascript/vue.js/component)
 
-## 6. [Route](https://github.com/smc0210/toyVuejs/tree/master/Route)
+## 6. [Route](https://ocaso.gitbook.io/infodoc/language-and-framework/javascript/vue.js/route)
 
-## 7. [Template](https://github.com/smc0210/toyVuejs/tree/master/Template)
+## 7. [Template](https://ocaso.gitbook.io/infodoc/language-and-framework/javascript/vue.js/template)
 
 
 
