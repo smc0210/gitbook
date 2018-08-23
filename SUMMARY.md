@@ -11,4 +11,24 @@
 
 * [PhpStorm](tools-and-etc/phpstorm.md)
 * [Docker](tools-and-etc/docker.md)
+* [Visual Studio Code](tools-and-etc/visual-studio-code.md)
+
+## Language
+
+* [Node.js](language/node.js.md)
+* [Typescript](language/typescript.md)
+* [React](language/react.md)
+* [Vue.js](language/vue.js.md)
+* [PHP](language/php.md)
+* [Python](language/python.md)
+* [SQL](language/sql.md)
+* [NoSQL](language/nosql.md)
+
+## AWS
+
+## OS
+
+* [CentOS](os/centos.md)
+* [Ubuntu](os/ubuntu.md)
+* [Shell](os/shell.md)
 
