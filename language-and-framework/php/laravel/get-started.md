@@ -1,4 +1,4 @@
-# Get Started
+# Project Started
 
 ## 1. environment setting
 

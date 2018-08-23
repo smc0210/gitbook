@@ -1,6 +1,5 @@
 # Vue.js
 
-
 ## 1. Prepare before
 
 1. `Chrome broswer`
@@ -13,13 +12,14 @@
 {% endhint %}
 
 `Atom` 추천 테마, 패키지
-- `seti-ui`
-- `atom-material-syntax-dark`
-- `language-vue`
+
+* `seti-ui`
+* `atom-material-syntax-dark`
+* `language-vue`
 
 ## 2. Getting Start
 
-```xml
+```markup
 <html>
   <head>
     <title>Vue Sample</title>
@@ -41,6 +41,7 @@
   </body>
 </html>
 ```
+
 ## 3. [Simple ES6](https://ocaso.gitbook.io/infodoc/language-and-framework/javascript/vue.js/es6)
 
 ## 4. [Life Cycle](https://ocaso.gitbook.io/infodoc/language-and-framework/javascript/vue.js/life-cycle)
@@ -50,6 +51,4 @@
 ## 6. [Route](https://ocaso.gitbook.io/infodoc/language-and-framework/javascript/vue.js/route)
 
 ## 7. [Template](https://ocaso.gitbook.io/infodoc/language-and-framework/javascript/vue.js/template)
-
-
 
