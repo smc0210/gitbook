@@ -5,9 +5,10 @@
 ## Laravel
 
 * [Get Started](laravel/get-start.md)
+* [API Test Page](laravel/api-test-page.md)
 
 ## tools & ETC
 
-* [phpstorm](tools-and-etc/phpstorm.md)
-* [docker](tools-and-etc/docker.md)
+* [PhpStorm](tools-and-etc/phpstorm.md)
+* [Docker](tools-and-etc/docker.md)
 
