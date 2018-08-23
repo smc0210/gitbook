@@ -75,8 +75,9 @@ php artisan make:middleware Login
 # help 
 php artisan help
 ```
-
-> middleware 를 생성한 후 `/app/Http/Kernel.php`에 등록을 해줘야 한다.(==대소문자 주의==)
+{% hint style="danger" %}
+middleware 를 생성한 후 `/app/Http/Kernel.php`에 등록을 해줘야 한다.(**대소문자 주의**)
+{% endhint %}
 
 ```php
 protected $routeMiddleware = [
@@ -98,6 +99,7 @@ php artisan key:generate
 > `routes/web.php` ,`routes/api.php`에 route 작성
 > `method`, `uri`, `controller
 > api.php 작성예시
+
 ```php
 Route::put('/welcome', function () {
     return view('welcome');
@@ -116,6 +118,7 @@ Route::group(['prefix' => '/user', 'middleware' => 'login'], function () {
 
 Route::get('/validation', 'ValidationController@index');
 ```
+
 ## 4. Controller
 
 > `Route`에서 연결된 `Controller` 작성예시
@@ -281,9 +284,11 @@ App\User::where('login_id', 'minda')->select('login_id', 'password')->first()
 App\User::where('login_id', 'like', 'minda%')->get()
 ```
 
-> `UserController.php` 작성예시
-> Array 방식은 `toArray()`로 변환후 `array_get()`메소드를 추가적으로 해줘야 에러를 방지(잘못된 값 혹은 빈값)
-> Collection 방식은 기본값으로 빈 값과 잘못된 값은 처리를 해준다.
+{% hint style="info" %}
+`UserController.php` 작성예시
+Array 방식은 `toArray()`로 변환후 `array_get()`메소드를 추가적으로 해줘야 에러를 방지(잘못된 값 혹은 빈값)
+Collection 방식은 기본값으로 빈 값과 잘못된 값은 처리를 해준다.
+{% endhint %}
 
 ```php
 // Array
@@ -307,9 +312,10 @@ foreach ($users as $user) {
 
 ### 6-2. Update & delete
 
-> 실제 작성되는 쿼리 출력방법???
-> debug bar
-> get()->toSql()
+{% hint style="info" %}
+debug bar
+get()->toSql()
+{% endhint %}
 
 ```bash
 App\User::find(1)->update(['password' => '1111'])
@@ -359,6 +365,8 @@ User::find(1)
 ### 6-5. Relationships
 
 > Company 모델 `app/Company.php` 
+
+
 ```php
 <?php
 
