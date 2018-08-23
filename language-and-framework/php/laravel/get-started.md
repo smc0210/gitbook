@@ -96,13 +96,11 @@ php artisan key:generate
 
 ## 3. Route
 
-> `routes/web.php` ,`routes/api.php`에 route 작성 
+> `routes/web.php` ,`routes/api.php`에 route 작성
+>
+> `method`, `uri`, \`controller api.php 작성예시
 
-> `method`, `uri`, `controller 
-> api.php 작성예시
-
-
-```php 
+```php
 Route::put('/welcome', function () {
     return view('welcome');
 });
@@ -124,7 +122,6 @@ Route::get('/validation', 'ValidationController@index');
 ## 4. Controller
 
 > `Route`에서 연결된 `Controller` 작성예시
-
 
 ```php
 class UserController extends Controller
