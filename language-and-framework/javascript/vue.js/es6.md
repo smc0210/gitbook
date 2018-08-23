@@ -8,6 +8,7 @@ ES6 = (ECMAScript 2015)
 
 
 > ES5
+
 ```javascript
 var num = 100;
 var sumNum = function(a, b) {
@@ -17,6 +18,7 @@ sumNum(10, 20); //30
 ```
 
 > ES6
+
 ```javascript
 const num = 100;
 let sumNum = (a, b) => {
@@ -45,6 +47,7 @@ a = 20; // Uncaught TypeError: Assignment to constant variable.
 ES6에서는 `let`으로 선언한 변수의 유효범위가 `{}` 안으로 한정된다.
 
 > ES5
+
 ```javascript
 var i = 10;
 for (var i = 0; i < 5; i++) {
@@ -54,6 +57,7 @@ console.log(i); //5
 ```
 
 > ES6
+
 ```javascript
 let i = 10;
 for (let i = 0; i < 5; i++) {
@@ -67,6 +71,7 @@ console.log(i); // 10
 ES5의 함수 정의 방식을 간소화한 문법으로 속도도 더 빠르다
 
 > ES5
+
 ```javascript
 var sumNum = function (a, b) {
     return a + b;
@@ -74,6 +79,7 @@ var sumNum = function (a, b) {
 ```
 
 > ES6
+
 ```javascript
 var sumNum = (a, b) => {
     return a + b;
