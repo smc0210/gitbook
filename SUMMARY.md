@@ -4,33 +4,32 @@
 
 ## Language & Framework
 
-* [PHP](language/php.md)
-  * [Laravel](language/php/laravel.md)
-    * [Get Started](language/php/laravel-1.md)
-    * [API Test Page](language/php/api-test-page.md)   
-* [Node.js](language/node.js.md)
-* [Typescript](language/typescript.md)
-* [React](language/react.md)
-* [Vue.js](language/vue.js/README.md)
-  * [ES6](language/vue.js/es6.md)
-  * [Life Cycle](language/vue.js/life-cycle.md)
-  * [Component](language/vue.js/component.md)
-  * [Route](language/vue.js/route.md)
-  * [Template](language/vue.js/template.md) 
-* [Python](language/python.md)
-* [MySQL & MariaDB](language/mysql-and-mariadb.md)
-* [GraphQL](language/graphql.md)
-* [PostgreSQL](language/postgresql.md)
-
+* [PHP](language-and-framework/php/README.md)
+  * [Laravel](language-and-framework/php/laravel/README.md)
+    * [Get Started](language-and-framework/php/laravel/get-started.md)
+    * [API Test Page](language-and-framework/php/laravel/api-test-page.md)
+* [Node.js](language-and-framework/node.js.md)
+* [Typescript](language-and-framework/typescript.md)
+* [React](language-and-framework/react.md)
+* [Vue.js](language-and-framework/vue.js/README.md)
+  * [ES6](language-and-framework/vue.js/es6.md)
+  * [Life Cycle](language-and-framework/vue.js/life-cycle.md)
+  * [Component](language-and-framework/vue.js/component.md)
+  * [Route](language-and-framework/vue.js/route.md)
+  * [Template](language-and-framework/vue.js/template.md)
+* [Python](language-and-framework/python.md)
+* [MySQL & MariaDB](language-and-framework/mysql-and-mariadb.md)
+* [GraphQL](language-and-framework/graphql.md)
+* [PostgreSQL](language-and-framework/postgresql.md)
 
 ## Environment
 
-* [AWS](os/aws/README.md)
-  * [EC2](os/aws/ec2.md)
-  * [RDS](os/aws/rds.md)
-* [CentOS](os/centos.md)
-* [Ubuntu](os/ubuntu.md)
-* [Shell](os/shell.md)
+* [AWS](environment/aws/README.md)
+  * [EC2](environment/aws/ec2.md)
+  * [RDS](environment/aws/rds.md)
+* [CentOS](environment/centos.md)
+* [Ubuntu](environment/ubuntu.md)
+* [Shell](environment/shell.md)
 
 ## Tools & ETC
 
