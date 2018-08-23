@@ -18,6 +18,8 @@
 
 ## AWS
 
+* [EC2](aws/ec2.md)
+
 ## SQL
 
 * [MySQL & MariaDB](sql/mysql-and-mariadb.md)
