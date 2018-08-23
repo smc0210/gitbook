@@ -30,7 +30,7 @@ code sniffer 설치 [squizlabs/php\_codesniffer](https://packagist.org/packages/
 
 php-cs-fixer 설치 [friendsofphp/php-cs-fixer](https://packagist.org/packages/friendsofphp/php-cs-fixer)
 
-![code sniffer pc](../.gitbook/assets/phpstorm_1.png)
+![code sniffer pc](../../.gitbook/assets/phpstorm_1.png)
 
 ### 2-2. Usage
 
@@ -84,7 +84,7 @@ laragon 트레이 아이콘 우클릭 &gt; PHP &gt; Extension 에서 xdebug설�
 
 ### 5-1. git bash inside phpstorm
 
-![](../.gitbook/assets/22222.png)
+![](../../.gitbook/assets/22222.png)
 
 **5-1-1.** `Settings` **&gt;** `Tools` **&gt;** `Terminal`
 

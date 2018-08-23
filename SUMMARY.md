@@ -40,11 +40,12 @@
 
 ## Tools & ETC
 
-* [PhpStorm](tools-and-etc/phpstorm.md)
+* [IDE & Editor](tools-and-etc/ide-and-editor/README.md)
+  * [PhpStorm](tools-and-etc/ide-and-editor/phpstorm.md)
+  * [Visual Studio Code](tools-and-etc/ide-and-editor/visual-studio-code/README.md)
+    * [Useful Packages](tools-and-etc/ide-and-editor/visual-studio-code/useful-packages.md)
 * [Docker](tools-and-etc/docker/README.md)
   * [Get Started](tools-and-etc/docker/docker.md)
-* [Visual Studio Code](tools-and-etc/visual-studio-code/README.md)
-  * [Useful Packages](tools-and-etc/visual-studio-code/useful-packages.md)
 * [Yarn & NPM](tools-and-etc/yarn-and-npm/README.md)
   * [Command](tools-and-etc/yarn-and-npm/command.md)
 * [Gulp](tools-and-etc/gulp.md)
