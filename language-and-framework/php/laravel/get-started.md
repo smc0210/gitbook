@@ -96,17 +96,31 @@ php artisan key:generate
 
 ## 3. Route
 
-> `routes/web.php` ,`routes/api.php`에 route 작성 `method`, `uri`, \`controller api.php 작성예시
->
-> \`\`\`php Route::put\('/welcome', function \(\) { return view\('welcome'\); }\);
+> `routes/web.php` ,`routes/api.php`에 route 작성 
 
-Route::get\('/registers/create', 'RegisterController@create'\);
+> `method`, `uri`, `controller 
+> api.php 작성예시
 
-Route::group\(\['prefix' =&gt; '/user', 'middleware' =&gt; 'login'\], function \(\) { // Route::get\('/', 'UserController@index'\); // Route::get\('/{id?}', 'UserController@index'\)-&gt;middleware\('login'\); Route::get\('/{id?}', 'UserController@index'\); Route::put\('/', 'UserController@update'\); Route::delete\('/', 'UserController@delete'\); Route::post\('/', 'UserController@store'\); }\);
 
-Route::get\('/validation', 'ValidationController@index'\);
+```php 
+Route::put('/welcome', function () {
+    return view('welcome');
+});
 
-```text
+Route::get('/registers/create', 'RegisterController@create');
+
+Route::group(['prefix' => '/user', 'middleware' => 'login'], function () {
+    // Route::get('/', 'UserController@index');
+    // Route::get('/{id?}', 'UserController@index')->middleware('login');
+    Route::get('/{id?}', 'UserController@index');
+    Route::put('/', 'UserController@update');
+    Route::delete('/', 'UserController@delete');
+    Route::post('/', 'UserController@store');
+});
+
+Route::get('/validation', 'ValidationController@index');
+```
+
 ## 4. Controller
 
 > `Route`에서 연결된 `Controller` 작성예시
