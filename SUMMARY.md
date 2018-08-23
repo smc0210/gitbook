@@ -37,6 +37,7 @@
 * [Ubuntu](environment/ubuntu.md)
 * [Shell](environment/shell/README.md)
   * [Zsh + Oh My Zsh](environment/shell/zsh-+-oh-my-zsh.md)
+  * [Command](environment/shell/command.md)
 
 ## Tools & ETC
 
