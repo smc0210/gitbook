@@ -15,6 +15,9 @@
   * [Template](language/vue.js/template.md)
 * [PHP](language/php.md)
 * [Python](language/python.md)
+* [MySQL & MariaDB](sql/mysql-and-mariadb.md)
+* [GraphQL](sql/graphql.md)
+* [PostgreSQL](sql/postgresql.md)
 
 ## Laravel
 
@@ -24,12 +27,6 @@
 ## AWS
 
 * [EC2](aws/ec2.md)
-
-## SQL
-
-* [MySQL & MariaDB](sql/mysql-and-mariadb.md)
-* [GraphQL](sql/graphql.md)
-* [PostgreSQL](sql/postgresql.md)
 
 ## OS
 
