@@ -4,7 +4,7 @@
 
 ## Language & Framework
 
-* [Javascript](language-and-framework/javascript/README.md)  
+* [Javascript](language-and-framework/javascript/README.md)
   * [Node.js](language-and-framework/javascript/javascript-4.md)
   * [Typescript](language-and-framework/javascript/javascript-2.md)
   * [React](language-and-framework/javascript/javascript-3/README.md)
