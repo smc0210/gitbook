@@ -4,17 +4,17 @@
 
 ## Language & Framework
 
-* [Javascript](language-and-framework/javascript/README.md)
+* [Javascript](language-and-framework/javascript/README.md)  
+  * [Node.js](language-and-framework/javascript/javascript-4.md)
+  * [Typescript](language-and-framework/javascript/javascript-2.md)
+  * [React](language-and-framework/javascript/javascript-3/README.md)
+    * [React Native](language-and-framework/javascript/javascript-3/react-native.md)
   * [Vue.js](language-and-framework/javascript/vue.js/README.md)
     * [ES6](language-and-framework/javascript/vue.js/es6.md)
     * [Life Cycle](language-and-framework/javascript/vue.js/life-cycle.md)
     * [Component](language-and-framework/javascript/vue.js/component.md)
     * [Route](language-and-framework/javascript/vue.js/route.md)
     * [Template](language-and-framework/javascript/vue.js/template.md)
-  * [Node.js](language-and-framework/javascript/javascript-4.md)
-  * [Typescript](language-and-framework/javascript/javascript-2.md)
-  * [React](language-and-framework/javascript/javascript-3/README.md)
-    * [React Native](language-and-framework/javascript/javascript-3/react-native.md)
 * [PHP](language-and-framework/php/README.md)
   * [Laravel](language-and-framework/php/laravel/README.md)
     * [Get Started](language-and-framework/php/laravel/get-started.md)
