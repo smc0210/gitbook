@@ -16,19 +16,18 @@
 
 ![php-laravel-getStarted-1](../../../.gitbook/assets/php_laravel_get-started-1.png)
 
-[laragon - https://laragon.org/](https://laragon.org/)을 설치후 설치된 경로 내부의 php.exe를 찾아서 해당경로를 윈도우 Path 환경변수로 잡아준다  
-
+[laragon - https://laragon.org/](https://laragon.org/)을 설치후 설치된 경로 내부의 php.exe를 찾아서 해당경로를 윈도우 Path 환경변수로 잡아준다
 
 #### requirements
-- php > 5.5.9
-- php Extensions
-    -  OpenSSL
-    -  PDO
-    -  Mbstring
-    -  Tokenizer
 
-Laragon의 경우 extention활성화는 관리 메뉴에서 체크 형식으로 손쉽게 가능하다. 
-그게 아닌 docker나 로컬 서버를 구축한 경우 `bash` 창에서 명령어로 확인 가능하다.
+* php &gt; 5.5.9
+* php Extensions
+  * OpenSSL
+  * PDO
+  * Mbstring
+  * Tokenizer
+
+Laragon의 경우 extention활성화는 관리 메뉴에서 체크 형식으로 손쉽게 가능하다. 그게 아닌 docker나 로컬 서버를 구축한 경우 `bash` 창에서 명령어로 확인 가능하다.
 
 ```bash
 # Git Bash
@@ -47,8 +46,7 @@ $ php -m | findstr tokenizer
 
 `Laravel Installer` 를 사용해서 설치하며 그전에 `Composer`가 설치되어 있지 않다면 설치한다.
 
-[Composer Downdload URL]]](https://getcomposer.org/download/) 에서 윈도우즈용 을 다운받아 설치한다.
-설치중에 PHP 경로를 각자 로컬에 설치된 php(laragon일 경우 laragon 내부의 php 경로)를 잡아준다.
+[Composer Downdload URL\]\]](https://getcomposer.org/download/) 에서 윈도우즈용 을 다운받아 설치한다. 설치중에 PHP 경로를 각자 로컬에 설치된 php\(laragon일 경우 laragon 내부의 php 경로\)를 잡아준다.
 
 ```bash
 # composer 명령어가 작동하지 않는다면 환경변수를 점검한다.
@@ -59,8 +57,7 @@ $ composer global require "laravel/installer"
 ```
 
 {% hint style="info" %}
-`Laravel` command를 어떤 경로에서든 사용할수 있도록 Path 환경변수에 설정한다.
-예시) `C:\Users\{User}\AppData\Roaming\Composer\vendor\bin`
+`Laravel` command를 어떤 경로에서든 사용할수 있도록 Path 환경변수에 설정한다. 예시\) `C:\Users\{User}\AppData\Roaming\Composer\vendor\bin`
 {% endhint %}
 
 ```bash
@@ -74,18 +71,18 @@ $ php artisan serve
 
 이후 `localhost:8000`으로 접근시 laravel 화면이 보인다면 정상이다.
 
-
-
 ## 2. Larvel Global Setting
 
 ### .env 생성
 
 .env 파일이 없을경우 생성
+
 ```bash
 $ cp .env.example .env
 ```
 
-### APP_KEY
+### APP\_KEY
+
 laravel 에서 사용하는 암호화 알고리즘의 키로 만약 설정되어 있지 않다면 아래 명령어로 키를 생성한다
 
 ```bash
@@ -96,11 +93,9 @@ php artisan key:generate
 
 실제 외부 DB 서버가 있다면 해당 연결정보를 작성하면 되고 local에 설치되어 있는 DB 정보를 적어도 된다
 
-DB_HOST=localhost
-DB_DATABASE=testDB
-DB_USERNAME=root
-DB_PASSWORD=
+DB\_HOST=localhost DB\_DATABASE=testDB DB\_USERNAME=root DB\_PASSWORD=
 
 {% hint style="info" %}
-laragon을 설치했다면 mysql이 설치되어있을테고 port번호와(다른데서 사용하는 포트와 충돌나지 않도록) root 패스워드를 한번 셋팅해주면 해당 접속정보로 접근 가능하다
+laragon을 설치했다면 mysql이 설치되어있을테고 port번호와\(다른데서 사용하는 포트와 충돌나지 않도록\) root 패스워드를 한번 셋팅해주면 해당 접속정보로 접근 가능하다
 {% endhint %}
+
