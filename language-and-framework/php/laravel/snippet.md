@@ -1,8 +1,12 @@
+---
+description: 명령어 위주의 간단한 소개 모음집
+---
+
 # Snippet
 
 ## 1. route
 
-`project/routes/web.php`이 기본 라우트 
+`project/routes/web.php`이 기본 라우트
 
 ### 1-1. basic
 
@@ -24,7 +28,8 @@ Route::get('/', function () {
 
 ### 1-2. data binding
 
-// with()를 이용한 전달방법
+// with\(\)를 이용한 전달방법
+
 ```php
 Route::get('/', function () {
     return view('index')->with([
@@ -44,8 +49,7 @@ Route::get('/', function () {
 
 ### 1-3. Controller routing
 
-일반적으로 라우트에서 직접 뷰를 호출하거나 데이터를 직접 넘기지 않고 먼저 컨트롤러를 호출하게 된다
-코드이그나이터의 클래스명@메소드와 동일한 방식
+일반적으로 라우트에서 직접 뷰를 호출하거나 데이터를 직접 넘기지 않고 먼저 컨트롤러를 호출하게 된다 코드이그나이터의 클래스명@메소드와 동일한 방식
 
 ```php
 # indexController 의 index()를 호출
@@ -57,10 +61,10 @@ Route::get('posts', [
     'uses'  =>  'PostsController@index'
 ]);
 ```
+
 {% hint style="info" %}
 라우트에 이름을 부여할 경우 `route('posts.index');`와 같은 방식으로 view나 기타 다른곳에서도 편하게 재사용할 수 있다.
 {% endhint %}
-
 
 ### 1-4. Resource Route
 
@@ -123,7 +127,6 @@ HTML 주석으로 컴파일
 ### 2-5. `@forelse`
 
 `@foreach`와 `@if` 의 결합
-
 
 ```php
 @forelse($items as $item)
@@ -189,7 +192,6 @@ HTML 주석으로 컴파일
 </footer>
 ```
 
-
 ## 3. artisan
 
 ### 3-1. basic
@@ -213,10 +215,10 @@ php artisan route:list
 
 # resource controller 생성
 php artisan make:controller PostsController --resource
-
 ```
 
 ### 3-3. DB migration
+
 ```bash
 # migration 생성
 php artisan make:migration create_posts_table
@@ -254,7 +256,6 @@ DB::update('update posts set title="Modified Title" where id = ?', [2]);
 
 ## 5. Query builder
 
-
 ```bash
 php artisan tinker
 
@@ -273,21 +274,17 @@ DB::table('posts')->select('title')->get();
 
 ## 6. Eloquent ORM
 
-간단하게는 `JPA`, `Django ORM` 등과 같은 모델간에 관계를 맺어주는 구현체로 사용방법만 다르지 다루는 내용은 거의 비슷하고
-`Query builder`의 메소드는 거의 사용할 수 있다.
-
+간단하게는 `JPA`, `Django ORM` 등과 같은 모델간에 관계를 맺어주는 구현체로 사용방법만 다르지 다루는 내용은 거의 비슷하고 `Query builder`의 메소드는 거의 사용할 수 있다.
 
 `artisan`을 이용해서 모델을 만들고 확인해보면 모델이 `Eloquent`를 하위에 존재하는걸 볼 수 있다.
+
 ```php
 // 생성된 model 상단선언부
 use Illuminate\Database\Eloquent\Model;
 ```
 
 {% hint style="info" %}
-테이블 이름은 복수로 모델 이름은 단수로 한다.
-table : users
-model : user
-만약 이 규칙과 다르다면 모델에 명시적으로 선언해줘야 한다. (`protected $table = 'users';`)
+테이블 이름은 복수로 모델 이름은 단수로 한다. table : users model : user 만약 이 규칙과 다르다면 모델에 명시적으로 선언해줘야 한다. \(`protected $table = 'users';`\)
 {% endhint %}
 
 ### 6-1. basic
@@ -308,8 +305,7 @@ $author->save(); # 메모리에만 존재하던 인스턴스를 데이터베이�
 
 ### 6-2. basic config
 
-`Eloquent ORM` 에는 정해져있는 몇가지 규칙들이 있는데 그중 하나가 `updated_at`과 `created_at`이며 (Django 네이밍과 동일하니 이해가 빠를듯)
-만약 해당하는 컬럼이 없거나 이름이 다를경우 `model`에 명시적으로 표기해주거나 `timestaps`옵션을 꺼줘야 한다
+`Eloquent ORM` 에는 정해져있는 몇가지 규칙들이 있는데 그중 하나가 `updated_at`과 `created_at`이며 \(Django 네이밍과 동일하니 이해가 빠를듯\) 만약 해당하는 컬럼이 없거나 이름이 다를경우 `model`에 명시적으로 표기해주거나 `timestaps`옵션을 꺼줘야 한다
 
 > `project/app/User.php`
 
@@ -322,12 +318,12 @@ class User extends Model
 
 ### 6-3. create
 
-`save()`메소드가 아닌 `create()` 메소드를 이용할때는 `$fillable` 속성을 지정해줘야 한다.
-왜 그런지와 그에 대한 자세한 설명은 공식 문서 참조
+`save()`메소드가 아닌 `create()` 메소드를 이용할때는 `$fillable` 속성을 지정해줘야 한다. 왜 그런지와 그에 대한 자세한 설명은 공식 문서 참조
 
-- [laravel 공식문서](https://laravel.com/docs/5.6/eloquent)
-- [laravel 한글번역](https://laravel.kr/docs/5.6/eloquent)
-위 문서에서 `Mass Assignment`로 검색
+* [laravel 공식문서](https://laravel.com/docs/5.6/eloquent)
+* [laravel 한글번역](https://laravel.kr/docs/5.6/eloquent)
+
+  위 문서에서 `Mass Assignment`로 검색
 
 ```php
 <?php
@@ -346,3 +342,4 @@ class User extends Model
     protected $fillable = ['name'];
 }
 ```
+
