@@ -5,10 +5,10 @@
 ## Language & Framework
 
 * [Javascript](language-and-framework/javascript/README.md)
-  * [Node.js](language-and-framework/javascript/javascript-4.md)
-  * [Typescript](language-and-framework/javascript/javascript-2.md)
-  * [React](language-and-framework/javascript/javascript-3/README.md)
-    * [React Native](language-and-framework/javascript/javascript-3/react-native.md)
+  * [Node.js](language-and-framework/javascript/nodejs.md)
+  * [Typescript](language-and-framework/javascript/typescript.md)
+  * [React](language-and-framework/javascript/react/README.md)
+    * [React Native](language-and-framework/javascript/react/react-native.md)
   * [Vue.js](language-and-framework/javascript/vue.js/README.md)
     * [ES6](language-and-framework/javascript/vue.js/es6.md)
     * [Life Cycle](language-and-framework/javascript/vue.js/life-cycle.md)

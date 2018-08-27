@@ -4,12 +4,11 @@
 
 ### LANGUAGE & FRAMEWORK
 
-* Javascript
-
-  * Node.js
-  * Typescript
-  * React
-    * React Native
+* [Javascript](https://ocaso.gitbook.io/infodoc/language-and-framework/javascript)
+  * [Node.js](https://ocaso.gitbook.io/infodoc/language-and-framework/nodejs)
+  * [Typescript]()
+  * [React](https://ocaso.gitbook.io/infodoc/language-and-framework/react)
+    * [React Native](https://ocaso.gitbook.io/infodoc/language-and-framework/react/react-native)
   * Vue.js
     * ES6
     * Life Cycle
