@@ -2,45 +2,57 @@
 
 ## Page Links
 
-{% page-ref page="language-and-framework/javascript/vue.js/" %}
+### LANGUAGE & FRAMEWORK
 
-{% page-ref page="language-and-framework/javascript/javascript-4.md" %}
+* Javascript
 
-{% page-ref page="language-and-framework/javascript/javascript-2.md" %}
+  * Node.js
+  * Typescript
+  * React
+    * React Native
+  * Vue.js
+    * ES6
+    * Life Cycle
+    * Component
+    * Route
+    * Template
+  * PHP
+    * Laravel
+      * Get Started
+      * Snippet
+      * Project Started
+      * API Test Page
+    * Codeigniter
+      * Get Started
+  * Python
+    * Django
+  * MySQL & MariaDB
+    * Syntax
+  * GraphQL
+  * PostgreSQL 
 
-{% page-ref page="language-and-framework/javascript/javascript-3/" %}
+### ENVIRONMENT
 
-{% page-ref page="language-and-framework/php/laravel/" %}
+* AWS
+  * EC2
+  * RDS
+* CentOS
+* Ubuntu
+* Shell
+  * Zsh & Oh My Zsh
+  * Command
 
-{% page-ref page="language-and-framework/php/codeigniter/" %}
+### TOOLS & ETC
 
-{% page-ref page="language-and-framework/python/" %}
-
-{% page-ref page="language-and-framework/mysql-and-mariadb/" %}
-
-{% page-ref page="language-and-framework/graphql.md" %}
-
-{% page-ref page="language-and-framework/postgresql.md" %}
-
-{% page-ref page="environment/aws/" %}
-
-{% page-ref page="environment/centos.md" %}
-
-{% page-ref page="environment/ubuntu.md" %}
-
-{% page-ref page="environment/shell/" %}
-
-{% page-ref page="tools-and-etc/ide-and-editor/phpstorm.md" %}
-
-{% page-ref page="tools-and-etc/ide-and-editor/visual-studio-code/" %}
-
-{% page-ref page="tools-and-etc/docker/" %}
-
-{% page-ref page="tools-and-etc/yarn-and-npm/" %}
-
-{% page-ref page="tools-and-etc/gulp.md" %}
-
-{% page-ref page="tools-and-etc/webpack.md" %}
-
-{% page-ref page="tools-and-etc/useful-links.md" %}
+* IDE & Editor
+  * PhpStorm
+  * Visual Studio Code
+    * Useful Packages
+* Docker
+  * Get started
+* Yarn & NPM
+  * command
+* Gulp
+* webpack
+* Useful Links
 
