@@ -1,7 +1,3 @@
----
-description: 명령어 위주의 간단한 소개 모음집
----
-
 # Snippet
 
 ## 1. route
