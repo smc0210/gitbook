@@ -23,6 +23,7 @@
     * [API Test Page](language-and-framework/php/laravel/api-test-page.md)
   * [CodeIgniter](language-and-framework/php/codeigniter/README.md)
     * [Get Started](language-and-framework/php/codeigniter/get-started.md)
+  * [Composer](language-and-framework/php/composer.md)
 * [Python](language-and-framework/python/README.md)
   * [Django](language-and-framework/python/django.md)
 * [MySQL & MariaDB](language-and-framework/mysql-and-mariadb/README.md)

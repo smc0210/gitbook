@@ -265,8 +265,6 @@ $ php artisan db:seed
 >>>> factory('App\User', 2)->make(); # Instance 2개 생성
 ```
 
-
-
 ## 5. Query
 
 ```bash
@@ -386,10 +384,8 @@ Route::get('posts', function() {
 ```
 
 {% hint style="danger" %}
-with(string|array $relations) 메소드는 항상 엘로퀀트 모델 바로 뒤, 다른 메소드를 체인하기 전에 써야 한다. 
-메소드의 인자는 테이블 이름이 아니라, 모델 클래스에서 정의한 관계를 나타내는 메소드 이름이다.
+with\(string\|array $relations\) 메소드는 항상 엘로퀀트 모델 바로 뒤, 다른 메소드를 체인하기 전에 써야 한다. 메소드의 인자는 테이블 이름이 아니라, 모델 클래스에서 정의한 관계를 나타내는 메소드 이름이다.
 {% endhint %}
-
 
 ```php
 // 엘로퀀트를 먼저 사용하고 그 후에 관계가 필요할경우 lazy eagar 로딩을 load키워드로 사용할 수 있다.
@@ -401,9 +397,6 @@ Route::get('posts', function() {
 });
 ```
 
-
-
-
 ## 8. Seeding
 
 라라벨 5부터 `Seeding`을 편하기 하기위한 `Factory`기능이 제공된다.
@@ -413,7 +406,8 @@ Route::get('posts', function() {
 {% endhint %}
 
 ### 8-1. Factory
-> `database/factories/UserFactory.php`  -  Factory 정의 예시
+
+> `database/factories/UserFactory.php` - Factory 정의 예시
 
 ```php
 $factory->define(App\User::class, function (Faker $faker) {
@@ -437,7 +431,6 @@ $factory->define(App\Post::class, function (Faker $faker) {
 {% hint style="info" %}
 `php 5.5`이상부터 문자열 `'App\Post'`이 아닌 `App\Post::class`형태로 클래스로 지정하여 IDE에서 참조할수있도록 사용할 수 있다.
 {% endhint %}
-
 
 ### 8-2. Seeder Class
 
@@ -472,7 +465,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call(UsersTableSeeder::class);
         $this->command->info('users table seeded');
-        
+
         $this->call(PostsTableSeeder::class);
         $this->command->info('posts table seeded');
 
@@ -485,3 +478,4 @@ class DatabaseSeeder extends Seeder
 {% hint style="warning" %}
 `Model::unguard()`를 사용하려면 `Model`을 import 해줘야 한다
 {% endhint %}
+
