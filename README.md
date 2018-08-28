@@ -5,22 +5,22 @@
 ### LANGUAGE & FRAMEWORK
 
 * [Javascript](https://ocaso.gitbook.io/infodoc/language-and-framework/javascript)
-  * [Node.js](https://ocaso.gitbook.io/infodoc/language-and-framework/nodejs)
-  * [Typescript]()
-  * [React](https://ocaso.gitbook.io/infodoc/language-and-framework/react)
-    * [React Native](https://ocaso.gitbook.io/infodoc/language-and-framework/react/react-native)
-  * Vue.js
-    * ES6
-    * Life Cycle
-    * Component
-    * Route
-    * Template
-  * PHP
-    * Laravel
-      * Get Started
-      * Snippet
-      * Project Started
-      * API Test Page
+  * Node.js
+  * Typescript
+  * React
+    * React Native
+  * [Vue.js](https://ocaso.gitbook.io/infodoc/language-and-framework/javascript/vue.js)
+    * [ES6](https://ocaso.gitbook.io/infodoc/language-and-framework/javascript/vue.js/es6)
+    * [Life Cycle](https://ocaso.gitbook.io/infodoc/language-and-framework/javascript/vue.js/life-cycle)
+    * [Component](https://ocaso.gitbook.io/infodoc/language-and-framework/javascript/vue.js/component)
+    * [Route](https://ocaso.gitbook.io/infodoc/language-and-framework/javascript/vue.js/route)
+    * [Template](https://ocaso.gitbook.io/infodoc/language-and-framework/javascript/vue.js/template)
+  * [PHP](https://ocaso.gitbook.io/infodoc/language-and-framework/php)
+    * [Laravel](https://ocaso.gitbook.io/infodoc/language-and-framework/php/laravel)
+      * [Get Started](https://ocaso.gitbook.io/infodoc/language-and-framework/php/laravel/get-started)
+      * [Snippet](https://ocaso.gitbook.io/infodoc/language-and-framework/php/laravel/snippet)
+      * [Project Started](https://ocaso.gitbook.io/infodoc/language-and-framework/php/laravel/project-started)
+      * [API Test Page](https://ocaso.gitbook.io/infodoc/language-and-framework/php/laravel/api-test-page)
     * Codeigniter
       * Get Started
   * Python
