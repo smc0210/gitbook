@@ -78,6 +78,14 @@ Route::resource('posts.comments', 'PostCommentController');
 하위 리소스 라우트 생성 후 `php artisan route:list` 명령어로 뭐가 달라졌는지 확인해보자 설명보다는 한번만 보면 단번에 이해될듯
 {% endhint %}
 
+### 1-5. Route에서 DB query 조회
+
+```php
+DB::listen(function ($event) {
+    var_dump($event->sql);
+});
+```
+
 ## 2. blade
 
 `laravel`의 템플릿 엔진
@@ -235,7 +243,31 @@ php artisan migrate:refresh
 php artisan make:migration add_name_to_authors_table
 ```
 
-## 4. Query
+### 3-4. Seed
+
+```bash
+# Seeder 클래스 생성
+$ php artisan make:seed UsersTableSeeder
+$ php artisan make:seed PostsTableSeeder
+
+# Seeding
+$ php artisan db:seed
+```
+
+## 4. tinker
+
+### 4-. seed
+
+```bash
+# instance 생성
+>>>> factory('App\User')->make();
+
+>>>> factory('App\User', 2)->make(); # Instance 2개 생성
+```
+
+
+
+## 5. Query
 
 ```bash
 php artisan tinker
@@ -250,7 +282,7 @@ DB::insert('insert into posts(title, body) values(?, ?)', ['Second Title', 'Seco
 DB::update('update posts set title="Modified Title" where id = ?', [2]);
 ```
 
-## 5. Query builder
+## 6. Query builder
 
 ```bash
 php artisan tinker
@@ -268,7 +300,7 @@ DB::table('posts')->whereId(1)->get();
 DB::table('posts')->select('title')->get();
 ```
 
-## 6. Eloquent ORM
+## 7. Eloquent ORM
 
 간단하게는 `JPA`, `Django ORM` 등과 같은 모델간에 관계를 맺어주는 구현체로 사용방법만 다르지 다루는 내용은 거의 비슷하고 `Query builder`의 메소드는 거의 사용할 수 있다.
 
@@ -283,7 +315,7 @@ use Illuminate\Database\Eloquent\Model;
 테이블 이름은 복수로 모델 이름은 단수로 한다. table : users model : user 만약 이 규칙과 다르다면 모델에 명시적으로 선언해줘야 한다. \(`protected $table = 'users';`\)
 {% endhint %}
 
-### 6-1. basic
+### 7-1. basic
 
 ```bash
 # tinker 진입후
@@ -299,7 +331,7 @@ $author->password = 'password';
 $author->save(); # 메모리에만 존재하던 인스턴스를 데이터베이스에 저장한다.
 ```
 
-### 6-2. basic config
+### 7-2. basic config
 
 `Eloquent ORM` 에는 정해져있는 몇가지 규칙들이 있는데 그중 하나가 `updated_at`과 `created_at`이며 \(Django 네이밍과 동일하니 이해가 빠를듯\) 만약 해당하는 컬럼이 없거나 이름이 다를경우 `model`에 명시적으로 표기해주거나 `timestaps`옵션을 꺼줘야 한다
 
@@ -312,7 +344,7 @@ class User extends Model
 }
 ```
 
-### 6-3. create
+### 7-3. create
 
 `save()`메소드가 아닌 `create()` 메소드를 이용할때는 `$fillable` 속성을 지정해줘야 한다. 왜 그런지와 그에 대한 자세한 설명은 공식 문서 참조
 
@@ -339,3 +371,117 @@ class User extends Model
 }
 ```
 
+### 7-4. Eagar 로딩
+
+N+1 쿼리 문제를 해결
+
+```php
+// route 내에서 with 키워드로 eagar loaing 사용
+Route::get('posts', function() {
+    // with 키워드로 사용
+    $posts = App\Post::with('user')->get();
+
+    return view('posts.index', compact('posts'));
+});
+```
+
+{% hint style="danger" %}
+with(string|array $relations) 메소드는 항상 엘로퀀트 모델 바로 뒤, 다른 메소드를 체인하기 전에 써야 한다. 
+메소드의 인자는 테이블 이름이 아니라, 모델 클래스에서 정의한 관계를 나타내는 메소드 이름이다.
+{% endhint %}
+
+
+```php
+// 엘로퀀트를 먼저 사용하고 그 후에 관계가 필요할경우 lazy eagar 로딩을 load키워드로 사용할 수 있다.
+Route::get('posts', function() {
+    $posts = App\Post::get();
+    $posts->load('user');
+
+    return view('posts.index', compact('posts'));
+});
+```
+
+
+
+
+## 8. Seeding
+
+라라벨 5부터 `Seeding`을 편하기 하기위한 `Factory`기능이 제공된다.
+
+{% hint style="info" %}
+`database/factories/UserFactory.php`가 미리 생성되어 있으니 참고
+{% endhint %}
+
+### 8-1. Factory
+> `database/factories/UserFactory.php`  -  Factory 정의 예시
+
+```php
+$factory->define(App\User::class, function (Faker $faker) {
+    return [
+        'name' => $faker->name,
+        'email' => $faker->unique()->safeEmail,
+        'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+        'remember_token' => str_random(10),
+    ];
+});
+
+$factory->define(App\Post::class, function (Faker $faker) {
+    return [
+        'title'     =>  $faker->sentence,
+        'body'      =>  $faker->paragraph,
+        'user_id'   =>  App\User::all()->random()->id
+    ];
+});
+```
+
+{% hint style="info" %}
+`php 5.5`이상부터 문자열 `'App\Post'`이 아닌 `App\Post::class`형태로 클래스로 지정하여 IDE에서 참조할수있도록 사용할 수 있다.
+{% endhint %}
+
+
+### 8-2. Seeder Class
+
+`artisan make:seed {SeederClassName}` 명령어로 Seeder 클래스를 생성 후 작성
+
+> `database/seeds/UsersTableSeeder`
+
+```php
+class UsersTableSeeder extends Seeder 
+{
+    public function run() 
+    {
+        App\User::truncate();
+        factory('App\User', 10)->create();
+    }
+}
+```
+
+Seeder 클래스 작성후 마스터 Seeder 클래스인 `DatabaseSeeder.php`에 등록한다.
+
+> `database/seeds/DatabaseSeeder.php`
+
+```php
+class DatabaseSeeder extends Seeder
+{
+    public function run()
+    {
+        // FK 제약 무시 - 외래키 연관된 테이블일경우 선언해줌
+        DB::statement('SET FOREIGN_KEY_CHECKS=0');
+        // 모든 모델에 대해 대량할당(MassAssignment)을 허용한다
+        Model::unguard();
+
+        $this->call(UsersTableSeeder::class);
+        $this->command->info('users table seeded');
+        
+        $this->call(PostsTableSeeder::class);
+        $this->command->info('posts table seeded');
+
+        Model::reguard();        
+        DB::statement('SET FOREIGN_KEY_CHECKS=1');
+    }
+}
+```
+
+{% hint style="warning" %}
+`Model::unguard()`를 사용하려면 `Model`을 import 해줘야 한다
+{% endhint %}
