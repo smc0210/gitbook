@@ -168,6 +168,8 @@ composer config repositories.foo vcs https://github.com/foo/bar
 composer global config minimun-stability dev
 
 # require 
+# 버전 없이 쓸 때는 따옴표를 안쳐도 된다.
+# 버전 앞에 ':' 대신 '='를 쓸 수도 있다.
 composer require vendor/package
 composer require "monolog/monolog": "1.13.*"
 

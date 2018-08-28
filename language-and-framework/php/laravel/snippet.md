@@ -24,9 +24,8 @@ Route::get('/', function () {
 
 ### 1-2. data binding
 
-// with\(\)를 이용한 전달방법
-
 ```php
+// with\(\)를 이용한 전달방법
 Route::get('/', function () {
     return view('index')->with([
         'greeting' => 'Good morning ^^/',
@@ -196,6 +195,26 @@ HTML 주석으로 컴파일
 </footer>
 ```
 
+### 2-7. Pagination
+
+> `Route` 예시 - 실제로는 당연히 Controller에 작성한다
+
+```php
+$posts = App\Post::with('user')->paginate(10);
+``
+
+> `view` 사용예제 - blade - 부트스트랩과 호환된다.
+
+```php
+@if($posts)
+<div class="text-center">
+    {!! $posts->render() !!}
+</div>
+@endif
+```
+
+
+
 ## 3. artisan
 
 ### 3-1. basic
@@ -254,7 +273,7 @@ $ php artisan make:seed PostsTableSeeder
 $ php artisan db:seed
 ```
 
-## 4. tinker
+## 4. tinker ( 계속 추가 )
 
 ### 4-. seed
 
@@ -479,3 +498,70 @@ class DatabaseSeeder extends Seeder
 `Model::unguard()`를 사용하려면 `Model`을 import 해줘야 한다
 {% endhint %}
 
+## 9. Validation
+
+사용자 입력값 유효성 검사로 어지간한 validate 체크는 이미 라라벨에 구현되어있다.
+
+### 9-1. Sample
+
+> `route` 예시
+
+```php
+Route::post('posts', function(\Illuminate\Http\Request $request) {
+    $rule = [
+        'title' => ['required'],
+        'body' => ['required', 'min:10']
+    ];
+
+    $validator = Validator::make($request->all(), $rule);
+
+    if ($validator->fails()) {
+        return redirect('posts/create')->withErrors($validator)->withInput();
+    }
+
+    return 'Valid & proceed to next job ~';
+});
+
+Route::get('posts/create', function() {
+    return view('posts.create');
+});
+```
+{% hint style="info" %}
+라라벨에서 이미 제공하는 다양한 룰은 관련 문서를 참조
+[관련 공식문서 참조](https://laravel.com/docs/5.6/validation#available-validation-rules)
+[관련 공식문서 참조 - 번역](https://laravel.kr/docs/5.6/validation#available-validation-rules)
+{% endhint %}
+
+
+> `view`예시 - blade
+
+```php
+@extends('master')
+
+@section('content')
+  <h1>New Post</h1>
+  <hr/>
+  <form action="/posts" method="POST">
+    <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
+    <!--  old() 메소드는 helper 함수로 이전 입력값이 Session에 없으면 공백을 반환하고 값이 있을경우에만 반환한다.-->
+    <div>
+      <label for="title">Title : </label>
+      <input type="text" name="title" id="title" value="{{ old('title') }}"/>
+      {!! $errors->first('title', '<span>:message</span>') !!}
+    </div>
+
+    <div>
+      <label for="body">Body : </label>
+      <textarea name="body" id="body" cols="30" rows="10">{{ old('body') }}</textarea>
+      {!! $errors->first('body', '<span>:message</span>') !!}
+    </div>
+
+    <div>
+      <button type="submit">Create New Post</button>
+    </div>
+  </form>
+@stop
+```
+{% hint style="info" %}
+모든 view에 $erros변수가 존재하기 때문에 `if(isset($errors))`같은 소스는 필요없다.
+{% endhint %}
