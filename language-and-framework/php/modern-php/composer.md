@@ -2,8 +2,8 @@
 
 ## 1. Install
 
-- php > 5.3.2
-- openssl extention 활성화
+* php &gt; 5.3.2
+* openssl extention 활성화
 
 ### 1-1. Linux/Mac OS
 
@@ -15,7 +15,7 @@ sudo ln -s /usr/local/bin/composer.phar /usr/local/bin/composer
 
 ### 1-2. Windows
 
-설치프로그램을 다운받아 실행 - [설치경로 URL](https://getcomposer.org/Composer-Setup.exe )
+설치프로그램을 다운받아 실행 - [설치경로 URL](https://getcomposer.org/Composer-Setup.exe%20)
 
 ```bash
 curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin/
@@ -25,11 +25,11 @@ sudo ln -s /usr/local/bin/composer.phar /usr/local/bin/composer
 
 ## 2. Get started
 
-설치 및 환경변수(경로) 설정이 완료됬다면 명령어 없이 `composer`만 실행시 사용가능한 명령어가 표기된다.
+설치 및 환경변수\(경로\) 설정이 완료됬다면 명령어 없이 `composer`만 실행시 사용가능한 명령어가 표기된다.
 
 {% code-tabs %}
 {% code-tabs-item title="composer" %}
-```
+```text
 $ composer
 Cannot load Xdebug - it was already loaded
    ______
@@ -98,7 +98,7 @@ Available commands:
 
 프로젝트 설정은 `composer.json`파일에 기술하며 의존성 항목은 `require`항목으로 표시되고 개발단계에서만 필요한 패키지는 `require-dev` 항목으로 표시된다.
 
-```json
+```javascript
 {
     "name": "laravel/laravel",
     "description": "The Laravel Framework.",
@@ -123,12 +123,13 @@ Available commands:
 ```
 
 {% hint style="info" %}
-패키지명에 버전이 아닌 브랜치를 적어줄 수도 있다.
-- dev-master  : 릴리즈 되지 않은 master 브랜치의 마지막 버전을 가져옴
-- dev-develop : 릴리즈 되지 않은 develop 브랜치의 마지막 버전을 가져옴
-{% endhint %}
 
-```json
+패키지명에 버전이 아닌 브랜치를 적어줄 수도 있다.
+
+* dev-master  : 릴리즈 되지 않은 master 브랜치의 마지막 버전을 가져옴
+* dev-develop : 릴리즈 되지 않은 develop 브랜치의 마지막 버전을 가져옴
+
+```javascript
 {
     "require": {
         "lesstif/php-jira-rest-client": "dev-master"
@@ -142,7 +143,6 @@ Available commands:
     }
 }
 ```
-
 
 ## 3. CLI Command
 
@@ -188,13 +188,10 @@ composer show
 # composer.json 리프레쉬
 composer dump-autoload
 ```
-
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-
 {% hint style="info" %}
-composer로 설치한 라이브러리는 `autoload.php` 에 등록되므로 사용시 일일이 `require`구문을 사용하지 않고 다음 문장 하나만 적어주면 된다.
-`require 'bendor/autoload.php`
+composer로 설치한 라이브러리는 `autoload.php` 에 등록되므로 사용시 일일이 `require`구문을 사용하지 않고 다음 문장 하나만 적어주면 된다. `require 'bendor/autoload.php`
 {% endhint %}
 

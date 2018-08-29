@@ -216,8 +216,6 @@ $posts = App\Post::with('user')->paginate(10);
 @endif
 ```
 
-
-
 ## 3. artisan
 
 ### 3-1. basic
@@ -276,7 +274,7 @@ $ php artisan make:seed PostsTableSeeder
 $ php artisan db:seed
 ```
 
-## 4. tinker ( 계속 추가 )
+## 4. tinker \( 계속 추가 \)
 
 ### 4-. seed
 
@@ -529,12 +527,10 @@ Route::get('posts/create', function() {
     return view('posts.create');
 });
 ```
-{% hint style="info" %}
-라라벨에서 이미 제공하는 다양한 룰은 관련 문서를 참조
-[관련 공식문서 참조](https://laravel.com/docs/5.6/validation#available-validation-rules)
-[관련 공식문서 참조 - 번역](https://laravel.kr/docs/5.6/validation#available-validation-rules)
-{% endhint %}
 
+{% hint style="info" %}
+라라벨에서 이미 제공하는 다양한 룰은 관련 문서를 참조 [관련 공식문서 참조](https://laravel.com/docs/5.6/validation#available-validation-rules) [관련 공식문서 참조 - 번역](https://laravel.kr/docs/5.6/validation#available-validation-rules)
+{% endhint %}
 
 > `view`예시 - blade
 
@@ -565,6 +561,8 @@ Route::get('posts/create', function() {
   </form>
 @stop
 ```
+
 {% hint style="info" %}
 모든 view에 $erros변수가 존재하기 때문에 `if(isset($errors))`같은 소스는 필요없다.
 {% endhint %}
+
