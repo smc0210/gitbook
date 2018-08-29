@@ -18,6 +18,9 @@ Route::get('/', function () {
 Route::get('/', function () {
     return view('errors.503');
 });
+
+// {file?}은 값이 없어도 에러가 나지 않도록 처리
+Route::get('docs/{file?}', 'IndexController@index),
 ```
 
 `views` 하위 폴더의 블레이드 엔진은 `.` 또는 `/`로 구분한다.

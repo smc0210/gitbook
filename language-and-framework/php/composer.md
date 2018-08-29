@@ -185,7 +185,8 @@ composer search monolog
 # show - 사용가능한 패키지 목록 조회
 composer show
 
-composer
+# composer.json 리프레쉬
+composer dump-autoload
 ```
 
 {% endcode-tabs-item %}
