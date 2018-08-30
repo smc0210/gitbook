@@ -49,6 +49,9 @@ vi ~/.zshrc
 
 # 테마 변경 후 적용
 source ~/.zshrc
+
+# agnoster theme에서 사용하는 특수문자 출력 확인
+echo "\ue0b0 \u00b1 \ue0a0 \u27a6 \u2718 \u26a1 \u2699"
 ```
 
 만약 변경한 테마가 깨질경우 [powerling 폰트 저장소](https://github.com/powerline/fonts)에서 폰트를 설치해준다.
@@ -110,5 +113,8 @@ plugins=(
 ```
 
 
-
 ### 2-2. Mac
+
+## 3. Aliases
+
+"\ue0b0 \u00b1 \ue0a0 \u27a6 \u2718 \u26a1 \u2699"
