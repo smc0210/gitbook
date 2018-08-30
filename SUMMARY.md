@@ -39,6 +39,7 @@
   * [RDS](environment/aws/rds.md)
 * [Ubuntu](environment/ubuntu/README.md)
   * [Get Started](environment/ubuntu/get-started.md)
+  * [Apt](environment/ubuntu/apt.md)
 * [CentOS](environment/centos.md)
 * [Shell](environment/shell/README.md)
   * [Zsh + Oh My Zsh](environment/shell/zsh-+-oh-my-zsh.md)
