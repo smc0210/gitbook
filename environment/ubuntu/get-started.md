@@ -134,6 +134,8 @@ vi /etc/apache2/apache2.conf
 </DirectoryMatch>
 ```
 
+![](../../.gitbook/assets/environment_ubuntu_getstarted_1.jpg)
+
 ### 3-4. 추가 보안 설정
 
 기본 언어셋이 주석처리 되어 있으니 이를 찾아서 해제해준다.
@@ -142,11 +144,9 @@ vi /etc/apache2/apache2.conf
 vi /etc/apache2/conf-available/charset.conf
 ```
 
-그외 권장 보안설정으로 제작자가 작성해놓은 부분을 주석만 해제한다.
-활성화된 옵션은 하기와 같다.
+그외 권장 보안설정으로 제작자가 작성해놓은 부분을 주석만 해제한다. 활성화된 옵션은 하기와 같다.
 
-```xml
-
+```markup
 # 나중에 명시적으로 허용되는 디렉토리를 제외하고 전체 파일시스템에 대한 액세스를 비활성화 한다
 <Directory />
    AllowOverride None
@@ -226,9 +226,9 @@ apt-get install php-gd
 apt-cache search php-
 ```
 
-### 4-2. PHP 권한설정 (Optional)
+### 4-2. PHP 권한설정 \(Optional\)
 
-`shell`의 권한과 `sftp`, `web`의 권한을 동일하게 셋팅 (보안상)
+`shell`의 권한과 `sftp`, `web`의 권한을 동일하게 셋팅 \(보안상\)
 
 ```bash
 # 패키지 확인
@@ -241,7 +241,8 @@ apt-get install libapache2-mpm-itk
 chmod 711 /home
 chmod -R 700 /home/*
 ```
-### 4-3. PHP 확장자 제한 (Optional)
+
+### 4-3. PHP 확장자 제한 \(Optional\)
 
 php를 해성하는 확장자를 제한해준다.
 
@@ -255,14 +256,14 @@ libapache2-mod-php7.0 모듈을 설치해야 위 설정파일이 존재한다.
 
 `.php` 확장자만 접근 가능하도록 추가해준다
 
-[]이미지 3
+![](../../.gitbook/assets/environment_ubuntu_getstarted_3.jpg)
 
 ```bash
 # 적용
 service apache2 restart
 ```
 
-### 4-4. PHP default timezone 설정 (Optional)
+### 4-4. PHP default timezone 설정 \(Optional\)
 
 설정 안할경우 시스템 timezone을 사용한다.
 
@@ -275,7 +276,10 @@ vi /etc/php/7.0/apache2/php.ini
 # Cron or console 에서 참조하는 파일
 vi /etc/php/7.0/cli/php.ini
 ```
+
 각각 `date.timezone`을 찾아 주석을 해제하고 `Asia/Seoul` 로 적어준다.
+
+![](../../.gitbook/assets/environment_ubuntu_getstarted_4.jpg)
 
 ```bash
 적용
@@ -283,7 +287,6 @@ service apache2 restart
 ```
 
 php파일에서 `phpinfo();`로 `Default timezone`이 `Asia/Seoul`로 되어있으면 정상적으로 적용완료
-
 
 ## 5. MariaDB 설치
 
@@ -294,17 +297,15 @@ apt-get install mariadb-server
 
 ### 5-1. MariaDB 초기화
 
-아래 명령어로 DB 초기화 작업을 진행한다. (패스워드 설정등..)
-설정이 잘못된거 같으면 다시한번 실행하면 된다.
+아래 명령어로 DB 초기화 작업을 진행한다. \(패스워드 설정등..\) 설정이 잘못된거 같으면 다시한번 실행하면 된다.
 
 ```bash
 /usr/bin/mysql_secure_installation
 ```
 
-### 5-2. root 인증 플러그인 교체 (Optional)
+### 5-2. root 인증 플러그인 교체 \(Optional\)
 
-현재 설정값은 서버사이드 인증으로 비밀번호 필요없이 쉘인증을 한다
-기본값으로 root 사용자가 `unix_socket Auth Plugin` 설정되어 있다.
+현재 설정값은 서버사이드 인증으로 비밀번호 필요없이 쉘인증을 한다 기본값으로 root 사용자가 `unix_socket Auth Plugin` 설정되어 있다.
 
 즉, `root`계정인 경우 아래 커맨드만 입력해도 바로 DB에 접근가능하다
 
@@ -312,7 +313,7 @@ apt-get install mariadb-server
 mysql
 ```
 
-이걸 기존처럼 비밀번호 인증방식으로 변경한다 
+이걸 기존처럼 비밀번호 인증방식으로 변경한다
 
 ```sql
 use mysql;
@@ -330,13 +331,12 @@ vi /etc/mysql/mariadb.conf.d/50-server.cnf
 
 `[mysqld]` 항목에 아래 두줄 추가
 
-```xml
+```markup
 character-set-server = utf8mb4
 collation-server = utf8mb4_unicode_ci
 ```
 
-
-[]이미지 추가 영역 2
+![](../../.gitbook/assets/environment_ubuntu_getstarted_2.jpg)
 
 변경사항 적용
 
@@ -369,25 +369,25 @@ exit
 
 생성한 계정과 도메인명을 기준으로 작성한다.
 
-```xml
+```markup
 <VirtualHost *:80>
- 
+
     ServerName example.com
     ServerAlias www.example.com
-     
+
     DocumentRoot /home/username/www
- 
+
     <Directory /home/username/www>
         Options FollowSymLinks MultiViews
         AllowOverride All
         require all granted
     </Directory>
- 
+
     AssignUserID username username
- 
+
     ErrorLog ${APACHE_LOG_DIR}/username.com-error.log
     CustomLog ${APACHE_LOG_DIR}/username.com-access.log combined
- 
+
 </VirtualHost>
 ```
 
