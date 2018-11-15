@@ -4,10 +4,10 @@ description: apt-get(Advanced Packaging Tool) Command
 
 # Apt
 
- `apt-get(Advanced Packaging Tool)`은 `Ubuntu`를 포함한 `Debian` 계열의 리눅스에서 쓰이는 패키지 관리 명령어 도구
+`apt-get(Advanced Packaging Tool)`은 `Ubuntu`를 포함한 `Debian` 계열의 리눅스에서 쓰이는 패키지 관리 명령어 도구
 
- [yum 과 명령어 비교 사이트](https://help.ubuntu.com/community/SwitchingToUbuntu/FromLinux/RedHatEnterpriseLinuxAndFedora)
- 
+[yum 과 명령어 비교 사이트](https://help.ubuntu.com/community/SwitchingToUbuntu/FromLinux/RedHatEnterpriseLinuxAndFedora)
+
 {% hint style="info" %}
 Ubuntu 14 이상은 apt 명령어를 더 간단하게 사용가능
 {% endhint %}
@@ -64,7 +64,6 @@ apt-cache show php5-fpm
 apt-file search
 apt-file search
 ```
-
 
 {% hint style="info" %}
 apt를 이용해서 설치된 deb패키지는 `/var/cache/apt/archive/` 에 설치됨
