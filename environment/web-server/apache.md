@@ -15,8 +15,7 @@ netstat -nltp |grep :80.*ESTABLISHED | wc -l
 ```
 
 {% hint style="info" %}
-하드웨어 자원을 고려한 가용 동시연결수 계산 = 여유 메모리 / 1연결당 메모리
-2000MB free memory, 1연결당 20MB 를 사용 = 100개의 동시연결 가능. (300~500 동시접속자 처리가능)
+하드웨어 자원을 고려한 가용 동시연결수 계산 = 여유 메모리 / 1연결당 메모리 2000MB free memory, 1연결당 20MB 를 사용 = 100개의 동시연결 가능. \(300~500 동시접속자 처리가능\)
 {% endhint %}
 
 ### Benchmark Test
@@ -26,13 +25,10 @@ netstat -nltp |grep :80.*ESTABLISHED | wc -l
 ```bash
  # 환경변수 등록안됬다면 풀 경로 명시
  /d/laragon/bin/apache/httpd-2.4.29-Win64-VC15/bin/ab -n 10 -c 10 http://localhost/
- 
 ```
 
 {% hint style="info" %}
-**-n**은 요청수를, **-c**는 동시요청수를 나타낸다.
-즉 **-n 100 -c 300** 이라면 300명의 사용자가 총 100번을 요청한다는 뜻**.
-주의사항으로는 사이트 주소의 끝에 / \(**슬래시**\)**를 붙여야 한다**.
+**-n**은 요청수를, **-c**는 동시요청수를 나타낸다. 즉 **-n 100 -c 300** 이라면 300명의 사용자가 총 100번을 요청한다는 뜻**. 주의사항으로는 사이트 주소의 끝에 / \(**슬래시**\)**를 붙여야 한다\*\*.
 {% endhint %}
 
 옵션은 아래와 같다
@@ -77,3 +73,4 @@ netstat -nltp |grep :80.*ESTABLISHED | wc -l
     -m method       Method name
     -h              Display usage information (this message)
 ```
+
