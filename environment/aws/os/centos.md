@@ -330,7 +330,7 @@ include를 선언해준 경로에 폴더와 파일을 생성해주고 아래와 
 service httpd configtest
 ```
 
-## img10
+![](../../../.gitbook/assets/os_10.png)
 
 위와 같이 `Syntax OK`가 나온다면 정상이고 `Warning` 문구는 현재 `public_html`경로는 생성해주지 않았으니 추후 `git clone`을 해주면 문제 없지만 `PHP` 설치전 웹상에서 바뀐경로를 테스트 해보고 싶다면 임시로 `/home/domain/www`경로 아래에 `public_html` 폴더와 `index.html`파일을 생성해준다.
 
@@ -371,7 +371,7 @@ vi /etc/sysconfig/selinux
 
 여기서 파일 중간의 `SELINUX`를 `disabled`로 변경해준다.
 
-## img11
+![](../../../.gitbook/assets/os_11.png)
 
 `Apache httpd`의 기본 `DocumentRoot`의 `SELinux security context` 확인
 
@@ -519,7 +519,7 @@ rm -rf /tmp/php-5.3.29 && rm -rf {압축파일 다운로드받은 경로}/php-5.
 SetEnvIf Request_URI ".(ico|pdf|flv|jpg|jpeg|png|gif|js|css|gz|swf|txt|ico)$" dontlog
 ```
 
-## img12
+![](../../../.gitbook/assets/os_12.png)
 
 필요하다면 짧은 태그 허용\(short\_open\_tag\)를 허용해준다. \(보안이슈 문제가 있으니 선택적 사용이나 가급적 사용하지 않는걸 권장\)
 
@@ -527,7 +527,7 @@ SetEnvIf Request_URI ".(ico|pdf|flv|jpg|jpeg|png|gif|js|css|gz|swf|txt|ico)$" do
 short_open_tah = On
 ```
 
-## img12-1
+![](../../../.gitbook/assets/os_12-1.png)
 
 `mime`타입 관련 설정을 추가해 준다.
 
@@ -542,7 +542,7 @@ short_open_tah = On
 </IfModule>
 ```
 
-## img13
+![](../../../.gitbook/assets/os_13.png)
 
 **5-2. PHP 설정\(php.ini\)**
 
@@ -557,7 +557,7 @@ vi /usr/local/lib/php/php.ini
 date.timezone = Asia/Seoul
 ```
 
-## img14
+![](../../../.gitbook/assets/os_14.png)
 
 가비지 콜렉터 설정 `session.gc_divisor` 부분을 찾아서 100으로 수정해준다
 
@@ -565,7 +565,7 @@ date.timezone = Asia/Seoul
 session.gc_divisor
 ```
 
-## img15
+![](../../../.gitbook/assets/os_15.png)
 
 `session.bug_compat_42` 와 `session.bug_compat_warn` 부분을 찾아서 값을 아래와 같이 변경해준다. 해당 설정은 `register_globals`가 꺼져있음에도 불구하고 전역 영역에서 세션 변수를 초기화할 수 있는 버그를 사전경고 해준다.
 
@@ -575,7 +575,7 @@ session.bug_compat_42 = 1
 session.bug_compat_warn = 1
 ```
 
-## img16
+![](../../../.gitbook/assets/os_16.png)
 
 `public_html`외부의 경로에서 사용하는 `php_lib` 접근을 위해 `php.ini`파일의 `Paths and Directories`부분을 찾아 `include_path`를 아래와 같이 지정해준다.
 
@@ -583,7 +583,7 @@ session.bug_compat_warn = 1
 include_path = ".:/home/domain/www:/home/domain/www/php_lib"
 ```
 
-## img16-1
+![](../../../.gitbook/assets/os_16-1.png)
 
 `safe_mode`를 비활성화 해준다
 
@@ -591,7 +591,7 @@ include_path = ".:/home/domain/www:/home/domain/www/php_lib"
 safe_mode = Off
 ```
 
-## img16-2
+![](../../../.gitbook/assets/os_16-2.png)
 
 > php 6.0에서 제거
 
@@ -610,8 +610,6 @@ SetEnv DATABASE_CONNECTION rds
 SetEnv SERVER_MODE dev
 ```
 
-## img17
-
 `DirectoryIndex`등의 추가적인 설정파일을 생성 및 셋팅해준다
 
 ```markup
@@ -620,7 +618,7 @@ AddType text/html .php .html .htm
 DirectoryIndex index.php index.html index.htm index.php3 index.inc
 ```
 
-## img18
+![](../../../.gitbook/assets/os_18.png)
 
 \(추후 xdebug 셋팅할시 추가 작성 필요\)
 
@@ -796,5 +794,5 @@ python ./awslogs-agent-setup.py --region ap-northeast-2 --dependency-path /tmp/A
 
 이후 환경설정을 [AWS 가이드 문서](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/QuickStartEC2Instance.html)를 참조하여 작성한다.
 
-## img19
+![](../../../.gitbook/assets/os_19.png)
 
