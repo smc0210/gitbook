@@ -57,3 +57,14 @@ vi /etc/sysconfig/clock
 
 ![](../../../.gitbook/assets/os_1.png)
 
+시스템 전체에 적용하기 위해 /usr/share/zoneinfo의 적절한 파일에 /etc/localtime을 심볼릭 링크한다.
+
+```bash
+ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
+```
+
+잘 적용됬는지 시간 확인
+```bash
+date
+```
+
