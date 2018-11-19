@@ -182,7 +182,7 @@ service iptables restart
 iptables -nL --line-numbers
 ```
 
-#### 2. 패키지 설치
+### 2. 패키지 설치
 
 `yum`을 통한 패키지 설치와 기본미러링으로 제공하지 않는 패키지를 설치한다.
 
@@ -250,7 +250,7 @@ yum groupinstall -y 'Development Tools' \
 rpm -qa | grep http
 ```
 
-#### 3. 아파치 환경설정
+### 3. 아파치 환경설정
 
 Dns name 혹은 ip로 웹에서 접근하기 위한 작업과 웹 경로를 변경해주는 작업들을 한다.
 
@@ -402,7 +402,7 @@ tail -f /etc/httpd/logs/domain.com-access_log
 tail -f /etc/httpd/logs/domain.com-error_log
 ```
 
-#### 4. PHP 환경설정
+### 4. PHP 환경설정
 
 앞서 설명한 것처럼 `PHP`는 직접 `configure`옵션을 주고 심볼릭 링크를 사용자화하여 설치 및 컴파일 하기 위해 `yum`패키지를 통한 설치가 아닌 외부 저장소에서 다운을 받아 직접 설치하는 방식으로 진행한다.
 
@@ -507,7 +507,7 @@ cd /tmp/php-5.3.29 \
 rm -rf /tmp/php-5.3.29 && rm -rf {압축파일 다운로드받은 경로}/php-5.3.29.tar.gz
 ```
 
-#### 5. 추가설정 파일 셋팅
+### 5. 추가설정 파일 셋팅
 
 모든 셋팅이 끝난 후 기존 레거시 소스가 정상작동 하기 위한 `Apache`,`PHP` 등의 설정 파일을 현재 운영중인 서버를 참고하여 추가로 수정 및 작성한다.
 
@@ -656,7 +656,7 @@ yum --enablerepo=WANdisco-git --disablerepo=base,updates install git
 git --version
 ```
 
-#### 6. AWS 작업환경 셋팅
+### 6. AWS 작업환경 셋팅
 
 aws cli를 비롯한 sdk 설치 및 설정
 
@@ -769,7 +769,7 @@ lsblk
 
 인스턴스를 재부팅한다.
 
-#### 7. CloudWatch logs Agent 셋팅
+### 7. CloudWatch logs Agent 셋팅
 
 CloudWatch logs Agent 설치 및 구성
 
