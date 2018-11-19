@@ -291,7 +291,6 @@ NameVirtualHost *:80
 include /etc/httpd/conf/extra/httpd-vhosts.conf
 ```
 
-<<<<<<< HEAD
 # img9
 
 include를 선언해준 경로에 폴더와 파일을 생성해주고 아래와 같이 입력한다.
@@ -812,7 +811,4 @@ python ./awslogs-agent-setup.py --region ap-northeast-2 --dependency-path /tmp/A
 
 이후 환경설정을 [AWS 가이드 문서](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/QuickStartEC2Instance.html)를 참조하여 작성한다.
 
-
 # img19
-=======
->>>>>>> d513e9b0b19452e2feba333e393244e7f5f7fe05
