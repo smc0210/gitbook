@@ -84,25 +84,25 @@ date
 사용자 추가
 
 ```bash
-adduser minda
+adduser domain
 ```
 
 사용자 비밀번호 설정
 
 ```bash
-passwd minda
+passwd doamin
 ```
 
 웹서버 사용을 위한 권한 설정
 
 ```bash
-chmod 701 /home/minda
+chmod 701 /home/domain
 ```
 
 사용자 전환 후 웹 디렉토리 생성
 
 ```bash
-su -l minda
+su -l domain
 mkdir www
 exit
 ```
@@ -382,9 +382,9 @@ ls -alZ /var/www/html
 새로 변경한 `DocumentRoot`의 `SELinux security context` 확인
 
 ```bash
-ls -alZ /home/minda/www
+ls -alZ /home/domain/www
 #위에서 public_html/index.html 파일을 생성했을 경우 아래 커맨드로 확인
-ls -alZ /home/minda/www/public_html/
+ls -alZ /home/domain/www/public_html/
 ```
 
 현재 `SELinux` 상태 확인
@@ -393,13 +393,13 @@ ls -alZ /home/minda/www/public_html/
 sestatus
 ```
 
-`/home/minda/www/public_html` 경로에 `index.html`파일이 존재한다면 웹에서 정상적으로 호출된다
+`/home/domain/www/public_html` 경로에 `index.html`파일이 존재한다면 웹에서 정상적으로 호출된다
 
 만약 정상작동하지 않을경우 `httpd-vhost.conf`경로에 선언해준 `log` 를 확인해본다.
 
 ```bash
-tail -f /etc/httpd/logs/minda.com-access_log
-tail -f /etc/httpd/logs/minda.com-error_log
+tail -f /etc/httpd/logs/domain.com-access_log
+tail -f /etc/httpd/logs/domain.com-error_log
 ```
 
 #### 4. PHP 환경설정
@@ -509,7 +509,7 @@ rm -rf /tmp/php-5.3.29 && rm -rf {압축파일 다운로드받은 경로}/php-5.
 
 #### 5. 추가설정 파일 셋팅
 
-모든 셋팅이 끝난 후 minda 소스가 정상작동 하기 위한 `Apache`,`PHP` 등의 설정 파일을 현재 운영중인 서버를 참고하여 추가로 수정 및 작성한다.
+모든 셋팅이 끝난 후 기존 레거시 소스가 정상작동 하기 위한 `Apache`,`PHP` 등의 설정 파일을 현재 운영중인 서버를 참고하여 추가로 수정 및 작성한다.
 
 **5-1. 추가 아파치 설정\(httpd.conf\)**
 
@@ -580,7 +580,7 @@ session.bug_compat_warn = 1
 `public_html`외부의 경로에서 사용하는 `php_lib` 접근을 위해 `php.ini`파일의 `Paths and Directories`부분을 찾아 `include_path`를 아래와 같이 지정해준다.
 
 ```bash
-include_path = ".:/home/minda/www:/home/domain/www/php_lib"
+include_path = ".:/home/domain/www:/home/domain/www/php_lib"
 ```
 
 ## img16-1
