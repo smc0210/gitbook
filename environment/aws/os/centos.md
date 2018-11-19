@@ -64,7 +64,10 @@ ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
 ```
 
 잘 적용됬는지 시간 확인
+
 ```bash
 date
 ```
+
+![](../../../.gitbook/assets/os_2.png)
 
