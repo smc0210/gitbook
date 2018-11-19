@@ -4,11 +4,13 @@ description: AMI를 통한 EC2 생성 후 기본적인 개발환경 셋팅 가�
 
 # CentOS
 
-## 1. CentOS 기본셋팅
+## CentOS
+
+### 1. CentOS 기본셋팅
 
 인스턴스 생성 후 CentOS 6.X의 여러가지 설정등에 대해 설명한다.
 
-### 1-1. 사양체크
+#### 1-1. 사양체크
 
 리눅스 버전체크
 
@@ -41,7 +43,7 @@ CPU 코어수 확인
 cat /proc/cpuinfo | grep processor | wc -l
 ```
 
-### 1-2. 시스템 시간 설정
+#### 1-2. 시스템 시간 설정
 
 별도의 사용자 생성 전까지는 ec2 생성시 부여받은 사용자가 아닌 root 계정으로 진행한다.
 
@@ -73,11 +75,11 @@ date
 
 > 추후 PHP 설치 이후 OS단 외에 Default timezone 설정이 필요하다
 
-#### 1-3. hostname 설정
+**1-3. hostname 설정**
 
 \(추후 Route53 연결 후 작성\)
 
-#### 1-4. 개인 사용자 추가
+**1-4. 개인 사용자 추가**
 
 사용자 추가
 
@@ -105,7 +107,7 @@ mkdir www
 exit
 ```
 
-#### 1-5. 방화벽 설정
+**1-5. 방화벽 설정**
 
 CentOS 7 버전을 사용한다면 `firewall`을 추가 설치해서 사용해도 되지만 여기서는 6.X 버전대에서 사용가능한 `iptables` 를 사용하여 설정한다.
 
@@ -180,11 +182,11 @@ service iptables restart
 iptables -nL --line-numbers
 ```
 
-### 2. 패키지 설치
+#### 2. 패키지 설치
 
 `yum`을 통한 패키지 설치와 기본미러링으로 제공하지 않는 패키지를 설치한다.
 
-#### 2-1. 패키지 확인
+**2-1. 패키지 확인**
 
 `RedHat` 계열이므로 패키지 관리자 프로그램으로 `yum`을 사용한다.
 
@@ -200,7 +202,7 @@ yum update
 yum list httpd
 ```
 
-#### 2-2. 패키지 설치
+**2-2. 패키지 설치**
 
 `PHP`를 제외한 필요한 패키지와 개발도구들을 설치한다.
 
@@ -248,11 +250,11 @@ yum groupinstall -y 'Development Tools' \
 rpm -qa | grep http
 ```
 
-### 3. 아파치 환경설정
+#### 3. 아파치 환경설정
 
 Dns name 혹은 ip로 웹에서 접근하기 위한 작업과 웹 경로를 변경해주는 작업들을 한다.
 
-#### 3-1. 기본 설정
+**3-1. 기본 설정**
 
 아파치 서비스 상태를 체크하고 꺼져있을 경우 부팅시 자동실행을 설정하고, 웹서버를 실행시킨 후 실제 웹에서 테스트 해본다.
 
@@ -270,7 +272,7 @@ service httpd start
 
 ![](../../../.gitbook/assets/os_8.png)
 
-#### 3-2. 기본 경로 변경
+**3-2. 기본 경로 변경**
 
 일반적으로 보안이슈와 관리등 여러가지 사항으로 기본으로 설정되어 있는 `/var/html` 경로를 사용하진 않으므로 경로를 바꿔준다.
 
@@ -284,18 +286,18 @@ service httpd start
 vi /etc/httpd/conf/httpd.conf
 ```
 
-virtualhost 설정이 적혀있는 부분을 찾아서 NameVirtualHost 주석을 해제하고 가상호스트 설정파일의 경로를 추가해준다.
+`virtualhost` 설정이 적혀있는 부분을 찾아서 `NameVirtualHost` 주석을 해제하고 가상호스트 설정파일의 경로를 추가해준다.
 
 ```markup
 NameVirtualHost *:80
 include /etc/httpd/conf/extra/httpd-vhosts.conf
 ```
 
-# img9
+![](../../../.gitbook/assets/os_9.png)
 
 include를 선언해준 경로에 폴더와 파일을 생성해주고 아래와 같이 입력한다.
 
-```xml
+```markup
 <VirtualHost *:80>
     DocumentRoot /home/domain/www/public_html
     # Server* 부분은 추후 Roudte53 연결후 그에 맞게 작성해야 한다.
@@ -317,6 +319,7 @@ include를 선언해준 경로에 폴더와 파일을 생성해주고 아래와 
 ```
 
 **주의사항**
+
 > 1. `<Directory >` 부분을 웹에서 복사 붙여넣기 할경우 정상작동을 안하는 경우가 있다.
 > 2. 해당 설정은 `Apache2.2` 버전에 해당하는 내용으로 2.4버전 이상은 설정값이 상이하다.
 > 3. `FollowSymLinks` 의 `Indexes` 설정 삭제
@@ -327,10 +330,9 @@ include를 선언해준 경로에 폴더와 파일을 생성해주고 아래와 
 service httpd configtest
 ```
 
-# img10
+## img10
 
-위와 같이 `Syntax OK`가 나온다면 정상이고 `Warning` 문구는 현재 `public_html`경로는 생성해주지 않았으니 추후 `git clone`을 해주면 문제 없지만
-`PHP` 설치전 웹상에서 바뀐경로를 테스트 해보고 싶다면 임시로 `/home/domain/www`경로 아래에 `public_html` 폴더와 `index.html`파일을 생성해준다.
+위와 같이 `Syntax OK`가 나온다면 정상이고 `Warning` 문구는 현재 `public_html`경로는 생성해주지 않았으니 추후 `git clone`을 해주면 문제 없지만 `PHP` 설치전 웹상에서 바뀐경로를 테스트 해보고 싶다면 임시로 `/home/domain/www`경로 아래에 `public_html` 폴더와 `index.html`파일을 생성해준다.
 
 ```bash
 su -l domain
@@ -341,11 +343,12 @@ vi index.html
 ```
 
 아파치를 재시작 해준다.
+
 ```bash
 service httpd restart
 ```
 
-#### 3-3. 권한 설정
+**3-3. 권한 설정**
 
 웹서버 경로의 권한과 그룹을 맞춰준다.
 
@@ -355,29 +358,29 @@ chmod  755  /home/domain/www
 chown domain:apache /home/domain/www
 ```
 
-#### 3-4. selinux 설정
+**3-4. selinux 설정**
 
-> 원래대로라면 여기까지 설정하면 가상호스트 경로의 파일(예를 들면 index.html)이 웹에서 보여야 하지만 실제로 접속해보면 권한 에러가 뜬다.
-> [해당 이슈에 대한 참고 URL](https://stackoverflow.com/questions/17442370/you-dont-have-permission-to-access-on-this-server)
+> 원래대로라면 여기까지 설정하면 가상호스트 경로의 파일\(예를 들면 index.html\)이 웹에서 보여야 하지만 실제로 접속해보면 권한 에러가 뜬다. [해당 이슈에 대한 참고 URL](https://stackoverflow.com/questions/17442370/you-dont-have-permission-to-access-on-this-server)
 
-`CentOS` 는 `SELinux`라는 보안강화 모듈이 설치 및 활성화 되어있는데,
-이로인해 웹에서 접근시 `permission error`가 뜨니 아래와 같이 조치한다.
-기본적으로 웹 소프트웨어 업로드 및 파일 쓰기 기능을 막는 기능이라고 생각하면 된다.
+`CentOS` 는 `SELinux`라는 보안강화 모듈이 설치 및 활성화 되어있는데, 이로인해 웹에서 접근시 `permission error`가 뜨니 아래와 같이 조치한다. 기본적으로 웹 소프트웨어 업로드 및 파일 쓰기 기능을 막는 기능이라고 생각하면 된다.
 
 ```bash
 setenforce 0
 vi /etc/sysconfig/selinux
 ```
+
 여기서 파일 중간의 `SELINUX`를 `disabled`로 변경해준다.
 
-# img11
+## img11
 
 `Apache httpd`의 기본 `DocumentRoot`의 `SELinux security context` 확인
+
 ```bash
 ls -alZ /var/www/html
 ```
 
 새로 변경한 `DocumentRoot`의 `SELinux security context` 확인
+
 ```bash
 ls -alZ /home/minda/www
 #위에서 public_html/index.html 파일을 생성했을 경우 아래 커맨드로 확인
@@ -390,8 +393,6 @@ ls -alZ /home/minda/www/public_html/
 sestatus
 ```
 
-
-
 `/home/minda/www/public_html` 경로에 `index.html`파일이 존재한다면 웹에서 정상적으로 호출된다
 
 만약 정상작동하지 않을경우 `httpd-vhost.conf`경로에 선언해준 `log` 를 확인해본다.
@@ -401,17 +402,15 @@ tail -f /etc/httpd/logs/minda.com-access_log
 tail -f /etc/httpd/logs/minda.com-error_log
 ```
 
+#### 4. PHP 환경설정
 
-### 4. PHP 환경설정
-앞서 설명한 것처럼 `PHP`는 직접 `configure`옵션을 주고 심볼릭 링크를 사용자화하여 설치 및 컴파일 하기 위해
-`yum`패키지를 통한 설치가 아닌 외부 저장소에서 다운을 받아 직접 설치하는 방식으로 진행한다.
+앞서 설명한 것처럼 `PHP`는 직접 `configure`옵션을 주고 심볼릭 링크를 사용자화하여 설치 및 컴파일 하기 위해 `yum`패키지를 통한 설치가 아닌 외부 저장소에서 다운을 받아 직접 설치하는 방식으로 진행한다.
 
-#### 4-1. php 설치
+**4-1. php 설치**
 
 `PHP`는 [php museum](http://museum.php.net/php5/)에서 다운로드 받는다.
+
 > 처음 `yum`추가 패키지 설치시 `fastmirror`모듈도 설치했으므로 국내의 kakao 서버나 kaist 서버등에서 지원되는 패키지는 해당 서버에서 받아도 무방하다.
-
-
 
 ```bash
 wget http://museum.php.net/php5/php-5.3.29.tar.gz
@@ -424,12 +423,14 @@ tar -zxvf php-5.3.29.tar.gz -C /tmp
 ```
 
 원하는 경로에 압축이 풀렸는지 확인
+
 ```bash
 [ ! -d /tmp/php-5.3.29 ] && echo 'not found'
 ```
+
 ++not found++ 문구가 안뜬다면 확인 완료
 
-#### 4-2. 심볼릭 링크 및 컴파일옵션 설정
+**4-2. 심볼릭 링크 및 컴파일옵션 설정**
 
 64비트 운영체제에서는 특정 모듈 컴파일시 오류가 발생하니 하기 심볼릭 링크를 진행 해주고 설치를 해야한다.
 
@@ -441,7 +442,7 @@ ln -s /usr/lib64/libjpeg.so /usr/lib/libjpeg.so \
         && yum install -y epel-release libmcrypt-devel libmhash-devel
 ```
 
-#### 4-3. php configure 옵션 설정 및 설치
+**4-3. php configure 옵션 설정 및 설치**
 
 `PHP`의 `configure`옵션을 설정해주고 컴파일 및 설치해준다.
 
@@ -506,32 +507,31 @@ cd /tmp/php-5.3.29 \
 rm -rf /tmp/php-5.3.29 && rm -rf {압축파일 다운로드받은 경로}/php-5.3.29.tar.gz
 ```
 
+#### 5. 추가설정 파일 셋팅
 
+모든 셋팅이 끝난 후 minda 소스가 정상작동 하기 위한 `Apache`,`PHP` 등의 설정 파일을 현재 운영중인 서버를 참고하여 추가로 수정 및 작성한다.
 
-### 5. 추가설정 파일 셋팅
+**5-1. 추가 아파치 설정\(httpd.conf\)**
 
-모든 셋팅이 끝난 후 minda 소스가 정상작동 하기 위한 `Apache`,`PHP` 등의 설정 파일을 현재 운영중인 서버를 참고하여
-추가로 수정 및 작성한다.
-
-#### 5-1. 추가 아파치 설정(httpd.conf)
 `httpd.conf`파일의 라인넘버를 참고하여 아래 코드를 추가해준다.
 
-```xml
+```markup
 SetEnvIf Request_URI ".(ico|pdf|flv|jpg|jpeg|png|gif|js|css|gz|swf|txt|ico)$" dontlog
 ```
 
-# img12
+## img12
 
-필요하다면 짧은 태그 허용(short_open_tag)를 허용해준다. (보안이슈 문제가 있으니 선택적 사용이나 가급적 사용하지 않는걸 권장)
-```xml
+필요하다면 짧은 태그 허용\(short\_open\_tag\)를 허용해준다. \(보안이슈 문제가 있으니 선택적 사용이나 가급적 사용하지 않는걸 권장\)
+
+```markup
 short_open_tah = On
 ```
 
-# img12-1
+## img12-1
 
 `mime`타입 관련 설정을 추가해 준다.
 
-```xml
+```markup
 <IfModule mime_module>
     #
     # AddType allows you to add to or override the MIME configuration
@@ -542,67 +542,61 @@ short_open_tah = On
 </IfModule>
 ```
 
-# img13
+## img13
 
-#### 5-2. PHP 설정(php.ini)
-
+**5-2. PHP 설정\(php.ini\)**
 
 ```bash
 # php 컴파일 경로의 ini파일을 연다
 vi /usr/local/lib/php/php.ini
 ```
 
-
 `date.timezone` 부분을 찾아서 주석을 해제후 `Asia/Seoul`로 설정해준다.
 
-
-```xml
+```markup
 date.timezone = Asia/Seoul
 ```
 
-# img14
+## img14
 
-가비지 콜렉터 설정 
-`session.gc_divisor` 부분을 찾아서 100으로 수정해준다
+가비지 콜렉터 설정 `session.gc_divisor` 부분을 찾아서 100으로 수정해준다
 
-```xml
+```markup
 session.gc_divisor
 ```
 
-# img15
+## img15
 
-`session.bug_compat_42` 와 `session.bug_compat_warn` 부분을 찾아서 값을 아래와 같이 변경해준다.
-해당 설정은 `register_globals`가 꺼져있음에도 불구하고 전역 영역에서 세션 변수를 초기화할 수 있는 버그를
-사전경고 해준다.
+`session.bug_compat_42` 와 `session.bug_compat_warn` 부분을 찾아서 값을 아래와 같이 변경해준다. 해당 설정은 `register_globals`가 꺼져있음에도 불구하고 전역 영역에서 세션 변수를 초기화할 수 있는 버그를 사전경고 해준다.
 
-```xml
+```markup
 session.bug_compat_42 = 1
 
 session.bug_compat_warn = 1
 ```
 
-# img16 
+## img16
 
-`public_html`외부의 경로에서 사용하는 `php_lib` 접근을 위해 
-`php.ini`파일의 `Paths and Directories`부분을 찾아 `include_path`를 아래와 같이 지정해준다.
+`public_html`외부의 경로에서 사용하는 `php_lib` 접근을 위해 `php.ini`파일의 `Paths and Directories`부분을 찾아 `include_path`를 아래와 같이 지정해준다.
 
 ```bash
 include_path = ".:/home/minda/www:/home/domain/www/php_lib"
 ```
 
-# img16-1
+## img16-1
 
+`safe_mode`를 비활성화 해준다
 
-`safe_mode`를 비활성화 해준다 
-```xml
+```markup
 safe_mode = Off
 ```
 
-# img16-2
+## img16-2
 
 > php 6.0에서 제거
 
-#### 5-3. 환경변수 설정
+**5-3. 환경변수 설정**
+
 PHP 비즈니스 로직에서 `getEnv`명령어로 불러오는 환경변수를 셋팅할 파일을 생성해준다
 
 ```bash
@@ -611,36 +605,32 @@ vi /etc/httpd/conf.d/env.conf
 
 현재 사용하고 있는 환경변수를 셋팅해준다.
 
-```xml
+```markup
 SetEnv DATABASE_CONNECTION rds
 SetEnv SERVER_MODE dev
 ```
 
-# img17
+## img17
 
 `DirectoryIndex`등의 추가적인 설정파일을 생성 및 셋팅해준다
 
-```xml
+```markup
 AddHandler php5-script .php .html .htm
 AddType text/html .php .html .htm
 DirectoryIndex index.php index.html index.htm index.php3 index.inc
 ```
 
-# img18
+## img18
 
-(추후 xdebug 셋팅할시 추가 작성 필요)
+\(추후 xdebug 셋팅할시 추가 작성 필요\)
 
-
-#### 5-4. 기타 설정
+**5-4. 기타 설정**
 
 ```bash
 git --version
 ```
 
-`git`버전을 확인해보면 `1.7.1`버전이 깔려있다.
-해당 버전은 `https protocol`을 처리 못하는 버그가 있고 `push,clone`등을 할때  `403 forbidden`에러가 발생한다.
-github 오피셜로 이 문제는 `1.7.1`버전문제로 다른 버전을 설치하는 것 외엔 방법이 없다고 하니
-최소 1.7.4 이상을 받아야 한다.
+`git`버전을 확인해보면 `1.7.1`버전이 깔려있다. 해당 버전은 `https protocol`을 처리 못하는 버그가 있고 `push,clone`등을 할때 `403 forbidden`에러가 발생한다. github 오피셜로 이 문제는 `1.7.1`버전문제로 다른 버전을 설치하는 것 외엔 방법이 없다고 하니 최소 1.7.4 이상을 받아야 한다.
 
 일단 기존에 설치되어 있는 `git`을 삭제한다.
 
@@ -668,24 +658,20 @@ yum --enablerepo=WANdisco-git --disablerepo=base,updates install git
 git --version
 ```
 
-
-### 6. AWS 작업환경 셋팅
+#### 6. AWS 작업환경 셋팅
 
 aws cli를 비롯한 sdk 설치 및 설정
 
-#### 6-1. Python & pip 설치
+**6-1. Python & pip 설치**
 
 로컬 환경 외에도 `EC2`에 올라가있는 `Linux OS` 에서도 `AWS CLI` 설치는 여러가지 면에서 필수적이다.
 
-다만 `Aws cli`자체가 `python` 패키지 관리자인 `pip`로 관리되고 있으며,
-원활한 `pip`설치를 위해서는 최소한 `python 2.7` 이상의 버전이 필요하다
+다만 `Aws cli`자체가 `python` 패키지 관리자인 `pip`로 관리되고 있으며, 원활한 `pip`설치를 위해서는 최소한 `python 2.7` 이상의 버전이 필요하다
 
-`CentOS`에는 기본 python 버전이 `2.6` 이하 이므로 `pyhton`부터 재설치가 필요하다
-지원이 끊긴지 오래된 OS 인만큼 당연히 기본 yum 저장소엔 파이썬 2.X 버전조차도 없으니 저장소를 추가해준후 `RPM`설치를 하거나 공식 홈페이지에서 `tgz`압축 파일을 직접 다운받아 `PHP`와 동일한 방식으로 직접 `make install`까지 해줘야 한다.
+`CentOS`에는 기본 python 버전이 `2.6` 이하 이므로 `pyhton`부터 재설치가 필요하다 지원이 끊긴지 오래된 OS 인만큼 당연히 기본 yum 저장소엔 파이썬 2.X 버전조차도 없으니 저장소를 추가해준후 `RPM`설치를 하거나 공식 홈페이지에서 `tgz`압축 파일을 직접 다운받아 `PHP`와 동일한 방식으로 직접 `make install`까지 해줘야 한다.
 
+**Python3.6.X 설치**
 
-
-##### Python3.6.X 설치
 ```bash
 #다운받을 위치
 cd /usr/src
@@ -706,22 +692,24 @@ rm /usr/src/Python-3.6.4.tgz
 ln -s /usr/src/Python-3.6.4/python /bin/python3
 ```
 
-##### `pip`설치
+**pip설치**
 
 최신버전의 `pip`와 `setuptools`라는 다른 필수 패키지를 다운로드하고 설치한다.
+
 ```bash
 curl -O https://bootstrap.pypa.io/get-pip.py
 ```
 
 파이썬으로 스크립트를 실행한다.
+
 ```bash
 python3 get-pip.py --user
 ```
 
 > `python3(3.X)`으로 설치하지 않고 `python(2.X)`으로 설치할 경우 정상 작동하지 않으니 주의
 
-
 실행경로를 `PATH` 변수에 추가한다.
+
 ```bash
 #내보내기 명령을 프로필 스크립트에 추가
 export PATH=~/.local/bin:$PATH
@@ -734,11 +722,12 @@ pip --version
 ```
 
 > 맥이나 기타 사용하는 쉘이 있을경우 거기에 맞게 설정해주면 된다
-> - Bash : .bash_profile, .profile 또는 .bash_login
-> - Zsh : .zshrc
-> - Tcsh : .tcshrc, .cshrc 또는 .login
+>
+> * Bash : .bash\_profile, .profile 또는 .bash\_login
+> * Zsh : .zshrc
+> * Tcsh : .tcshrc, .cshrc 또는 .login
 
-#### 6-2. Aws cli 설치
+**6-2. Aws cli 설치**
 
 `pip`를 사용해서 `AWS CLI`를 설치한다
 
@@ -749,31 +738,28 @@ pip install awscli --upgrade --user
 aws --version
 ```
 
-
-
 추후 `AWS CLI`를 최신 버전으로 업그레이드 하려면 설치명령을 다시 실행하면 된다
 
 ```bash
 pip install awscli --upgrade --user
 ```
 
+**6-3. 기타**
 
-#### 6-3. 기타
+[\[공식\]AWS 볼륨크기 조정 가이드 문서](https://docs.aws.amazon.com/ko_kr/AWSEC2/latest/UserGuide/recognize-expanded-volume-linux.html)
 
-[[공식]AWS 볼륨크기 조정 가이드 문서](https://docs.aws.amazon.com/ko_kr/AWSEC2/latest/UserGuide/recognize-expanded-volume-linux.html)
+EBS 용량이 기본제공을 초과하거나\(8GB\) `Attach`할경우 불륨 확장 작업이 필요하다
 
-EBS 용량이 기본제공을 초과하거나(8GB) `Attach`할경우 불륨 확장 작업이 필요하다
-
-> 예를 들면 인스턴스 생성시 `100GB`로 설정을 하더라도 실제로 `df -h` 커맨드로 확인해보면
-> 가용용량은 `8GB`로 되어있다.
-
+> 예를 들면 인스턴스 생성시 `100GB`로 설정을 하더라도 실제로 `df -h` 커맨드로 확인해보면 가용용량은 `8GB`로 되어있다.
 
 연결된 블록디바이스 목록을 조회한다.
+
 ```bash
 lsblk
 ```
 
 아마존 공식문서에는 파티션 확장 커맨드를 바로 명시하지만 실제로는 추가 패키지로 설치를 해야한다
+
 ```bash
 yum install cloud-utils-growpart
 
@@ -785,12 +771,11 @@ lsblk
 
 인스턴스를 재부팅한다.
 
-
-### 7. CloudWatch logs Agent 셋팅
+#### 7. CloudWatch logs Agent 셋팅
 
 CloudWatch logs Agent 설치 및 구성
 
-#### 7-1. CloudWatch Logs 설치 및 구성
+**7-1. CloudWatch Logs 설치 및 구성**
 
 ```bash
 # 임시다운로드 경로로 이동
@@ -811,4 +796,5 @@ python ./awslogs-agent-setup.py --region ap-northeast-2 --dependency-path /tmp/A
 
 이후 환경설정을 [AWS 가이드 문서](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/QuickStartEC2Instance.html)를 참조하여 작성한다.
 
-# img19
+## img19
+
