@@ -10,7 +10,7 @@ description: 소스코드 및 DB 데이터 AWS 환경으로 이전
 
 ### 1-1. EC2 에서 git 설정
 
-[CentOS 셋팅](https://docs.devvisdom.com/environment/aws/os/centos#5)문서의 `git` 설치 항목을 참고하여 ec2 웹서버에 `1.7.4` 버전 이상의 `git`이 설치되어 있다는 가정하에 진행한다.
+[CentOS 셋팅](https://docs.devvisdom.com/environment/aws/os/centos#5-4)문서의 `git` 설치 항목을 참고하여 ec2 웹서버에 `1.7.4` 버전 이상의 `git`이 설치되어 있다는 가정하에 진행한다.
 
 ### 1-2. deploy key 설정
 
