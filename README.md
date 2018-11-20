@@ -33,8 +33,21 @@
 ### ENVIRONMENT
 
 * [AWS](https://ocaso.gitbook.io/infodoc/environment/aws)
-  * EC2
-  * RDS
+  * [OS setting](https://docs.devvisdom.com/environment/aws/os)
+    * [OS](https://docs.devvisdom.com/environment/aws/os/centos)
+    * [Migrations](https://docs.devvisdom.com/environment/aws/os/migrations)
+  * [Management Console](https://docs.devvisdom.com/environment/aws/management-console)
+    * [IAM](https://docs.devvisdom.com/environment/aws/management-console/iam)
+    * [Environment](https://docs.devvisdom.com/environment/aws/management-console/environment)
+  * [AWS Service](https://docs.devvisdom.com/environment/aws/aws-service)
+    * [VPV](https://docs.devvisdom.com/environment/aws/aws-service/vpc)
+    * [IAM](https://docs.devvisdom.com/environment/aws/aws-service/iam)
+    * [Route 53](https://docs.devvisdom.com/environment/aws/aws-service/route-53)
+    * [S3](https://docs.devvisdom.com/environment/aws/aws-service/s3)
+    * [CloudFront](https://docs.devvisdom.com/environment/aws/aws-service/cloudfront)
+    * [RDS](https://docs.devvisdom.com/environment/aws/aws-service/rds)
+    * [EC2](https://docs.devvisdom.com/environment/aws/aws-service/ec2)
+  * [Web Log Analyzer]
 * CentOS
 * Ubuntu
 * Shell
