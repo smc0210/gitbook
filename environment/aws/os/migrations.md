@@ -141,7 +141,7 @@ show variables like 'c%'
 
 그 후 다시 `instances`메뉴로 가서 상태값이 `available`로 변경되길 기다린 후 확인해본다
 
-#### img6
+![](../../../.gitbook/assets/migrations_6.png)
 
 > `filesystem`등은 확인 필요..
 
@@ -155,7 +155,7 @@ ALTER DATABASE v2 CHARACTER SET = ‘utf8’ COLLATE = ‘utf8_general_ci’;
 
 잘 적용되었는지 `workbench`등의 툴로 확인해본다
 
-#### img7
+![MySQL workbench Tool](../../../.gitbook/assets/migrations_7.png)
 
 ### 2-3. 기존 DB에서 function 이관
 
@@ -165,7 +165,7 @@ ALTER DATABASE v2 CHARACTER SET = ‘utf8’ COLLATE = ‘utf8_general_ci’;
 show global variables like 'log_bin_trust_function_creators'
 ```
 
-#### img8
+![](../../../.gitbook/assets/migrations_8.png)
 
 상기 이미지와 같이 `OFF`로 되어있다면 `Aws Managemnet Console`의 `Parameter Groups`에서 해당 설정값을 `1`로 변경후 `Save Changes`를 눌러 적용시킨다.
 

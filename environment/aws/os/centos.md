@@ -2,7 +2,7 @@
 description: AMI를 통한 EC2 생성 후 기본적인 개발환경 셋팅 가이드
 ---
 
-# CentOS 기준
+# CentOS
 
 ## 1. CentOS 기본셋팅
 

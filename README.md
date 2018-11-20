@@ -47,7 +47,7 @@
     * [CloudFront](https://docs.devvisdom.com/environment/aws/aws-service/cloudfront)
     * [RDS](https://docs.devvisdom.com/environment/aws/aws-service/rds)
     * [EC2](https://docs.devvisdom.com/environment/aws/aws-service/ec2)
-  * [Web Log Analyzer]
+  * \[Web Log Analyzer\]
 * CentOS
 * Ubuntu
 * Shell
