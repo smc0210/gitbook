@@ -41,7 +41,7 @@
     * [Migrations](environment/aws/os/migrations.md)
   * [Management Console](environment/aws/management-console/README.md)
     * [IAM](environment/aws/management-console/iam.md)
-    * [Environment](environment/aws/management-console/environment.md)
+    * [Connect](environment/aws/management-console/environment.md)
   * [AWS Service](environment/aws/aws-service/README.md)
     * [VPC](environment/aws/aws-service/vpc.md)
     * [IAM](environment/aws/aws-service/iam.md)
