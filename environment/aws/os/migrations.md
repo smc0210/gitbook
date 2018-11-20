@@ -4,6 +4,18 @@ description: 소스코드 및 DB 데이터 AWS 환경으로 이전
 
 # Migrations
 
+## TOC
+
+- ### 1. 소스이관
+	- #### 1-1. EC2에서 git 설정
+	- #### 1-2. deploy key 설정
+	- #### 1-3. Git 저장소에서 소스 가져오기
+- ### 2. DB 데이터 이관
+	- #### 2-1. 기존 DB에서 RDS로 데이터 이관
+	- #### 2-2. RDS Character set 설정
+	- #### 2-3. 기존 DB에서 function 이관
+---
+
 ## 1. 소스이관
 
 `git hub`저장소에 올라가 있는 소스를 ec2 웹서버로 이관한다.
