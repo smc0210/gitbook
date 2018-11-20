@@ -75,7 +75,7 @@ date
 
 ### 1-3. hostname 설정
 
-(추후 Route53 연결 후 작성)
+\(추후 Route53 연결 후 작성\)
 
 ### 1-4. 개인 사용자 추가
 
@@ -509,7 +509,7 @@ rm -rf /tmp/php-5.3.29 && rm -rf {압축파일 다운로드받은 경로}/php-5.
 
 모든 셋팅이 끝난 후 기존 레거시 소스가 정상작동 하기 위한 `Apache`,`PHP` 등의 설정 파일을 현재 운영중인 서버를 참고하여 추가로 수정 및 작성한다.
 
-### 5-1. 추가 아파치 설정(httpd.conf)
+### 5-1. 추가 아파치 설정\(httpd.conf\)
 
 `httpd.conf`파일의 라인넘버를 참고하여 아래 코드를 추가해준다.
 
@@ -542,7 +542,7 @@ short_open_tah = On
 
 ![](../../../.gitbook/assets/os_13.png)
 
-### 5-2. PHP 설정(php.ini)
+### 5-2. PHP 설정\(php.ini\)
 
 ```bash
 # php 컴파일 경로의 ini파일을 연다
@@ -618,7 +618,7 @@ DirectoryIndex index.php index.html index.htm index.php3 index.inc
 
 ![](../../../.gitbook/assets/os_18.png)
 
-(추후 xdebug 셋팅할시 추가 작성 필요)
+\(추후 xdebug 셋팅할시 추가 작성 필요\)
 
 ### 5-4. 기타 설정
 
