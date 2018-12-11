@@ -71,6 +71,7 @@
     * [Useful Packages](tools-and-etc/ide-and-editor/visual-studio-code/useful-packages.md)
 * [Docker](tools-and-etc/docker/README.md)
   * [Get Started](tools-and-etc/docker/docker.md)
+* [Git](tools-and-etc/git.md)
 * [Yarn & NPM](tools-and-etc/yarn-and-npm/README.md)
   * [Command](tools-and-etc/yarn-and-npm/command.md)
 * [Gulp](tools-and-etc/gulp.md)

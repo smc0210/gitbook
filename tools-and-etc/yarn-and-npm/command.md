@@ -1,6 +1,5 @@
 # Command
 
-
 ## Mac 환경에서 Node & NPM 업데이트
 
 ```bash
@@ -12,28 +11,28 @@ sudo npm cache clean -f
 npm WARN using --force I sure hope you know what you are doing.
 ```
 
-
 `n` 모듈 설치
+
 ```bash
 sudo npm i -g n
 ```
+
 `n` 모듈을 사용하여 Nodejs 설치
+
 ```bash
 sudo n stable
 ```
 
 {% hint style="info" %}
-stable 버전이 아닌 특정 버전 설치시 설치시 `sudo n {version}` 
-예) `sudo n 6.1.1` 
+stable 버전이 아닌 특정 버전 설치시 설치시 `sudo n {version}` 예\) `sudo n 6.1.1`
 {% endhint %}
 
 새로운 Node.js 버전 확인하기
+
 ```bash
 node -v
 v6.0.0
 ```
-
-
 
 ```bash
 npm -v
@@ -44,3 +43,4 @@ sudo npm i -g npm
 
 npm -v
 ```
+
