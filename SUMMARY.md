@@ -57,6 +57,8 @@
   * [Get Started](environment/ubuntu/get-started.md)
   * [Apt](environment/ubuntu/apt.md)
 * [CentOS](environment/centos.md)
+* [Mac](environment/mac/README.md)
+  * [Homebrew](environment/mac/homebrew.md)
 * [Shell](environment/shell/README.md)
   * [Zsh + Oh My Zsh](environment/shell/zsh-+-oh-my-zsh.md)
   * [Command](environment/shell/command.md)
