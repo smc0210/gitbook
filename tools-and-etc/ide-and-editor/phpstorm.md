@@ -1,17 +1,5 @@
 # PhpStorm
 
-## TOC
-
-* [phpstorm](phpstorm.md#phpstorm)
-  * [TOC](phpstorm.md#toc)
-  * [1. ide-helper](phpstorm.md#1-ide-helper)
-  * [2. php-cs-fixer](phpstorm.md#2-php-cs-fixer)
-    * [2-2. Usage](phpstorm.md#2-2-usage)
-  * [3. xdebug](phpstorm.md#3-xdebug)
-  * [4. phpunit](phpstorm.md#4-phpunit)
-  * [5. PHPStorm Setting](phpstorm.md#5-phpstorm-setting)
-    * [5-1. git bash inside phpstorm](phpstorm.md#5-1-git-bash-inside-phpstorm)
-
 ## 1. ide-helper
 
 IntelliJ 계열 \(PHPStorm 포함\)에서 Laravel 문법에 대한 지원이 아직 완벽하지 않아서 Route의 컨트롤러를 찾지 못한다거나 Facade를 찾아가지 못하는 등의 불편한 사항들을 해결해주는 패키지
@@ -126,37 +114,44 @@ fix --rules=@PSR2,@Symfony,no_unused_imports,indentation_type $FileDir$/$FileNam
 
 IDE에 등록하여 사용하는 방식
 
-`Preferences` > `Tools` > `External Tools` > `+` 버튼 클릭
+`Preferences` &gt; `Tools` &gt; `External Tools` &gt; `+` 버튼 클릭
 
 Tool Settings 하단의 항목 작성
-> 
-> `Program` : which php-cs-fixer 경로 지정 (터미널에서 which php-cs-fixer)
-> `Arguments` : fix --verbose --config={설정파일경로}/.php_cs $FileDir$/$FileName$
+
+> `Program` : php-cs-fixer 경로 지정 \(터미널에서 which php-cs-fixer\) 
+>
+> `Arguments` : fix --verbose --config={설정파일경로}/.php\_cs $FileDir$/$FileName$ 
+>
 > `Working directory` : $ProjectFileDir$
 
-![PHP CS Fixer config](../../.gitbook/assets/phpstorm_2.png)
+
 
 {% hint style="info" %}
-`Advanced Options`의 `Open console for tool output` 을 체크해제하지 않으면 매번 cs-fixer를 실행할때마다 output 창이 열러서 불편하므로 보통 체크해제 하지만
-정상적으로 작동하지 않을때 에러메시지를 보고 싶을경우 체크 후 확인 가능하다
+> `Arguments :` diff \(변경된점\), 혹은 dry-run \(실행하지 않고 어떻게 변경될지 알려줌\)등의 옵션을 추가해서 상황에 맞게 사용가능하다
+{% endhint %}
+
+![PHP CS Fixer config &#xCC38;&#xACE0;](../../.gitbook/assets/phpstorm_2.png)
+
+{% hint style="info" %}
+`Advanced Options`의 `Open console for tool output`을 체크 해제 하지 않으면 매번 cs-fixer를 실행할때마다 output 창이 열려서 불편하므로 보통은 체크해제 후 사용하지만 fixer가 정상적으로 작동하지 않아 에러메시지를 보고 싶을경우 체크 후 확인하는 용도로 사용한
 {% endhint %}
 
 `Arguments` 예시 
+
 ![fixer arguments ](../../.gitbook/assets/phpstorm_3.png)
 
-{% hint style="info" %}
-diff (변경된점), 혹은 dry-run (실행하지 않고 어떻게 변경될지 알려줌)등의 옵션을 추가해서 상황에 맞게 사용가능하다
-{% endhint %}
+`Preferences` &gt; `Keymap` &gt; `PHP CS Fixer` 에 원하는 단축키 지정 후 사용
 
-`Preferences` > `Keymap` > `PHP CS Fixer` 에 원하는 단축키 지정 후 사용
-참고로 laracast 에서는 `Command` + `B` 사용
-
+예\) `Command` + `B` 사용 
 
 [.php\_cs config file 다운로드](https://gist.github.com/smc0210/b107f968671012cb454ae01dbdd588d3)
 
 `.php_cs 예시`
-```PHP
+
+```php
 <?php
+
+// 설정파일 경로는 보통 프로젝트의 루트 경로에 둔다 ( composer.json과 같은 경로)
 use PhpCsFixer\Config;
 use PhpCsFixer\Finder;
 $finder = Finder::create()
