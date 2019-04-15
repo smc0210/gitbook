@@ -37,5 +37,3 @@ bin/wget -> ../Cellar/wget/1.16.1/bin/wget
 Homebrew는 전용 디렉토리에 패키지를 설치하고 `/usr/local` 위치로 심볼릭 링크를 연결합니다.
 {% endhint %}
 
-
-

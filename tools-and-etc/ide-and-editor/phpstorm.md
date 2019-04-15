@@ -14,7 +14,7 @@
 
 ## 1. ide-helper
 
-IntelliJ 계열 (PHPStorm 포함)에서 Laravel 문법에 대한 지원이 아직 완벽하지 않아서 Route의 컨트롤러를 찾지 못한다거나 Facade를 찾아가지 못하는 등의 불편한 사항들을 해결해주는 패키지 
+IntelliJ 계열 \(PHPStorm 포함\)에서 Laravel 문법에 대한 지원이 아직 완벽하지 않아서 Route의 컨트롤러를 찾지 못한다거나 Facade를 찾아가지 못하는 등의 불편한 사항들을 해결해주는 패키지
 
 [laravel-ide-helper Github repository](https://github.com/barryvdh/laravel-ide-helper)
 
@@ -26,9 +26,11 @@ composer require --dev barryvdh/laravel-ide-helper
 ```
 
 `config/app.php` 파일의 `providers` 배열에 해당 클래스 추가
+
 ```bash
 Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class
 ```
+
 {% hint style="info" %}
 만약 Laravel 5.5 이상을 사용할경우 패키지를 `Auto-Discovery` 하므로 위 과정 생략가능
 {% endhint %}
@@ -45,8 +47,6 @@ public function register()
 }
 ```
 
-
-
 {% hint style="info" %}
 만약 checkout이나 소스 연동 문제로 `정의로 이동` 기능이 작동 안할경우 아래 커맨드로 갱신
 {% endhint %}
@@ -57,16 +57,15 @@ php artisan ide-helper:generate
 
 이때 생성되는 ide-helper 파일은 `.gitignore` 에 등록해서 공유제외
 
-## 2. IDE Custom formatting (선택사항 - code sniffer 와 cs-fixer로 대체가능 )
+## 2. IDE Custom formatting \(선택사항 - code sniffer 와 cs-fixer로 대체가능 \)
 
-IntelliJ Preferences > Editor > Code Style > PHP
+IntelliJ Preferences &gt; Editor &gt; Code Style &gt; PHP
 
-우측 상단 Set from > predefined style > PSR1/PSR2 클릭
+우측 상단 Set from &gt; predefined style &gt; PSR1/PSR2 클릭
 
 코드 파일에서 `option + command + l` 입력시 위에서 지정한 코드 포맷 형식으로 변환됨
 
 IDE 기본 제공기능인만큼 기능이 부족해서 codesniffer 와 php-cs-fixer를 사용하기를 권장함
-
 
 ## 3. Code Sniffer & php-cs-fixer
 
@@ -80,7 +79,7 @@ Code Sniffer 저장소 [squizlabs/php\_codesniffer](https://packagist.org/packag
 composer global require "squizlabs/php_codesniffer=*"
 ```
 
-Preferences > Editor > Inspections > PHP > Quality tools > PHP Code Sniffer validation 체크
+Preferences &gt; Editor &gt; Inspections &gt; PHP &gt; Quality tools &gt; PHP Code Sniffer validation 체크
 
 ### 3.2 Code Sniffer Configure
 
@@ -90,10 +89,9 @@ $ which phpcs
 /Users/{username}/.composer/vendor/bin/phpcs
 ```
 
-Preferences > Language & Frameworks > PHP > Quality tools > Code Sniffer configuration 클릭
-팝업창이 뜨면 PHP Code Sniffer path 란에 위에서 복사한 경로 붙여넣기 후 오른쪽 Validate 체크
+Preferences &gt; Language & Frameworks &gt; PHP &gt; Quality tools &gt; Code Sniffer configuration 클릭 팝업창이 뜨면 PHP Code Sniffer path 란에 위에서 복사한 경로 붙여넣기 후 오른쪽 Validate 체크
 
-Preferences > Editor > Inspections > PHP > Quality tools > PHP Code Sniffer validation > 우측 설정창의 Coding standard PSR2로 설정되어 있는지 확인
+Preferences &gt; Editor &gt; Inspections &gt; PHP &gt; Quality tools &gt; PHP Code Sniffer validation &gt; 우측 설정창의 Coding standard PSR2로 설정되어 있는지 확인
 
 ### 3.3 Cs-Fixer install
 
@@ -110,12 +108,13 @@ $ which php-cs-fixer
 
 # php-cs-fixer fixer -h 로 옵션 확인 가능
 ```
-Preferences > Language & Frameworks > PHP > Quality tools > PHP CS Fixer configuration 클릭
-팝업창이 뜨면 PHP CS Fixer path 란에 위에서 복사한 경로 붙여넣기 후 오른쪽 Validate 체크
+
+Preferences &gt; Language & Frameworks &gt; PHP &gt; Quality tools &gt; PHP CS Fixer configuration 클릭 팝업창이 뜨면 PHP CS Fixer path 란에 위에서 복사한 경로 붙여넣기 후 오른쪽 Validate 체크
 
 ### 3-4. Usage
 
 inline 방식
+
 ```bash
 # php-cs-fixer option Rule로 변경
 fix --rules=@PSR2,@Symfony,no_unused_imports,indentation_type $FileDir$/$FileName$
@@ -126,12 +125,17 @@ fix --rules=@PSR2,@Symfony,no_unused_imports,indentation_type $FileDir$/$FileNam
 {% endhint %}
 
 config file 방식
+
 ```text
 # config파일로 설정
 fix --config=.php_cs $FileDir$/$FileName$
 ```
 
-[.php_cs config file 다운로드](https://gist.github.com/smc0210/b107f968671012cb454ae01dbdd588d3)
+[.php\_cs config file 다운로드](https://gist.github.com/smc0210/b107f968671012cb454ae01dbdd588d3)
+
+![PHP CS Fixer config](../../.gitbook/assets/phpstorm_2.png)
+
+![fixer arguments ](../../.gitbook/assets/phpstorm_3.png)
 
 ## 4. xdebug
 
