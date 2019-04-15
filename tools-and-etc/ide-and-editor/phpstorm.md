@@ -71,7 +71,7 @@ IDE 기본 제공기능인만큼 기능이 부족해서 codesniffer 와 php-cs-f
 
 ![code sniffer pc](../../.gitbook/assets/phpstorm_1.png)
 
-Code Sniffer 저장소 [squizlabs/php\_codesniffer](https://packagist.org/packages/squizlabs/php_codesniffer)
+[Codesniffer Github repository](https://packagist.org/packages/squizlabs/php_codesniffer)
 
 ### 3.1 Code Sniffer install
 
@@ -79,7 +79,7 @@ Code Sniffer 저장소 [squizlabs/php\_codesniffer](https://packagist.org/packag
 composer global require "squizlabs/php_codesniffer=*"
 ```
 
-Preferences &gt; Editor &gt; Inspections &gt; PHP &gt; Quality tools &gt; PHP Code Sniffer validation 체크
+`Preferences` &gt; `Editor` &gt; `Inspections` &gt; `PHP` &gt; `Quality tools` &gt; `PHP Code Sniffer validation` 체크
 
 ### 3.2 Code Sniffer Configure
 
@@ -89,13 +89,13 @@ $ which phpcs
 /Users/{username}/.composer/vendor/bin/phpcs
 ```
 
-Preferences &gt; Language & Frameworks &gt; PHP &gt; Quality tools &gt; Code Sniffer configuration 클릭 팝업창이 뜨면 PHP Code Sniffer path 란에 위에서 복사한 경로 붙여넣기 후 오른쪽 Validate 체크
+`Preferences` &gt; `Language & Frameworks` &gt; `PHP` &gt; `Quality tools` &gt; `Code Sniffer configuration` 클릭 팝업창이 뜨면 `PHP Code Sniffer path` 란에 위에서 복사한 경로 붙여넣기 후 오른쪽 Validate 체크
 
-Preferences &gt; Editor &gt; Inspections &gt; PHP &gt; Quality tools &gt; PHP Code Sniffer validation &gt; 우측 설정창의 Coding standard PSR2로 설정되어 있는지 확인
+`Preferences` &gt; `Editor` &gt; `Inspections` &gt; `PHP` &gt; `Quality tools` &gt; `PHP Code Sniffer validation` &gt; 우측 설정창의 `Coding standard PSR2`로 설정되어 있는지 확인
 
 ### 3.3 Cs-Fixer install
 
-php-cs-fixer 저장소 [friendsofphp/php-cs-fixer](https://packagist.org/packages/friendsofphp/php-cs-fixer)
+[php-cs-fixer Github repository](https://packagist.org/packages/friendsofphp/php-cs-fixer)
 
 ```bash
 composer global require friendsofphp/php-cs-fixer
@@ -109,7 +109,7 @@ $ which php-cs-fixer
 # php-cs-fixer fixer -h 로 옵션 확인 가능
 ```
 
-Preferences &gt; Language & Frameworks &gt; PHP &gt; Quality tools &gt; PHP CS Fixer configuration 클릭 팝업창이 뜨면 PHP CS Fixer path 란에 위에서 복사한 경로 붙여넣기 후 오른쪽 Validate 체크
+`Preferences` &gt; `Language & Frameworks` &gt; `PHP` &gt; `Quality tools` &gt; `PHP CS Fixer configuration` 클릭 팝업창이 뜨면 `PHP CS Fixer path` 란에 위에서 복사한 경로 붙여넣기 후 오른쪽 `Validate` 체크
 
 ### 3-4. Usage
 
@@ -124,18 +124,74 @@ fix --rules=@PSR2,@Symfony,no_unused_imports,indentation_type $FileDir$/$FileNam
 위와 같이 터미널에 입력하는 형식으로 사용가능하지만 편의상 IDE에 등록후 각종 Rule을 config file로 작성한후 단축키를 이용하여 사용하길 권장
 {% endhint %}
 
-config file 방식
+IDE에 등록하여 사용하는 방식
 
-```text
-# config파일로 설정
-fix --config=.php_cs $FileDir$/$FileName$
-```
+`Preferences` > `Tools` > `External Tools` > `+` 버튼 클릭
 
-[.php\_cs config file 다운로드](https://gist.github.com/smc0210/b107f968671012cb454ae01dbdd588d3)
+Tool Settings 하단의 항목 작성
+> 
+> `Program` : which php-cs-fixer 경로 지정 (터미널에서 which php-cs-fixer)
+> `Arguments` : fix --verbose --config={설정파일경로}/.php_cs $FileDir$/$FileName$
+> `Working directory` : $ProjectFileDir$
 
 ![PHP CS Fixer config](../../.gitbook/assets/phpstorm_2.png)
 
+{% hint style="info" %}
+`Advanced Options`의 `Open console for tool output` 을 체크해제하지 않으면 매번 cs-fixer를 실행할때마다 output 창이 열러서 불편하므로 보통 체크해제 하지만
+정상적으로 작동하지 않을때 에러메시지를 보고 싶을경우 체크 후 확인 가능하다
+{% endhint %}
+
+`Arguments` 예시 
 ![fixer arguments ](../../.gitbook/assets/phpstorm_3.png)
+
+{% hint style="info" %}
+diff (변경된점), 혹은 dry-run (실행하지 않고 어떻게 변경될지 알려줌)등의 옵션을 추가해서 상황에 맞게 사용가능하다
+{% endhint %}
+
+`Preferences` > `Keymap` > `PHP CS Fixer` 에 원하는 단축키 지정 후 사용
+참고로 laracast 에서는 `Command` + `B` 사용
+
+
+[.php\_cs config file 다운로드](https://gist.github.com/smc0210/b107f968671012cb454ae01dbdd588d3)
+
+`.php_cs 예시`
+```PHP
+<?php
+use PhpCsFixer\Config;
+use PhpCsFixer\Finder;
+$finder = Finder::create()
+    ->notPath('bootstrap/cache')
+    ->notPath('storage')
+    ->notPath('vendor')
+    ->in(__DIR__)
+    ->name('*.php')
+    ->notName('*.blade.php')
+    ->ignoreDotFiles(true)
+    ->ignoreVCS(true);
+
+// 기본룰은 Symfony와 PSR2를 기본으로 하되 그외 추가적인 옵션들만 배열에 추가
+// 옵션참고 URL
+// https://github.com/FriendsOfPHP/PHP-CS-Fixer
+// https://mlocati.github.io/php-cs-fixer-configurator
+
+$config = Config::create()
+    ->setRules([
+        '@Symfony'                => true,
+        '@PSR2'                   => true,
+        'array_syntax'            => ['syntax' => 'short'],
+        'align_multiline_comment' => ['comment_type'=> 'phpdocs_only'],
+        'array_indentation'       => true,
+        'no_unused_imports'       => true,
+        'binary_operator_spaces'  => [
+            'align_double_arrow' => true,
+            'align_equals'       => true,
+        ],
+        'blank_line_after_opening_tag' => true,
+    ])
+    ->setFinder($finder)
+    ->setUsingCache(false);
+return $config;
+```
 
 ## 4. xdebug
 
