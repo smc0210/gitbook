@@ -57,7 +57,7 @@ php artisan ide-helper:generate
 
 이때 생성되는 ide-helper 파일은 `.gitignore` 에 등록해서 공유제외
 
-## 2. IDE Custom formatting
+## 2. IDE Custom formatting (선택사항 - code sniffer 와 cs-fixer로 대체가능 )
 
 IntelliJ Preferences > Editor > Code Style > PHP
 
@@ -65,12 +65,16 @@ IntelliJ Preferences > Editor > Code Style > PHP
 
 코드 파일에서 `option + command + l` 입력시 위에서 지정한 코드 포맷 형식으로 변환됨
 
+IDE 기본 제공기능인만큼 기능이 부족해서 codesniffer 와 php-cs-fixer를 사용하기를 권장함
 
-## 3. php-cs-fixer
 
-code sniffer 설치 [squizlabs/php\_codesniffer](https://packagist.org/packages/squizlabs/php_codesniffer)
+## 3. Code Sniffer & php-cs-fixer
 
-### 3.1 install
+![code sniffer pc](../../.gitbook/assets/phpstorm_1.png)
+
+Code Sniffer 저장소 [squizlabs/php\_codesniffer](https://packagist.org/packages/squizlabs/php_codesniffer)
+
+### 3.1 Code Sniffer install
 
 ```bash
 composer global require "squizlabs/php_codesniffer=*"
@@ -78,39 +82,56 @@ composer global require "squizlabs/php_codesniffer=*"
 
 Preferences > Editor > Inspections > PHP > Quality tools > PHP Code Sniffer validation 체크
 
-### 3.2 Configure
+### 3.2 Code Sniffer Configure
 
 ```bash
 # phpcs 경로 복사
-which phpcs
-
-# 예) /Users/{사용자명}/.composer/vendor/bin/phpcs
+$ which phpcs
+/Users/{username}/.composer/vendor/bin/phpcs
 ```
+
 Preferences > Language & Frameworks > PHP > Quality tools > Code Sniffer configuration 클릭
 팝업창이 뜨면 PHP Code Sniffer path 란에 위에서 복사한 경로 붙여넣기 후 오른쪽 Validate 체크
 
 Preferences > Editor > Inspections > PHP > Quality tools > PHP Code Sniffer validation > 우측 설정창의 Coding standard PSR2로 설정되어 있는지 확인
 
+### 3.3 Cs-Fixer install
 
-php-cs-fixer 설치 [friendsofphp/php-cs-fixer](https://packagist.org/packages/friendsofphp/php-cs-fixer)
+php-cs-fixer 저장소 [friendsofphp/php-cs-fixer](https://packagist.org/packages/friendsofphp/php-cs-fixer)
 
-![code sniffer pc](../../.gitbook/assets/phpstorm_1.png)
+```bash
+composer global require friendsofphp/php-cs-fixer
+```
 
-### 3-2. Usage
+```bash
+# php-cs-fixer 경로 복사
+$ which php-cs-fixer
+/Users/{username}/.composer/vendor/bin/php-cs-fixer
+
+# php-cs-fixer fixer -h 로 옵션 확인 가능
+```
+Preferences > Language & Frameworks > PHP > Quality tools > PHP CS Fixer configuration 클릭
+팝업창이 뜨면 PHP CS Fixer path 란에 위에서 복사한 경로 붙여넣기 후 오른쪽 Validate 체크
+
+### 3-4. Usage
 
 inline 방식
-
-```text
+```bash
 # php-cs-fixer option Rule로 변경
 fix --rules=@PSR2,@Symfony,no_unused_imports,indentation_type $FileDir$/$FileName$
 ```
 
-config file 방식
+{% hint style="info" %}
+위와 같이 터미널에 입력하는 형식으로 사용가능하지만 편의상 IDE에 등록후 각종 Rule을 config file로 작성한후 단축키를 이용하여 사용하길 권장
+{% endhint %}
 
+config file 방식
 ```text
 # config파일로 설정
 fix --config=.php_cs $FileDir$/$FileName$
 ```
+
+[.php_cs config file 다운로드](https://gist.github.com/smc0210/b107f968671012cb454ae01dbdd588d3)
 
 ## 4. xdebug
 
