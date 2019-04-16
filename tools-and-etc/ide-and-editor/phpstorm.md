@@ -126,11 +126,7 @@ Tool Settings 하단의 항목 작성
 >
 > `Working directory` : $ProjectFileDir$
 
-
-
-{% hint style="info" %}
-> `Arguments :` diff \(변경된점\), 혹은 dry-run \(실행하지 않고 어떻게 변경될지 알려줌\)등의 옵션을 추가해서 상황에 맞게 사용가능하다
-{% endhint %}
+`Arguments :` diff \(변경된점\), 혹은 dry-run \(실행하지 않고 어떻게 변경될지 알려줌\)등의 옵션을 추가해서 상황에 맞게 사용가능하다
 
 ![PHP CS Fixer config &#xCC38;&#xACE0;](../../.gitbook/assets/phpstorm_2.png)
 
