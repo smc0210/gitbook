@@ -79,7 +79,9 @@ $ which phpcs
 
 `Preferences` &gt; `Language & Frameworks` &gt; `PHP` &gt; `Quality tools` &gt; `Code Sniffer configuration` 클릭 팝업창이 뜨면 `PHP Code Sniffer path` 란에 위에서 복사한 경로 붙여넣기 후 오른쪽 Validate 체크
 
-`Preferences` &gt; `Editor` &gt; `Inspections` &gt; `PHP` &gt; `Quality tools` &gt; `PHP Code Sniffer validation` &gt; 우측 설정창의 `Coding standard PSR2`로 설정되어 있는지 확인
+`Preferences` &gt; `Editor` &gt; `Inspections` &gt; `PHP` &gt; `Quality tools` &gt; `PHP Code Sniffer validation` &gt; 우측 설정창의 `Coding standard` `PSR12`로 설정되어 있는지 확인
+
+`Serverity` 는 `ERROR`로 설정 ( Weak Warning 부터는 너무 많은 경고 출력되므로)
 
 ### 3.3 Cs-Fixer install
 
