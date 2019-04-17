@@ -1,5 +1,24 @@
 # Git Snippet
 
+순서상관없이 그냥 생각 안날때 참고할 커맨드 목록
+
+## 설정
+
+```bash
+# 설정된 내용 확인
+git config --list
+
+# 설정
+git config --global user.name "user"
+git config --global user.email "test@email.com"
+
+# 삭제
+git config --unset user.name
+
+# 글로벌 설정 삭제
+git config --unset --global user.name
+```
+
 ## 상태 변경
 
 ### 원격 저장소 URL 변경하기
@@ -21,4 +40,6 @@ $ git remote -v
 origin  https://github.com/user/repo2.git (fetch)
 origin  https://github.com/user/repo2.git (push)
 ```
+
+
 
