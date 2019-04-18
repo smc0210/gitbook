@@ -4,6 +4,8 @@ description: apt-get(Advanced Packaging Tool) Command
 
 # Apt
 
+## Basic Command
+
 `apt-get(Advanced Packaging Tool)`은 `Ubuntu`를 포함한 `Debian` 계열의 리눅스에서 쓰이는 패키지 관리 명령어 도구
 
 [yum 과 명령어 비교 사이트](https://help.ubuntu.com/community/SwitchingToUbuntu/FromLinux/RedHatEnterpriseLinuxAndFedora)
@@ -69,3 +71,18 @@ apt-file search
 apt를 이용해서 설치된 deb패키지는 `/var/cache/apt/archive/` 에 설치됨
 {% endhint %}
 
+
+## Issue
+
+### APT Could not get lock
+
+우분투에서 패키지 인덱스 정보를 업데이트 (`apt update`)하거나 설치(`apt install`)을 할때
+발생하는 에러로 보통 VPS( aws 제공인스턴스 혹은 lightsail 같은 서비스)를 사용하는 경우
+서비스에서 제공하여 설치해준 이미지에 세팅되어 있는경우에 발생한다.
+
+```bash
+sudo rm /var/lib/apt/lists/lock
+sudo rm /var/cache/apt/archives/lock
+sudo rm /var/lib/dpkg/lock
+dpkg --configure -a
+```
