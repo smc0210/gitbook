@@ -59,7 +59,7 @@ description: 'VPC, Subnet, Internet GateWays, NAT Gateways, Route Table,'
 
 `Name Tag`는 리스트에 노출되는 Tag명으로 일반적으로 기업 혹은 서비스 명을 따서 명명한다.
 
-> 예\) minda-vpc
+> 예\) wisdom-vpc
 
 `IPv4` 와 `IPv6`형식을 모두 지원하며 사이더\(CIDR\) 블록형태로 작성하며, `VPC CIDR`블록의 크기는 /16 에서 /28까지 가능하다 **\(IPv4 기준\)** `VPC`는 리전의 모든 가용영역에 적용되며, `VPC`생성 후 각 가용영역에 하나 이상의 서브넷을 추가 할 수 있다.
 
@@ -87,7 +87,7 @@ vpc 작성 예시
 
 `Name Tag`는 리스트에 노출되는 Tag명으로 일반적으로 서브넷 사용 용도와 가용영역을 결합하여 명명한다.
 
-> 예\) `minda-db-2a`, `minda-db-2c`
+> 예\) `wisdom-db-2a`, `wisdom-db-2c`
 
 먼저 생성한 `VPC`를 선택한 후 가용역역과 `CIDR`블록을 VPC에서 지정한 범위 내에서 지정해준다. `VPC`와 마찬가지로 `CIDR`블록의 크기는 /16에서 /28 까지 가능하다
 

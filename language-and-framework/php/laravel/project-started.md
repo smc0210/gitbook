@@ -29,7 +29,7 @@ docker load -i laravel.tar
 
 ```bash
 //docker run -it --name course -p 8000:80 -p 3308:3306 -v /c/Users/course:/usr/local/apache2/htdocs -v C:\Users\MCShin\.ssh:/home/course/.ssh centos7:laravel /bin/bash
-docker run -it --name course -p 8000:80 -p 3308:3306 -v D:\minda\course:/usr/local/apache2/htdocs -v C:\Users\MCShin\.ssh:/home/course/.ssh centos7:laravel /bin/bash
+docker run -it --name course -p 8000:80 -p 3308:3306 -v D:\wisdom\course:/usr/local/apache2/htdocs -v C:\Users\MCShin\.ssh:/home/course/.ssh centos7:laravel /bin/bash
 ```
 
 ### container exec
@@ -251,7 +251,7 @@ App\User::find(1)
 # ---------------
 
 # get() 메소드까지 써줘야 결과 반환
-App\User::where('login_id', 'minda')->get()
+App\User::where('login_id', 'wisdom')->get()
 App\User::where('id', 1)->get()
 
 App\User::orderBy('id', 'desc')->get()
@@ -260,22 +260,22 @@ App\User::orderBy('id', 'desc')->take(1)->get() //limit와 동일
 App\User::orderBy('id', 'desc')->offset(1)->limit(1)->get()
 
 #array 형식은 비권장 (AND)
-App\User::where(['login_id' => 'minda', 'password' => 1])->get()
+App\User::where(['login_id' => 'wisdom', 'password' => 1])->get()
 #권장 (AND)
-App\User::where('login_id', 'minda')->where('password', 1)->get()
+App\User::where('login_id', 'wisdom')->where('password', 1)->get()
 
 # (OR)
-App\User::where('login_id', 'minda')->orWhere('password', 2)->get()
+App\User::where('login_id', 'wisdom')->orWhere('password', 2)->get()
 
 # select
-App\User::where('login_id', 'minda')->select('password')->get()
-App\User::where('login_id', 'minda')->select('login_id', 'password')->get()
+App\User::where('login_id', 'wisdom')->select('password')->get()
+App\User::where('login_id', 'wisdom')->select('login_id', 'password')->get()
 
 # 콜렉션 all()이 아닌 바로 데이터 조회
-App\User::where('login_id', 'minda')->select('login_id', 'password')->first()
+App\User::where('login_id', 'wisdom')->select('login_id', 'password')->first()
 
 # like (두번째 파라미터는 operaate)
-App\User::where('login_id', 'like', 'minda%')->get()
+App\User::where('login_id', 'like', 'wisdom%')->get()
 ```
 
 {% hint style="info" %}
@@ -284,7 +284,7 @@ App\User::where('login_id', 'like', 'minda%')->get()
 
 ```php
 // Array
-$users = User::where('login_id', 'minda')
+$users = User::where('login_id', 'wisdom')
             ->select('login_id', 'password')
             ->get()
             ->toArray();
@@ -294,7 +294,7 @@ foreach ($users as $user) {
 }
 
 // Collection
-$users = User::where('login_id', 'minda')
+$users = User::where('login_id', 'wisdom')
             ->select('login_id', 'password')
             ->get();
 foreach ($users as $user) {
@@ -328,7 +328,7 @@ public function getCreatedAtAttribute($value)
 > User `Controller` `app/Http/Controller/UserController.php`
 
 ```php
-$users = User::where('login_id', 'minda1')
+$users = User::where('login_id', 'wisdom1')
             ->select('login_id', 'password', 'created_at')
             ->get();
 foreach ($users as $user) {
@@ -394,7 +394,7 @@ public function company()
 
 ```php
 $users = User::with('company')
-                    ->where('login_id', 'like', 'minda%')
+                    ->where('login_id', 'like', 'wisdom%')
                     ->select('id', 'login_id', 'password', 'company_id')
                     ->get();
 foreach ($users as $user) {
@@ -421,7 +421,7 @@ public $appends = [
 public function getHashAttribute()
 {
     //dd($value);
-    return 'minda_'.$this->password;
+    return 'wisdom_'.$this->password;
 }
 ```
 

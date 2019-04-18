@@ -27,7 +27,7 @@ description: 소스코드 및 DB 데이터 AWS 환경으로 이전
 
 편의상 `root` 계정으로 `~/.ssh`에 각 계정별\(개발자\) `ssh`키를 생성한 후 `Git` 원격저장소\(`Github`, `CodeCommit`등\) 에 등록해준다.
 
-`ssh`키를 생성할 경로는 `home/minda/.ssh` 가 아닌 `root`의 `~/.ssh` 루트로 설정해야 `ssh`등록이 가능하다.
+`ssh`키를 생성할 경로는 `home/{user}/.ssh` 가 아닌 `root`의 `~/.ssh` 루트로 설정해야 `ssh`등록이 가능하다.
 
 ```bash
 #root 계정으로 전환
@@ -61,9 +61,9 @@ github 저장소의 `Setting` -&gt; `Deploy keys` 에 등록해준다.
 > 기존에 테스트 용도로 생성되어 있는 `www`경로가 존재할 경우 삭제한 후 `git`저장소 `clone`시 폴더명을 `www`로 명시하여 진행한다.
 
 ```bash
-cd /home/minda
+cd /home/{user}
 rm -rf www #www 폴더가 존재할 경우만
-git clone git@github.com:theminda/minda-web.git www
+git clone git@github.com:{user}/sample-web.git www
 ```
 
 기본적으로 `master` 브랜치를 가져오지만 테스트 과정 상에서 별도의 `branch`로 작업을 할 경우는 `remote branch`를 갱신해준다.

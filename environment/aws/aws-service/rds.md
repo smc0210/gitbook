@@ -93,8 +93,8 @@ Aurora를 사용할게 아니라면 첫번째 항목은 무시하고 `Production
 
 \`
 
-* `DB instance identifier` : DB 인스턴스의 이름으로 같은 리전 안에서 중복될 수 없다.\( `minda-n2-1a`, `minda-v2-1a`\)
-* `Master Username`: DB 관리자 계정입니다. \(`minda`로 설정\)
+* `DB instance identifier` : DB 인스턴스의 이름으로 같은 리전 안에서 중복될 수 없다.\( `wisdom-n2-1a`, `wisdom-v2-1a`\)
+* `Master Username`: DB 관리자 계정입니다. \(`wisdom`로 설정\)
 
 ### Step 4. Configure advanced settings
 
@@ -102,7 +102,7 @@ Aurora를 사용할게 아니라면 첫번째 항목은 무시하고 `Production
 
 ### img6
 
-* `VPC` : VPC를 선택 \( `minda-vpc` \)
+* `VPC` : VPC를 선택 \( `wisdom-vpc` \)
 * `Subnet group` : `Default-VPC`이외의 VPC를 선택했을때만 선택 가능하며, 미리 생성해둔 `Subnet group`을 선택해 준다.
 * `Public accessibility` : DB를 외부 접근할 수 있게 해주는 옵션으로 **No**로 설정하면 VPC 내부에서만 접근 가능하며, **개발 단계/개발 DB에라도 해당 값은 반드시 No**로 선택해야 한다.
 * `Availability zone` : DB 인스턴스가 생성될 가용영역으로 서버와 같은 가용영역에 있어야 지연시간이 단축된다고 하지만 사실상 큰 차이는 없다\(같은 VPC 내에서라면\)

@@ -83,7 +83,7 @@ CloudFront 배포\(Distribution\)는 가장 기본적인 단위로 S3의 버킷�
   * `Use Only US and Europe`: 미국과 유럽의 에지 로케이션만 사용
   * `Use Only US, Europe and Asia`: 미국과 유럽, 아시아의 에지 로케이션만 사용
   * `Use All Edge Locations`: 모든 에지 로케이션을 사용 \(가장 비쌈\)
-* `Alternate Domain Names` : `Route53`에서 도메인 연결시 이 부분을 설정해야하고 도메인이 여러개일 경우 줄바꿈으로 구분하고 최대 10개까지 설정할 수 있다. \(예 : image.theminda.com\)
+* `Alternate Domain Names` : `Route53`에서 도메인 연결시 이 부분을 설정해야하고 도메인이 여러개일 경우 줄바꿈으로 구분하고 최대 10개까지 설정할 수 있다. \(예 : image.proejct.com\)
 * `SSL Certificate`: HTTPS 프로토콜을 사용하기 위한 인증서 설정으로, 별도의 구매한 SSL 인증서가 없다면 기본값 그대로 사용한다.
 * `Default Root Object` : 배포 도메인 최상위URL 접속시 기본적으로 보여질 파일 설정가능 \(예: index.html\)
 * `logging` : CloudFront 접속로그 설정으로 **off**로 설정한다.

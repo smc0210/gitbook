@@ -252,7 +252,7 @@ ELB\(Elastic Load Balancing\)는 부하분산과 고가용성을 제공하는 �
 
 ### img16
 
-* `Health Check` : EC2 인스턴스가 정상인지 판별하는 기능으로 원하는 값으로 설정할 수 있다 \(예 : HTTP 80 port 로 theminda.com/index.php 를 5분간격으로 확인\)
+* `Health Check` : EC2 인스턴스가 정상인지 판별하는 기능으로 원하는 값으로 설정할 수 있다 \(예 : HTTP 80 port 로 domain.com/index.php 를 5분간격으로 확인\)
 * `Connection Draining` : `Auto Scaling`과 연결했을 경우 사용자의 요청을을 처리중인 EC2 인스턴스를 바로 삭제하지 않도록 방지하는 기능 \(예: 사용자가 파일을 다운로드 하고 있을경우 다운로드가 완료될때까지 기다리고 그동안 새로운 커넥션은 받지 않는다.\)
 
 ### Create ELB
@@ -261,12 +261,12 @@ ELB\(Elastic Load Balancing\)는 부하분산과 고가용성을 제공하는 �
 
 ### img17
 
-* `Load Balancer name`: 로드 밸런서 이름\(예: minda-web-elb\)
+* `Load Balancer name`: 로드 밸런서 이름\(예: wisdom-web-elb\)
 * `Create LB Inside`: 로드 밸런서가 생성될 VPC. \(VPC를 선택하면 자동으로 해당하는 서브넷 목록들이 하단에 노출된다.\)
 * `Create an internal load balancer`: 인터넷에 연결되지 않은 내부 로드 밸런서로 생성하는 옵션으로 체크해제
 * `Enable advanced VPC configuration`: VPC에 속한 서브넷을 선택하는 옵션으로 VPC에 생성되어있는 subnet들이 있을경우 비활성화 된다.
 * `Listener Configuration`: 로드 밸런서가 처리할 프로토콜과 포트 번호
-* `Select subnets`: elb에서 사용할 서브넷을 선택한다. \(예: `minda-elb-2a`, `minda-elb-2c` \)
+* `Select subnets`: elb에서 사용할 서브넷을 선택한다. \(예: `wisdom-elb-2a`, `wisdom-elb-2c` \)
 
 #### Step 2: Assign Security Groups
 
@@ -315,7 +315,7 @@ Auto Scaling을 사용하기 위해서는 먼저 EC2 생성옵션 \(Launch Confi
 >
 > ```bash
 > # Auto Scaling으로 생성되는 서버들의 소스코드 동기화작업
-> cd /home/minda/www
+> cd /home/{user}/www
 > git pull
 > ```
 
@@ -329,15 +329,15 @@ Auto Scaling을 사용하기 위해서는 먼저 EC2 생성옵션 \(Launch Confi
 
 ### img21
 
-* `Group name`: Auto Scaling 그룹의 이름 \(예: asg-minda-web\)
+* `Group name`: Auto Scaling 그룹의 이름 \(예: asg-wisdom-web\)
 * `Group size`: 최초에 EC2 인스턴스를 생성할 개수
-* `Network`: Auto Scaling 그룹이 생성될 VPC를 선택 \(예: minda-vpc\)
-* `Subnet`: EC2 인스턴스가 생성될 서브넷설정. 빈 칸을 클릭하면 서브넷의 목록이 표시되며 웹서버에서 사용하는 서브넷을 선택해준다.\( 예: minda-web-2a, minda-web-2c\)
+* `Network`: Auto Scaling 그룹이 생성될 VPC를 선택 \(예: wisdom-vpc\)
+* `Subnet`: EC2 인스턴스가 생성될 서브넷설정. 빈 칸을 클릭하면 서브넷의 목록이 표시되며 웹서버에서 사용하는 서브넷을 선택해준다.\( 예: wisdom-web-2a, wisdom-web-2c\)
 
 > Advanced Details 클릭
 
 * `Load Balancing`: ELB 로드 밸런서를 사용하는 옵션. 
-* `Classic Load Balancers`: 위내용을 체크하면 활성창이 생성되고, 빈 칸을 클릭하면 현재 생성된 ELB 로드 밸런서의 목록이 표시된다. \(예: minda-web-elb\)
+* `Classic Load Balancers`: 위내용을 체크하면 활성창이 생성되고, 빈 칸을 클릭하면 현재 생성된 ELB 로드 밸런서의 목록이 표시된다. \(예: wisdom-web-elb\)
 * `Health Check Type` : Auto Scaling이 체크할 유형을 선택한다. \(EC2 선택\)
   * `ELB`: ELB 로드 밸런서에서 확인할 헬스체크 값을 사용 
   * `EC2`: Auto Scaling 그룹이 개별적으로 EC2 인스턴스의 헬스체크를 실행

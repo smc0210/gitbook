@@ -36,7 +36,7 @@ AWS 리소스와 연동가능한 DNS 서비스로, 일반적인 DNS 서비스와
 
 ### img4
 
-* `CloudFront`, `S3`와 연동할때 `Zone Apex`\(예: www.theminda.com 대신 theminda.com\)를 지원하는데 일반적인 DNS는 CNAME으로 연결할때 루트 도메인\(theminda.com\)을 사용할 수 없다.
+* `CloudFront`, `S3`와 연동할때 `Zone Apex`\(예: www.domain.com 대신 domain.com\)를 지원하는데 일반적인 DNS는 CNAME으로 연결할때 루트 도메인\(domain.com\)을 사용할 수 없다.
 
 > **Zone Apex ?** 루트 도메인, 네이키드 도메인\(Naked Domain\)이라고도 하며, 이름 그대로 서브 도메인이 붙지 않은 상태를 뜻한다. [DNS RFC\(RFC 1033\)](https://www.ietf.org/rfc/rfc1033.txt)에 루트 도메인은 A 레코드만 지정할 수 있다고 정의되어 있다.
 
@@ -62,7 +62,7 @@ Hosted zone을 생성하면 `NS(name server)` 와 `SOA(Start of authority)`가 �
 
 ### Create Record Set
 
-* Name: 생성할 서브 도메인 이름 \(예 : staging.theminda.com, dev.theminda.com \)
+* Name: 생성할 서브 도메인 이름 \(예 : staging.domain.com, dev.domain.com \)
 * Type: 레코드 종류\( A레코드, CNAME 등등..\)
 * Alias: A 레코드만 사용할 수 있는 기능으로 IP 주소 대신 AWS 리소스인 S3, CloudFront, ELB를 설정할 수 있다
 * TTL: Time To Live의 약자이며 A 레코드가 갱신되는 주기로 초 단위로 설정. 이후 A 레코드의 IP 주소를 바꾸면 TTL에 설정한 시간이 지나야 적용된다.

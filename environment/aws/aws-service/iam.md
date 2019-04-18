@@ -32,7 +32,7 @@ AWS의 모든 리소스에 대한 액세스를 안전하게 제어할 수 있는
 
 ### img1
 
-`root`계정의 경우 메일주소를 입력하고, `IAM`사용자의 경우 자동할당된 숫자로 된 `id`를 입력하여 로그인한다. \(현재 민다의 경우 숫자를 minda로 alias 설정해놔서 id란에 minda 라고 입력시 로그인된다.\)
+`root`계정의 경우 메일주소를 입력하고, `IAM`사용자의 경우 자동할당된 숫자로 된 `id`를 입력하여 로그인한다. \(숫자로 생성되는 아이디를 wisdom으로 alias 설정해놔서 id란에 wisdom 이라고 입력시 로그인된다.\)
 
 ### img2
 
@@ -145,8 +145,8 @@ AWS 뿐만 아니라 정보보안 개론에서 중요한 개념중 하나인 **�
             "Effect": "Allow",    
             "Action": "s3:*",            // 모든 S3 액션에 대해 (CRUD)
             "Resource": [
-                "arn:aws:s3:::minda-ec2-log/*",    // minda-ec2-log 버킷과
-                "arn:aws:s3:::mindaelblog/*"    // mindaelblog 버킷의 모든 파일에 대한
+                "arn:aws:s3:::wisdom-ec2-log/*",    // wisdom-ec2-log 버킷과
+                "arn:aws:s3:::wisdomelblog/*"    // wisdomelblog 버킷의 모든 파일에 대한
             ]
         },
         {
