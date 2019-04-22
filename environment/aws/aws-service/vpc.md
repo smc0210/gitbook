@@ -55,7 +55,7 @@ description: 'VPC, Subnet, Internet GateWays, NAT Gateways, Route Table,'
 
 > `Code*`시리즈나 `Cloud9`등의 몇몇 서비스 구성시 `default-vpc`가 없을 경우 절차가 한 단계 더 생기는 경우가 있어서 기존 vpc는 지우지 않는다.
 
-### img1
+![](../../../.gitbook/assets/vpc_1.png)
 
 `Name Tag`는 리스트에 노출되는 Tag명으로 일반적으로 기업 혹은 서비스 명을 따서 명명한다.
 
@@ -75,7 +75,7 @@ description: 'VPC, Subnet, Internet GateWays, NAT Gateways, Route Table,'
 
 vpc 작성 예시
 
-### img2
+![](../../../.gitbook/assets/vpc_2.png)
 
 ## 2. Subnets
 
@@ -83,7 +83,7 @@ vpc 작성 예시
 
 ### 2-1. Subnets Create
 
-### img3
+![](../../../.gitbook/assets/vpc_3.png)
 
 `Name Tag`는 리스트에 노출되는 Tag명으로 일반적으로 서브넷 사용 용도와 가용영역을 결합하여 명명한다.
 
@@ -101,7 +101,7 @@ vpc 작성 예시
 
 ### 2-3. Subnet list
 
-### img4
+![](../../../.gitbook/assets/vpc_4.png)
 
 ## 3. Internet Gateways
 
@@ -110,14 +110,14 @@ vpc 작성 예시
 `Internet Gateway` 생성은 단순히 Name Tag만 작성해주는걸로 끝나며, 이렇게 생성시 연결이 안되어 있으므로 `VPC`와 `Attach`해줘야 한다.
 
 > detached 상태
->
-> ### img5
+
+![](../../../.gitbook/assets/vpc_5.png)
 
 상단 **Action** 버튼을 누른 후 **Attach to VPC**를 선택해서 `VPC`를 연결해준다
 
 > attached 상태
->
-> ### img6
+
+![](../../../.gitbook/assets/vpc_6.png)
 
 ## 4. NAT Gateways
 
@@ -141,11 +141,11 @@ vpc 작성 예시
 
 public 용으로 미리 구성해 놓은 `subnet`을 선택하고 `Elatic IP`주소를 할당한다. 미리 만들어 놓은 `Elatic IP`가 없을 경우 이 화면에서 Creat New EIP 버튼을 눌러서 바로 생성후 연결 할 수도 있다.
 
-### img7
+![](../../../.gitbook/assets/vpc_7.png)
 
 > `NAT Gateway`
 
-### img8
+![](../../../.gitbook/assets/vpc_8.png)
 
 ## 5. Route Tables
 
@@ -159,7 +159,7 @@ public 용으로 미리 구성해 놓은 `subnet`을 선택하고 `Elatic IP`주
 
 보통 public, private 를 구별할 수 있도록 명명한다.
 
-### img9
+![](../../../.gitbook/assets/vpc_9.png)
 
 ### 5-2. Routes
 
@@ -172,11 +172,11 @@ public 용으로 미리 구성해 놓은 `subnet`을 선택하고 `Elatic IP`주
 
 > public route table 의 routes
 
-### img10
+![](../../../.gitbook/assets/vpc_10.png)
 
 > private route table 의 routes
 
-### img11
+![](../../../.gitbook/assets/vpc_11.png)
 
 ### 5-3. Subnet Associations
 
@@ -186,9 +186,9 @@ Subnet을 route table에 연결해준다. 실제로 subnet만 생성해서는 �
 
 > public route table Associations
 
-### img12
+![](../../../.gitbook/assets/vpc_12.png)
 
 > private route table Associations
 
-### img13
+![](../../../.gitbook/assets/vpc_13.png)
 

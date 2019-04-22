@@ -41,5 +41,3 @@ origin  https://github.com/user/repo2.git (fetch)
 origin  https://github.com/user/repo2.git (push)
 ```
 
-
-

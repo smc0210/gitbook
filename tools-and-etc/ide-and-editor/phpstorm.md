@@ -81,7 +81,7 @@ $ which phpcs
 
 `Preferences` &gt; `Editor` &gt; `Inspections` &gt; `PHP` &gt; `Quality tools` &gt; `PHP Code Sniffer validation` &gt; 우측 설정창의 `Coding standard` `PSR12`로 설정되어 있는지 확인
 
-`Serverity` 는 `ERROR`로 설정 ( Weak Warning 부터는 너무 많은 경고 출력되므로)
+`Serverity` 는 `ERROR`로 설정 \( Weak Warning 부터는 너무 많은 경고 출력되므로\)
 
 ### 3.3 Cs-Fixer install
 
@@ -120,9 +120,9 @@ IDE에 등록하여 사용하는 방식
 
 Tool Settings 하단의 항목 작성
 
-> `Program` : php-cs-fixer 경로 지정 \(터미널에서 which php-cs-fixer\) 
+> `Program` : php-cs-fixer 경로 지정 \(터미널에서 which php-cs-fixer\)
 >
-> `Arguments` : fix --verbose --config={설정파일경로}/.php\_cs $FileDir$/$FileName$ 
+> `Arguments` : fix --verbose --config={설정파일경로}/.php\_cs $FileDir$/$FileName$
 >
 > `Working directory` : $ProjectFileDir$
 
@@ -134,13 +134,13 @@ Tool Settings 하단의 항목 작성
 `Advanced Options`의 `Open console for tool output`을 체크 해제 하지 않으면 매번 cs-fixer를 실행할때마다 output 창이 열려서 불편하므로 보통은 체크해제 후 사용하지만 fixer가 정상적으로 작동하지 않아 에러메시지를 보고 싶을경우 체크 후 확인하는 용도로 사용한
 {% endhint %}
 
-`Arguments` 예시 
+`Arguments` 예시
 
 ![fixer arguments ](../../.gitbook/assets/phpstorm_3.png)
 
 `Preferences` &gt; `Keymap` &gt; `PHP CS Fixer` 에 원하는 단축키 지정 후 사용
 
-예\) `Command` + `B` 사용 
+예\) `Command` + `B` 사용
 
 [.php\_cs config file 다운로드](https://gist.github.com/smc0210/b107f968671012cb454ae01dbdd588d3)
 

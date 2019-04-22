@@ -24,7 +24,6 @@ brew install wget
 
 권한문제로 link 설정 안될 경우 아래와 같이 재설치
 
-
 ```bash
 # Output your installed packages (via brew) to a text file:
 brew list > brewlist.txt
