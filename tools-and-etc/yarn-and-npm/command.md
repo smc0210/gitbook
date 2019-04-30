@@ -18,46 +18,74 @@ npm -i
 ### Basic Command
 
 project init
+
 ```bash
 yarn init
 ```
+
 package install
+
 ```bash
 yarn add [package]
 yarn add [package]@[version]
 yarn add [package]@tag
 ```
+
 Adding a dependency to different categories of dependencies
-```bash 
+
+```bash
 yarn add [package] --dev
 yarn add [package] --peer
 yarn add [package] --optional
 ```
 
 Upgrading a dependency
-```bash 
+
+```bash
 yarn upgrade [package]
 yarn upgrade [package]@[version]
 yarn upgrade [package]@[tag]
 ```
 
 Removing a dependency
+
 ```bash
 yarn remove [package]
 ```
 
-Installing all the dependencies of project (npm과 동일하게 package.json 사용)
+Installing all the dependencies of project \(npm과 동일하게 package.json 사용\)
+
 ```bash
 yarn
 ```
+
 or
+
 ```bash
 yarn install
 ```
 
-### CLI 
+### CLI
 
-`yarn run`
-`package.json` 파일에 있는 `scripts` 영역에 정의 되어있는 커맨드 실행
+`yarn run` `package.json` 파일에 있는 `scripts` 영역에 정의 되어있는 커맨드 실행
 
+{% code-tabs %}
+{% code-tabs-item title="package.json" %}
+```javascript
+{
+  "name": "my-package",
+  "scripts": {
+    "build": "babel src -d lib",
+    "test": "jest"
+  }
+}
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+```bash
+yarn run test
+
+yarn run test -o --watch
+```
 
