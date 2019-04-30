@@ -11,6 +11,9 @@ brew install yarn
 
 # Node.js를 제외한 설치 (NVM 같은 버전관리툴 사용시)
 brew install yarn --without-node
+
+# upgrade
+brew upgrade yarn
 ```
 
 ### 1-2. Windows Install
