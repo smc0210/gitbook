@@ -7,6 +7,7 @@
 * [Javascript](language-and-framework/javascript/README.md)
   * [Node.js](language-and-framework/javascript/nodejs.md)
   * [Typescript](language-and-framework/javascript/typescript/README.md)
+    * [Configuration](language-and-framework/javascript/typescript/configuration.md)
     * [Intro & Basic](language-and-framework/javascript/typescript/intro-and-basic.md)
   * [React](language-and-framework/javascript/react/README.md)
     * [React Native](language-and-framework/javascript/react/react-native.md)
