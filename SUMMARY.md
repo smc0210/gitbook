@@ -25,6 +25,7 @@
     * [Get Started](language-and-framework/php/laravel/get-started.md)
     * [Snippet](language-and-framework/php/laravel/snippet.md)
     * [Project Started](language-and-framework/php/laravel/project-started.md)
+    * [Eloquent](language-and-framework/php/laravel/eloquent.md)
     * [API Test Page](language-and-framework/php/laravel/api-test-page.md)
   * [CodeIgniter](language-and-framework/php/codeigniter/README.md)
     * [Get Started](language-and-framework/php/codeigniter/get-started.md)
