@@ -66,285 +66,129 @@ rm -rf www #www 폴더가 존재할 경우만
 git clone git@github.com:{user}/sample-web.git www
 ```
 
-```bash
-cd /home/{user}
-rm -rf www #www 폴더가 존재할 경우만
-git clone git@github.com:{user}/sample-web.git www
-```
+기본적으로 `master` 브랜치를 가져오지만 테스트 과정 상에서 별도의 `branch`로 작업을 할 경우는 `remote branch`를 갱신해준다.
 
 ```bash
-cd /home/{user}
-rm -rf www #www 폴더가 존재할 경우만
-git clone git@github.com:{user}/sample-web.git www
+git remote update
 ```
 
-```bash
-cd /home/{user}
-rm -rf www #www 폴더가 존재할 경우만
-git clone git@github.com:{user}/sample-web.git www
-```
+원하는 `branch`로 `checkout`옵션을 `-t`로 하여 로컬 작업트리를 생성함과 동시에 리모트 작업트리를 변경해준 후 소스를 다시 가져온다
 
 ```bash
-cd /home/{user}
-rm -rf www #www 폴더가 존재할 경우만
-git clone git@github.com:{user}/sample-web.git www
+git checkout -t origin/develop
+git pull
 ```
 
-```bash
-cd /home/{user}
-rm -rf www #www 폴더가 존재할 경우만
-git clone git@github.com:{user}/sample-web.git www
-```
+## 2. DB 데이터 이관
+
+기본적인 사항은 AWS 공식 메뉴얼을 참조 [MariaDB 인스턴스로 데이터 가져오기 AWS 메뉴얼](https://docs.aws.amazon.com/ko_kr/AmazonRDS/latest/UserGuide/MariaDB.Procedural.Importing.html)
+
+진행순서는 다음과 같다. 1. 온프레미스환경 DB에서 dump 2. dump된 파일의 용량에 따라 압축 3. 파일을 로컬로 다운로드 -&gt; EC2로 업로드 \(SFTP 사용\) 4. RDS 인스턴스에서 이관
+
+### 2-1. 기존 DB에서 RDS로 데이터 이관
+
+DB 덤프 \(cli에서 하던 workbench 같은 툴로 하던 아무거나\)
 
 ```bash
-cd /home/{user}
-rm -rf www #www 폴더가 존재할 경우만
-git clone git@github.com:{user}/sample-web.git www
+mysqldump -u db_user -p --databases db_name --single-transaction --compress --order-by-primary > origin_dump.sql
 ```
 
-```bash
-cd /home/{user}
-rm -rf www #www 폴더가 존재할 경우만
-git clone git@github.com:{user}/sample-web.git www
-```
+용량에 따라서 압축
 
 ```bash
-cd /home/{user}
-rm -rf www #www 폴더가 존재할 경우만
-git clone git@github.com:{user}/sample-web.git www
+tar -zcvf origin_dump.tar.gz origin_dump.sql
 ```
 
-```bash
-cd /home/{user}
-rm -rf www #www 폴더가 존재할 경우만
-git clone git@github.com:{user}/sample-web.git www
-```
+`filezilla` 같은 툴을 통해 `SFTP`로 EC2에 접속하여 덤프파일을 업로드 해준다 이때 S3에서 가져오는 방법등 다양한 방법이 있으나 일단은 테스트 용이므로 직접 업로드
+
+EC2로 업로드 되면 압축해제
 
 ```bash
-cd /home/{user}
-rm -rf www #www 폴더가 존재할 경우만
-git clone git@github.com:{user}/sample-web.git www
+tar -zxvf origin_dump.tar.gz origin_dump.sql
 ```
 
-```bash
-cd /home/{user}
-rm -rf www #www 폴더가 존재할 경우만
-git clone git@github.com:{user}/sample-web.git www
-```
+EC2에서 RDS mysql 접속
 
 ```bash
-cd /home/{user}
-rm -rf www #www 폴더가 존재할 경우만
-git clone git@github.com:{user}/sample-web.git www
+mysql -h <rds.endpoint> -P 3306 -u <db_master_user> -p
 ```
 
-```bash
-cd /home/{user}
-rm -rf www #www 폴더가 존재할 경우만
-git clone git@github.com:{user}/sample-web.git www
-```
+> rds의 endpoint는 AWS manage console의 RDS -&gt; instance -&gt; 인스턴스 set detail 로 접근 후 스크롤을 조금만 내리면 Connect 부분에 Endpoint가 있다
+
+이관 시작
 
 ```bash
-cd /home/{user}
-rm -rf www #www 폴더가 존재할 경우만
-git clone git@github.com:{user}/sample-web.git www
+source path/origin_dump.sql
 ```
 
-```bash
-cd /home/{user}
-rm -rf www #www 폴더가 존재할 경우만
-git clone git@github.com:{user}/sample-web.git www
-```
+RDS와 커넥트가 안될경우 하기 관련 패키지 설치여부를 점검해본다
 
 ```bash
-cd /home/{user}
-rm -rf www #www 폴더가 존재할 경우만
-git clone git@github.com:{user}/sample-web.git www
+mysql55-devel
+mysql-devel
 ```
 
-```bash
-cd /home/{user}
-rm -rf www #www 폴더가 존재할 경우만
-git clone git@github.com:{user}/sample-web.git www
+### 2-2. RDS 옵션
+
+RDS 커넥션을 확인해본 후 정상적으로 된다면 `character`관련 설정을 확인해본다
+
+```sql
+show variables like 'c%'
 ```
 
-```bash
-cd /home/{user}
-rm -rf www #www 폴더가 존재할 경우만
-git clone git@github.com:{user}/sample-web.git www
+기존 온프레미스 환경에서 설치한 `Databse`와 달리 RDS는 비관리형 데이터베이스 이므로 언어셋 설정등이 조금 다르다
+
+`/etc/my.cnf`파일등에서 설정하는것이 아닌 `Aws Management Console` 에서 설정을 해준다.
+
+![AWS management console &amp;gt; RDS](../../../.gitbook/assets/migrations_4.png)
+
+상기 이미지를 참고하여 현재 RDS에서 사용하고 있는 `Parameter groups`를 선택한다.
+
+> 현재 사용하고 있는 `Parameter groups`는 `RDS instance`의 상세 페이지에서도 접근 가능하다.
+
+![](../../../.gitbook/assets/migrations_5.png)
+
+상단 검색창에서 옵션값 필터링이 가능하며 캐릭터셋 관련 설정들을 맞게 바꿔준 후 `Save Changes`를 해준다.
+
+그 후 다시 `instances`메뉴로 가서 상태값이 `available`로 변경되길 기다린 후 확인해본다
+
+![](../../../.gitbook/assets/migrations_6.png)
+
+> `filesystem`등은 확인 필요..
+
+`Parameter Grouups`를 변경해도 `character_set_database`와 `collation_database`는 변경되지 않으므로
+
+해당 내용은 RDS 쿼리로 해결한다.
+
+```sql
+ALTER DATABASE v2 CHARACTER SET = ‘utf8’ COLLATE = ‘utf8_general_ci’;
 ```
 
-```bash
-cd /home/{user}
-rm -rf www #www 폴더가 존재할 경우만
-git clone git@github.com:{user}/sample-web.git www
+잘 적용되었는지 `workbench`등의 툴로 확인해본다
+
+![MySQL workbench Tool](../../../.gitbook/assets/migrations_7.png)
+
+### 2-3. 기존 DB에서 function 이관
+
+기존 `function`을 새로운 `RDS`에서 쿼리문으로 생성하려고 하면 `DECLARE`에서 문법 오류가 난다. RDS 서버에 접속하여 하기 변수의 값을 확인해 본다.
+
+```sql
+show global variables like 'log_bin_trust_function_creators'
 ```
 
-```bash
-cd /home/{user}
-rm -rf www #www 폴더가 존재할 경우만
-git clone git@github.com:{user}/sample-web.git www
-```
+![](../../../.gitbook/assets/migrations_8.png)
 
-```bash
-cd /home/{user}
-rm -rf www #www 폴더가 존재할 경우만
-git clone git@github.com:{user}/sample-web.git www
-```
+상기 이미지와 같이 `OFF`로 되어있다면 `Aws Managemnet Console`의 `Parameter Groups`에서 해당 설정값을 `1`로 변경후 `Save Changes`를 눌러 적용시킨다.
 
-```bash
-cd /home/{user}
-rm -rf www #www 폴더가 존재할 경우만
-git clone git@github.com:{user}/sample-web.git www
-```
+이때 주의할 점은 함수 생성 시작과 끝의 쿼리문에 반드시 `DELIMITER`를 붙여줘야 에러가 나지 않는다
 
-```bash
-cd /home/{user}
-rm -rf www #www 폴더가 존재할 경우만
-git clone git@github.com:{user}/sample-web.git www
-```
-
-```bash
-cd /home/{user}
-rm -rf www #www 폴더가 존재할 경우만
-git clone git@github.com:{user}/sample-web.git www
-```
-
-```bash
-cd /home/{user}
-rm -rf www #www 폴더가 존재할 경우만
-git clone git@github.com:{user}/sample-web.git www
-```
-
-```bash
-cd /home/{user}
-rm -rf www #www 폴더가 존재할 경우만
-git clone git@github.com:{user}/sample-web.git www
-```
-
-```bash
-cd /home/{user}
-rm -rf www #www 폴더가 존재할 경우만
-git clone git@github.com:{user}/sample-web.git www
-```
-
-```bash
-cd /home/{user}
-rm -rf www #www 폴더가 존재할 경우만
-git clone git@github.com:{user}/sample-web.git www
-```
-
-```bash
-cd /home/{user}
-rm -rf www #www 폴더가 존재할 경우만
-git clone git@github.com:{user}/sample-web.git www
-```
-
-```bash
-cd /home/{user}
-rm -rf www #www 폴더가 존재할 경우만
-git clone git@github.com:{user}/sample-web.git www
-```
-
-```bash
-cd /home/{user}
-rm -rf www #www 폴더가 존재할 경우만
-git clone git@github.com:{user}/sample-web.git www
-```
-
-```bash
-cd /home/{user}
-rm -rf www #www 폴더가 존재할 경우만
-git clone git@github.com:{user}/sample-web.git www
-```
-
-```bash
-cd /home/{user}
-rm -rf www #www 폴더가 존재할 경우만
-git clone git@github.com:{user}/sample-web.git www
-```
-
-```bash
-cd /home/{user}
-rm -rf www #www 폴더가 존재할 경우만
-git clone git@github.com:{user}/sample-web.git www
-```
-
-```bash
-cd /home/{user}
-rm -rf www #www 폴더가 존재할 경우만
-git clone git@github.com:{user}/sample-web.git www
-```
-
-```bash
-cd /home/{user}
-rm -rf www #www 폴더가 존재할 경우만
-git clone git@github.com:{user}/sample-web.git www
-```
-
-```bash
-cd /home/{user}
-rm -rf www #www 폴더가 존재할 경우만
-git clone git@github.com:{user}/sample-web.git www
-```
-
-```bash
-cd /home/{user}
-rm -rf www #www 폴더가 존재할 경우만
-git clone git@github.com:{user}/sample-web.git www
-```
-
-```bash
-cd /home/{user}
-rm -rf www #www 폴더가 존재할 경우만
-git clone git@github.com:{user}/sample-web.git www
-```
-
-```bash
-cd /home/{user}
-rm -rf www #www 폴더가 존재할 경우만
-git clone git@github.com:{user}/sample-web.git www
-```
-
-```bash
-cd /home/{user}
-rm -rf www #www 폴더가 존재할 경우만
-git clone git@github.com:{user}/sample-web.git www
-```
-
-```bash
-cd /home/{user}
-rm -rf www #www 폴더가 존재할 경우만
-git clone git@github.com:{user}/sample-web.git www
-```
-
-```bash
-cd /home/{user}
-rm -rf www #www 폴더가 존재할 경우만
-git clone git@github.com:{user}/sample-web.git www
-```
-
-```bash
-cd /home/{user}
-rm -rf www #www 폴더가 존재할 경우만
-git clone git@github.com:{user}/sample-web.git www
-```
-
-```bash
-cd /home/{user}
-rm -rf www #www 폴더가 존재할 경우만
-git clone git@github.com:{user}/sample-web.git www
-```
-
-```bash
-cd /home/{user}
-rm -rf www #www 폴더가 존재할 경우만
-git clone git@github.com:{user}/sample-web.git www
-```
-
-```bash
-cd /home/{user}
-rm -rf www #www 폴더가 존재할 경우만
-git clone git@github.com:{user}/sample-web.git www
+```sql
+DELIMITER $$
+CREATE FUNCTION ....
+    BEGIN ...
+        (생략)
+    RETURN ...
+END$$
+DELIMITER ;
 ```
 
