@@ -83,10 +83,14 @@ docker run --name hello-nginx -d -p 8000:80 -v /Users/wiz/Desktop/dev/docker/doc
 
 위와 같이 실행했을 경우 `localhost:8000` 접속시 **Welcome to nginx!** 페이지가 정상적으로 떠야 한다.
 
+## Container logs
+
+
+
 
 ## docker command
 
-### 컨테이너에서 호스트로 파일 복사하기
+### `docker cp` 컨테이너에서 호스트로 파일 복사하기
 
 `docker cp {container name}:{container path} {host path}`
 
@@ -96,7 +100,7 @@ docker run --name hello-nginx -d -p 8000:80 -v /Users/wiz/Desktop/dev/docker/doc
 docker cp hello-nginx:/etc/nginx/nginx.conf ./
 ```
 
-### 컨테이너 상세 정보 조회
+### `docker inspect` 컨테이너 상세 정보 조회
 
 `docker inspect {image or container name}`
 
@@ -104,3 +108,25 @@ docker cp hello-nginx:/etc/nginx/nginx.conf ./
 docker inspect hello-nginx
 ```
 
+### 한번에 중지된 컨테이너 일괄 삭제
+
+컨테이너 혹은 이미지를 지우려면 보통 아래의 과정으로 진행한다
+
+```bash
+# container id 확인
+docker ps -a
+
+# 여러개의 컨테이너를 삭제할 수 있지만 갯수가 많다면????
+docker rm ${container_id1} ${container_id2}
+
+# image id 확인
+docker images
+
+docker rmi ${image_id1} ${image_id2}
+```
+
+컨테이너 아이디를 하나하나 확인 해서 지우기 귀찮을경우 아래 커맨드로 중지된 컨테이너를 한번에 지울수 있다.
+
+```bash
+docker rm -v $(docker ps -a -q -f status=exited)
+```
