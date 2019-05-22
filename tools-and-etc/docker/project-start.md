@@ -48,8 +48,7 @@ EXPOSE 80 443
 
 ## Build Image & run
 
-`Dockerfile`기반으로 도커 이미지를 생성
-하나의 이미지로 여러개의 컨테이너를 생성가능하고 이미지 없이 `docker run {container}` 를 실행할 경우 해당 컨테이너가 존재한다면 docker hub에서 다운받아서 실행도 가능
+`Dockerfile`기반으로 도커 이미지를 생성 하나의 이미지로 여러개의 컨테이너를 생성가능하고 이미지 없이 `docker run {container}` 를 실행할 경우 해당 컨테이너가 존재한다면 docker hub에서 다운받아서 실행도 가능
 
 ```bash
 # tag를 입력하지 않으면 태그는 자동으로 latest로 입력됨
@@ -75,18 +74,15 @@ docker run --name hello-nginx -d -p 8000:80 -v /Users/wiz/Desktop/dev/docker/doc
 | `-e` | 컨테이너 내에서 사용할 환경변수 설정 |
 | `--name` | 컨테이너 이름 설정 |
 | `--rm` | 프로세스 종료시 컨테이너 자동 제거 |
-| `-i` `-t` 줄여서  `-it`  | 터미널 입력을 위한 옵션 |
+| `-i` `-t` 줄여서  `-it` | 터미널 입력을 위한 옵션 |
 
-**그외 옵션은 `docker run --help`로 확인 가능**
+**그외 옵션은** `docker run --help`**로 확인 가능**
 
 > 이때 주의할점은 볼륨 공유는 아무곳이나 가능하지 않고 `docker sharing` 에 설정되어있는 경로만 가능하다 윈도우는 공유 드라이브를 설정하면 되고 Mac은 `preference` &gt; `File sharing` 에서 미리 정의되어있는 공유 패스를 확인 가능하고 추가도 가능하다.
 
 위와 같이 실행했을 경우 `localhost:8000` 접속시 **Welcome to nginx!** 페이지가 정상적으로 떠야 한다.
 
 ## Container logs
-
-
-
 
 ## docker command
 
@@ -130,3 +126,4 @@ docker rmi ${image_id1} ${image_id2}
 ```bash
 docker rm -v $(docker ps -a -q -f status=exited)
 ```
+
