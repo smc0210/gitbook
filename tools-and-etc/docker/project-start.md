@@ -4,7 +4,7 @@ description: dockerFile 직접 작성및 Image 파일 만들고 공유하는 프
 
 # Project Start
 
-## Dockerfile
+## Dockerfile 작성
 
 각OS에 맞게 docker 설치후 진행
 
@@ -14,9 +14,9 @@ Boot2Docker는 deprecated 됬으니 docker for mac, docker for windows 설치후
 
 참고로 도커는 리눅스 컨테이너이므로 실제로 가상머신에 설치가 되는데, `docker for mac`은 `xhyve`라는 macOS에서 제공하는 가상환경을 사용하고 `docker for windows`는 `Hyper-V`라는 기술을 이용하는데 `Hyper-V`는 professional 이상부터 제공한다 \( Home버전은 안됨!\)
 
-그래서 docker for..시리즈를 사용하지 못하는경우 \(최신 OS가 아닌경우\) Docker machine을 이용해서 사용 가능하기는하나... 문제가 문제가 문제가..문제가..문제가..환경이 환경이...compose는?? compose 나의 compose...
+그래서 docker for..시리즈를 사용하지 못하는경우 \(최신 OS가 아닌경우\) Docker machine을 이용해서 사용 가능하기는하나... 문제가 문제가 문제가..문제가..문제가..환경이 환경이...compose는?? compose 없이 어떻게 빌드 compose... 옵션 너무 많아 못외움
 
-`docker image`를 빌드하기 위한 `Dockerfile` 작성
+`docker image`를 빌드하기 위한 Sample `Dockerfile` 작성
 
 ```bash
 # 기존에 존재하는 이미지를 베이스로 작업 대게는 이미 official image들이 존재한다
@@ -48,7 +48,9 @@ EXPOSE 80 443
 
 ## Build Image & run
 
-`Dockerfile`기반으로 도커 이미지를 생성 하나의 이미지로 여러개의 컨테이너를 생성가능하고 이미지 없이 `docker run {container}` 를 실행할 경우 해당 컨테이너가 존재한다면 docker hub에서 다운받아서 실행도 가능
+`build` 명령어로 `Dockerfile`기반으로 도커 이미지를 생성한다, 
+이때 하나의 이미지로 여러개의 컨테이너를 생성가능하다.
+이미지 없이 `docker run {container}` 를 실행할 경우 해당 컨테이너가 존재한다면 docker hub에서 다운받아서 실행도 가능
 
 ```bash
 # tag를 입력하지 않으면 태그는 자동으로 latest로 입력됨
@@ -82,48 +84,46 @@ docker run --name hello-nginx -d -p 8000:80 -v /Users/wiz/Desktop/dev/docker/doc
 
 위와 같이 실행했을 경우 `localhost:8000` 접속시 **Welcome to nginx!** 페이지가 정상적으로 떠야 한다.
 
-## Container logs
 
-## docker command
+## docker compose
 
-### `docker cp` 컨테이너에서 호스트로 파일 복사하기
+운영환경에서는 볼륨공유도 필수적이고 그외 여러가지 옵션이 많다보니 단순히 CLI 환경으로 사용하기엔
+무리가 있다.
 
-`docker cp {container name}:{container path} {host path}`
+이를 위해 복잡한 설정 관리를 위해 `YAML` 방식의 설정파일을 이용한 `docker compose`라는 툴이 있다.
 
-이때 컨테이너 이름은 이미지 이름이 아닌 `run` 명령어 실행시 `--name`옵션으로 준 이름을 말한다.
-
-```bash
-docker cp hello-nginx:/etc/nginx/nginx.conf ./
-```
-
-### `docker inspect` 컨테이너 상세 정보 조회
-
-`docker inspect {image or container name}`
-
-```text
-docker inspect hello-nginx
-```
-
-### 한번에 중지된 컨테이너 일괄 삭제
-
-컨테이너 혹은 이미지를 지우려면 보통 아래의 과정으로 진행한다
+> docker for mac, docker for windows 는 기본으로 같이 설치되지만 리눅스 환경에서는 별도로 설치가 필요하다
 
 ```bash
-# container id 확인
-docker ps -a
+curl -L "https://github.com/docker/compose/releases/download/1.9.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+chmod +x /usr/local/bin/docker-compose
 
-# 여러개의 컨테이너를 삭제할 수 있지만 갯수가 많다면????
-docker rm ${container_id1} ${container_id2}
-
-# image id 확인
-docker images
-
-docker rmi ${image_id1} ${image_id2}
+# test
+docker-compose version
 ```
 
-컨테이너 아이디를 하나하나 확인 해서 지우기 귀찮을경우 아래 커맨드로 중지된 컨테이너를 한번에 지울수 있다.
+아래 Sample `docker-compose.yml` 파일처럼 각종 설정등을 정의해주고 `docker-compose up`이라는 명령어만 실행하면 여러가지의 컨테이너와 그에 맞는 설정들로 컨테이너가 손쉬게 생성된다.
 
-```bash
-docker rm -v $(docker ps -a -q -f status=exited)
+```yml
+version: '3'
+
+services:
+	nginx:
+      build:
+        context: ./nginx
+        args:
+          - PHP_UPSTREAM_CONTAINER=php-fpm
+          - PHP_UPSTREAM_PORT=9000
+      volumes:
+        - ../www:/var/www:cached
+        - ./logs/nginx/:/var/log/nginx
+        - ./nginx/sites/:/etc/nginx/sites-available
+      ports:
+        - "80:80"
+        - "443:443"
+      depends_on:
+        - php-fpm
+  php-fpm:
+    build:
+      ..생략..
 ```
-
