@@ -48,9 +48,7 @@ EXPOSE 80 443
 
 ## Build Image & run
 
-`build` 명령어로 `Dockerfile`기반으로 도커 이미지를 생성한다, 
-이때 하나의 이미지로 여러개의 컨테이너를 생성가능하다.
-이미지 없이 `docker run {container}` 를 실행할 경우 해당 컨테이너가 존재한다면 docker hub에서 다운받아서 실행도 가능
+`build` 명령어로 `Dockerfile`기반으로 도커 이미지를 생성한다, 이때 하나의 이미지로 여러개의 컨테이너를 생성가능하다. 이미지 없이 `docker run {container}` 를 실행할 경우 해당 컨테이너가 존재한다면 docker hub에서 다운받아서 실행도 가능
 
 ```bash
 # tag를 입력하지 않으면 태그는 자동으로 latest로 입력됨
@@ -84,11 +82,9 @@ docker run --name hello-nginx -d -p 8000:80 -v /Users/wiz/Desktop/dev/docker/doc
 
 위와 같이 실행했을 경우 `localhost:8000` 접속시 **Welcome to nginx!** 페이지가 정상적으로 떠야 한다.
 
-
 ## docker compose
 
-운영환경에서는 볼륨공유도 필수적이고 그외 여러가지 옵션이 많다보니 단순히 CLI 환경으로 사용하기엔
-무리가 있다.
+운영환경에서는 볼륨공유도 필수적이고 그외 여러가지 옵션이 많다보니 단순히 CLI 환경으로 사용하기엔 무리가 있다.
 
 이를 위해 복잡한 설정 관리를 위해 `YAML` 방식의 설정파일을 이용한 `docker compose`라는 툴이 있다.
 
@@ -104,11 +100,11 @@ docker-compose version
 
 아래 Sample `docker-compose.yml` 파일처럼 각종 설정등을 정의해주고 `docker-compose up`이라는 명령어만 실행하면 여러가지의 컨테이너와 그에 맞는 설정들로 컨테이너가 손쉬게 생성된다.
 
-```yml
+```text
 version: '3'
 
 services:
-	nginx:
+    nginx:
       build:
         context: ./nginx
         args:
@@ -127,3 +123,4 @@ services:
     build:
       ..생략..
 ```
+
