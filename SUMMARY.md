@@ -56,7 +56,7 @@
   * [Web Log Analyzer](environment/aws/web-log-analyzer/README.md)
     * [goaccess](environment/aws/web-log-analyzer/goaccess.md)
 * [Ubuntu](environment/ubuntu/README.md)
-  * [Get Started](environment/ubuntu/get-started.md)
+  * [Simple APM](environment/ubuntu/get-started.md)
   * [Apt](environment/ubuntu/apt.md)
 * [CentOS](environment/centos.md)
 * [Mac](environment/mac/README.md)

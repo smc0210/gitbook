@@ -1,8 +1,8 @@
 ---
-description: Ubuntu 16.04 LTS 버전 기준 (2018.08)
+description: Ligitsail 에서 간단한 Apache + PHP + MariaDB 환경 셋팅하기
 ---
 
-# Get Started
+# Simple APM
 
 `Ubuntu`에 가장 기본적인 개발환경셋팅하기
 
