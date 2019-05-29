@@ -85,7 +85,6 @@ docker-compose version
 여기서는 aws ecr을 사용한다는 가정하에 진행
 
 
-
 ```bash
 # docker login ( ecr 권한이 설정되어 있어야 함)
 $(aws ecr get-login --no-include-email --region ap-northeast-2)
@@ -94,4 +93,9 @@ $(aws ecr get-login --no-include-email --region ap-northeast-2)
 aws ecr describe-repositories
 
 docker pull ${repository_url}:${tag}
+```
+
+
+```bash
+
 ```
