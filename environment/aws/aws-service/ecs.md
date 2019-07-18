@@ -11,11 +11,16 @@ description: 'ECS, ECR'
 
 ### ecs-cli
 
+ECS login
+```bash
+$(aws ecr get-login --no-include-email --region ap-northeast-2)
+```
+
 ECS cluster 생성
 ```
 ecs-cli up --capability-iam --size 1 --instance-type t2.micro --cluster-config test-cli --keypair dev-iamport --subnets subnet-0923dca1a7cae5faa --security-group sg-0401b6e17b08eb789 --vpc vpc-0fcf055cd82dff70f
 
-ecs-cli compose
+ecs-cli compose up --cluster test-cli
 ```
 
 PHP와 Laravel에서 요구하는 php extension 설치
@@ -42,10 +47,12 @@ sudo mv composer.phar /usr/local/bin/composer
 sudo ln -s /usr/local/bin/composer /usr/bin/composer
 
 sudo composer install
+```
 
-
-
+만약 log 권한 에러가 발생할 경우 호스트에서 아래와 같이 처리
+```bash
 sudo chown -R ec2-user:ec2-user storage/
 sudo chown -R ec2-user:ec2-user bootstrap/cache
+sudo chmod -R 777 storage bootstrap/cache
 ```
 

@@ -97,5 +97,5 @@ docker pull ${repository_url}:${tag}
 
 
 ```bash
-
+ecs-cli up --capability-iam --size 1 --instance-type t2.micro --cluster-config test-cli --keypair dev-iamport --subnets subnet-0923dca1a7cae5faa --security-group sg-0401b6e17b08eb789 --vpc vpc-0fcf055cd82dff70f
 ```
