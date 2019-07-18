@@ -56,6 +56,7 @@
   * [Web Log Analyzer](environment/aws/web-log-analyzer/README.md)
     * [goaccess](environment/aws/web-log-analyzer/goaccess.md)
 * [Ubuntu](environment/ubuntu/README.md)
+  * [Simple Nginx/php](environment/ubuntu/simple-nginx-php.md)
   * [Simple APM](environment/ubuntu/get-started.md)
   * [For Docker](environment/ubuntu/for-docker.md)
   * [Apt](environment/ubuntu/apt.md)
