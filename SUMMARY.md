@@ -62,6 +62,7 @@
   * [Simple Redis](environment/ubuntu/simple-redis.md)
   * [For Docker](environment/ubuntu/for-docker.md)
   * [Apt](environment/ubuntu/apt.md)
+  * [Performance Test](environment/ubuntu/performance-test.md)
 * [CentOS](environment/centos.md)
 * [Mac](environment/mac/README.md)
   * [Homebrew](environment/mac/homebrew.md)

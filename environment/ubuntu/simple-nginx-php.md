@@ -275,7 +275,6 @@ service nginx restart
 
 ## 5. Laravel Settings
 
-
 ### install
 
 ```bash
@@ -303,12 +302,11 @@ chmod -R 775 storage
 chmod -R 775 bootstrap/cache
 ```
 
-라라벨 인스톨러를 통해 설치할경우 `.env`파일이 생성되어 있고 `artisan key:generate` 명령어도 실행되어 있지만 다른 방법(composer 설치등..)으로 설치했을 경우 `.env`파일과 라라벨 키를 수동으로 생성해줘야 한다.
-
-
+라라벨 인스톨러를 통해 설치할경우 `.env`파일이 생성되어 있고 `artisan key:generate` 명령어도 실행되어 있지만 다른 방법\(composer 설치등..\)으로 설치했을 경우 `.env`파일과 라라벨 키를 수동으로 생성해줘야 한다.
 
 ### DB connection
-라라벨의 경우 `sqlite`, `mysql`, `pgsql`, `redis` 등의 드라이버를 지원하며 따라서, 서버에서 직접 DB에 붙는게 아니라면 서버에  `mysql-client`등의 데이터베이스 클라이언트를 설치할 필요는 없다.
+
+라라벨의 경우 `sqlite`, `mysql`, `pgsql`, `redis` 등의 드라이버를 지원하며 따라서, 서버에서 직접 DB에 붙는게 아니라면 서버에 `mysql-client`등의 데이터베이스 클라이언트를 설치할 필요는 없다.
 
 .env 파일에 DB 접속정보를 입력하 migrate로 연결을 테스트해본다.
 
@@ -320,8 +318,7 @@ chmod -R 775 bootstrap/cache
 artisan migrate
 ```
 
-laravel 5.4버전 이후로 기본 데이터베이스 `character set`을 이모지를 지원하는 `utf8mb4`로 변경했는데 따라서 DB character set이 `utf8`형 일 경우 
-`Specified key was too long; max key length` 오류가 발생하며 
-`AppServiceProvider`에 기본 문자열 길이를 제한하여 해결한다.
+laravel 5.4버전 이후로 기본 데이터베이스 `character set`을 이모지를 지원하는 `utf8mb4`로 변경했는데 따라서 DB character set이 `utf8`형 일 경우 `Specified key was too long; max key length` 오류가 발생하며 `AppServiceProvider`에 기본 문자열 길이를 제한하여 해결한다.
 
 ![snp](../../.gitbook/assets/snp_8.png)
+
