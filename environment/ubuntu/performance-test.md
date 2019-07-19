@@ -33,7 +33,13 @@ yap
 {% endtab %}
 
 {% tab title="Second Tab" %}
-2tap
+{% code-tabs %}
+{% code-tabs-item title="Bash" %}
+```bash
+sudo su
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 {% endtab %}
 {% endtabs %}
 
