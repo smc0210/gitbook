@@ -58,6 +58,8 @@
 * [Ubuntu](environment/ubuntu/README.md)
   * [Simple Nginx/php](environment/ubuntu/simple-nginx-php.md)
   * [Simple APM](environment/ubuntu/get-started.md)
+  * [Simple MySQL](environment/ubuntu/simple-mysql.md)
+  * [Simple Redis](environment/ubuntu/simple-redis.md)
   * [For Docker](environment/ubuntu/for-docker.md)
   * [Apt](environment/ubuntu/apt.md)
 * [CentOS](environment/centos.md)

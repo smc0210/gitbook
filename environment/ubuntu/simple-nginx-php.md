@@ -43,7 +43,7 @@ apt upgrade
 dpkg-reconfigure tzdata
 ```
 
-## 3. Package Repository 
+## 3. Package Repository
 
 ```bash
 # 최신 버전 등록
@@ -51,6 +51,7 @@ vi /etc/apt/sources.list
 ```
 
 아래 코드를 맨아래 추가
+
 ```bash
 # Nginx
 deb http://nginx.org/packages/mainline/ubuntu/ xenial nginx
@@ -67,10 +68,10 @@ wget http://nginx.org/keys/nginx_signing.key
 apt-key add nginx_signing.key
 rm nginx_signing.key
 ```
+
 ![snp](../../.gitbook/assets/snp_2.png)
 
 PPA 개인패키지 저장소를 사용하여 php-7.X 버전 설치
-
 
 {% hint style="info" %}
 Ubuntu 제작자중 한명이며 Debian에서 일하고 있는 ondrej 저장소를 이용
@@ -91,7 +92,8 @@ apt update
 ## 4. Package Install
 
 ### Nginx
-```
+
+```text
 apt install nginx
 
 service nginx restart
@@ -114,7 +116,7 @@ apt install php7.2-fpm
 
 `PHP`와 `PHP-FPM` 버전 확인
 
-```
+```text
 php -v
 
 php-fpm7.2 -v
@@ -149,14 +151,14 @@ vi /etc/php/7.2/cli/php.ini
 
 ![snp](../../.gitbook/assets/snp_5.png)
 
-```
+```text
 service php7.2-fpm restart
 ```
-
 
 ### Nginx와 PHP-FPM설정
 
 **Nginx 사용자 권한 변경**
+
 ```bash
 vi /etc/nginx/nginx.conf
 ```
@@ -170,13 +172,14 @@ service nginx restart
 ```
 
 **Nginx에서 PHP 확장자를 FPM으로 요청하도록 설정**
+
 ```bash
 vi /etc/nginx/conf.d/default.conf
 ```
 
-> `default.conf` 파일을 아리 기본구문으로 변경 (기존데이터는 백업)
+> `default.conf` 파일을 아리 기본구문으로 변경 \(기존데이터는 백업\)
 
-```xml
+```markup
 server {
     listen       80 default_server;
     server_name  localhost;
@@ -221,19 +224,20 @@ server {
 }
 ```
 
-**fastcgi_params 변경**
+**fastcgi\_params 변경**
 
 ```bash
 vi /etc/nginx/fastcgi_params
 ```
+
 > `fastcgi_params` 파일을 변경
 
-```
+```text
 fastcgi_param   QUERY_STRING            $query_string;
 fastcgi_param   REQUEST_METHOD          $request_method;
 fastcgi_param   CONTENT_TYPE            $content_type;
 fastcgi_param   CONTENT_LENGTH          $content_length;
- 
+
 fastcgi_param   SCRIPT_FILENAME         $document_root$fastcgi_script_name;
 fastcgi_param   SCRIPT_NAME             $fastcgi_script_name;
 fastcgi_param   PATH_INFO               $fastcgi_path_info;
@@ -242,18 +246,18 @@ fastcgi_param   REQUEST_URI             $request_uri;
 fastcgi_param   DOCUMENT_URI            $document_uri;
 fastcgi_param   DOCUMENT_ROOT           $document_root;
 fastcgi_param   SERVER_PROTOCOL         $server_protocol;
- 
+
 fastcgi_param   GATEWAY_INTERFACE       CGI/1.1;
 fastcgi_param   SERVER_SOFTWARE         nginx/$nginx_version;
- 
+
 fastcgi_param   REMOTE_ADDR             $remote_addr;
 fastcgi_param   REMOTE_PORT             $remote_port;
 fastcgi_param   SERVER_ADDR             $server_addr;
 fastcgi_param   SERVER_PORT             $server_port;
 fastcgi_param   SERVER_NAME             $server_name;
- 
+
 fastcgi_param   HTTPS                   $https;
- 
+
 # PHP only, required if PHP was built with --enable-force-cgi-redirect
 fastcgi_param   REDIRECT_STATUS         200;
 ```
@@ -265,7 +269,6 @@ service nginx restart
 여기까지 했을때 `phpinfo()`를 통해 FPM 적용여부를 확인할 수 있다.
 
 ![snp](../../.gitbook/assets/snp_7.png)
-
 
 ## 5. Laravel Settings
 
@@ -294,18 +297,16 @@ chmod -R 775 storage
 chmod -R 775 bootstrap/cache
 ```
 
-
-
 ## 6. MySQL 5.5 install
 
 ### 1. 설치사양
 
-- Ubuntu.16.04 LTS
-- MySQL 5.5 
+* Ubuntu.16.04 LTS
+* MySQL 5.5 
 
 ### 2. 설치
 
-여기서부터는 별도의 EC2에 설치한다 (mysql 전용으로만 사용할 EC2를 새로  생성한 후 진행)
+여기서부터는 별도의 EC2에 설치한다 \(mysql 전용으로만 사용할 EC2를 새로 생성한 후 진행\)
 
 16.04에서 기본적으로 제공하는 MySQL은 5.7 버전이므로 apt를 통해 설치하지 않고 직접 다운로드 받아서 진행
 
@@ -375,10 +376,14 @@ mysql -uroot -p1234
 ```bash
 vi /etc/my.cnf
 ```
-`my.cnf`파일에 `bind-address = 0.0.0.0` 추가 ( 이미 있다면 변경 )
+
+`my.cnf`파일에 `bind-address = 0.0.0.0` 추가 \( 이미 있다면 변경 \) 
+
 ![snp](../../.gitbook/assets/snp_8.png)
 
 EC2에 SSH로 mysql에 접속해서 외부 접속할 계정 권한 설정
-```mysql
+
+```text
 grant all privileges on *.* to root@'%' identified by '1234';
 ```
+
