@@ -22,6 +22,9 @@ df -h
 # 메모리 체크
 free -m
 
+# 디테일한 메모리 체크
+vmstat -s
+
 # CPU 코어수 체크
 cat /proc/cpuinfo | grep processor | wc -l
 cat /proc/cpuinfo | grep processor
@@ -272,6 +275,9 @@ service nginx restart
 
 ## 5. Laravel Settings
 
+
+### install
+
 ```bash
 # 1. composer 설치
 curl -s http://getcomposer.org/installer | php && \
@@ -297,93 +303,25 @@ chmod -R 775 storage
 chmod -R 775 bootstrap/cache
 ```
 
-## 6. MySQL 5.5 install
+라라벨 인스톨러를 통해 설치할경우 `.env`파일이 생성되어 있고 `artisan key:generate` 명령어도 실행되어 있지만 다른 방법(composer 설치등..)으로 설치했을 경우 `.env`파일과 라라벨 키를 수동으로 생성해줘야 한다.
 
-### 1. 설치사양
 
-* Ubuntu.16.04 LTS
-* MySQL 5.5 
 
-### 2. 설치
+### DB connection
+라라벨의 경우 `sqlite`, `mysql`, `pgsql`, `redis` 등의 드라이버를 지원하며 따라서, 서버에서 직접 DB에 붙는게 아니라면 서버에  `mysql-client`등의 데이터베이스 클라이언트를 설치할 필요는 없다.
 
-여기서부터는 별도의 EC2에 설치한다 \(mysql 전용으로만 사용할 EC2를 새로 생성한 후 진행\)
+.env 파일에 DB 접속정보를 입력하 migrate로 연결을 테스트해본다.
 
-16.04에서 기본적으로 제공하는 MySQL은 5.7 버전이므로 apt를 통해 설치하지 않고 직접 다운로드 받아서 진행
-
-```bash
-# root 계정으로 진행
-
-# mysql 유저와 그룹생성
-groupadd mysql
-useradd -g  mysql mysql
-
-# 5.5 버전 다운로드 및 압축해제
-cd /root
-
-wget https://dev.mysql.com/get/Downloads/MySQL-5.5/mysql-5.5.56-linux-glibc2.5-x86_64.tar.gz
-tar -xvf mysql-5.5.56-linux-glibc2.5-x86_64.tar.gz /usr/local
-
-cd /usr/local
-
-mv mysql-5.5.56-linux-glibc2.5-x86_64 mysql
-
-# mysql 그룹/유저 설정
-cd mysql
-chown -R mysql:mysql *
-
-# 필요한 lib 패키지 설치
-apt install libaio1
-
-# install script 실행
-scripts/mysql_install_db --user=mysql
-
-chown -R root .
-chown -R mysql data
-
-cp support-files/my-medium.cnf /etc/my.cnf 
-
-# Start Mysql
-bin/mysqld_safe --user=mysql &
-cp support-files/mysql.server /etc/init.d/mysql.server
-
-# root 패스워드 설정
-bin/mysqladmin -u root password '1234'
-
-# Start mysql seerver
-/etc/init.d/mysql.server start
-
-# Stop mysql server
-/etc/init.d/mysql.server stop
-
-# Check status of mysql
-/etc/init.d/mysql.server status
-
-#Enable myql on startup
-update-rc.d -f mysql.server defaults 
-
-#Disable mysql on startup
-update-rc.d -f mysql.server remove
-
-# 심볼릭 링크
-ln -s /usr/local/mysql/bin/mysql /usr/local/bin/mysql
-
-# 접속
-mysql -uroot -p1234
-```
-
-### 3. 외부 접속 허용
+{% hint style="info" %}
+공인아이피 통신트래픽은 과금 되니, 서버간 통신은 내부아이피로 진행한다.
+{% endhint %}
 
 ```bash
-vi /etc/my.cnf
+artisan migrate
 ```
 
-`my.cnf`파일에 `bind-address = 0.0.0.0` 추가 \( 이미 있다면 변경 \) 
+laravel 5.4버전 이후로 기본 데이터베이스 `character set`을 이모지를 지원하는 `utf8mb4`로 변경했는데 따라서 DB character set이 `utf8`형 일 경우 
+`Specified key was too long; max key length` 오류가 발생하며 
+`AppServiceProvider`에 기본 문자열 길이를 제한하여 해결한다.
 
 ![snp](../../.gitbook/assets/snp_8.png)
-
-EC2에 SSH로 mysql에 접속해서 외부 접속할 계정 권한 설정
-
-```text
-grant all privileges on *.* to root@'%' identified by '1234';
-```
-
