@@ -86,3 +86,20 @@ apt install redis-tools
 redis-cli -h <redis 서버 ip> -p <redis port> -a <password>
 ```
 
+## 4. redis 기본문법
+
+Client GUI Tool 은 `rdbtools` 사용
+
+```bash
+# key value 형태로 입력
+set backend php
+
+# key로 데이터 찾기
+get backend
+
+# key로 검색
+keys *<검색어>*
+
+# 모든 key 확인
+keys *
+```
