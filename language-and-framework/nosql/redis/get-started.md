@@ -1,4 +1,2 @@
 # Get Started
 
-
-

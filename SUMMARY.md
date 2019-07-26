@@ -27,14 +27,16 @@
     * [Project Started](language-and-framework/php/laravel/project-started.md)
     * [Eloquent](language-and-framework/php/laravel/eloquent.md)
     * [API Test Page](language-and-framework/php/laravel/api-test-page.md)
-  * [CodeIgniter](language-and-framework/php/codeigniter/README.md)
-    * [Get Started](language-and-framework/php/codeigniter/get-started.md)
 * [Python](language-and-framework/python/README.md)
   * [Django](language-and-framework/python/django.md)
-* [MySQL & MariaDB](language-and-framework/mysql-and-mariadb/README.md)
-  * [Syntax](language-and-framework/mysql-and-mariadb/syntax.md)
-* [GraphQL](language-and-framework/graphql.md)
-* [PostgreSQL](language-and-framework/postgresql.md)
+* [RDBMS](language-and-framework/rdbms/README.md)
+  * [MySQL & MariaDB](language-and-framework/rdbms/mysql-and-mariadb/README.md)
+    * [Syntax](language-and-framework/rdbms/mysql-and-mariadb/syntax.md)
+  * [PostgreSQL](language-and-framework/rdbms/postgresql.md)
+* [NoSQL](language-and-framework/nosql/README.md)
+  * [Redis](language-and-framework/nosql/redis/README.md)
+    * [Get Started](language-and-framework/nosql/redis/get-started.md)
+  * [GraphQL](language-and-framework/nosql/graphql.md)
 
 ## Environment
 

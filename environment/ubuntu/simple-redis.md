@@ -22,7 +22,8 @@ systemctl status redis
 ```
 
 아래와 같이 active 상태로 나오면 정상작동
-![snp](../../.gitbook/assets/redis_1.png)
+
+![](../../.gitbook/assets/redis_1.png)
 
 ```bash
 # redis 시작
@@ -37,19 +38,20 @@ systemctl enable redis-server.service
 
 ## 3. redis 설정
 
-- bind
-- requirepass
-- maxmemory
-- maxmemory-policy
+* bind
+* requirepass
+* maxmemory
+* maxmemory-policy
 
 ```bash
 vi /etc/redis/redis.conf
 ```
 
 ### 1. bind
+
 외부접속을 위해 `bind` 부분을 찾아 `0.0.0.0`으로 변경
 
-![snp](../../.gitbook/assets/redis_2.png)
+![](../../.gitbook/assets/redis_2.png)
 
 ### 2. requirepass
 
@@ -57,18 +59,16 @@ vi /etc/redis/redis.conf
 
 ### 3. memory
 
-`maxmemory`는 EC2 전체 메모리에서 Redis가 최대 얼마까지 사용할지 여부를 설정
-`maxmemory-policy`는 최대 사용 메모리를 초과하게 될때 데이터를 어떻게 삭제할지를 정의한다.
+`maxmemory`는 EC2 전체 메모리에서 Redis가 최대 얼마까지 사용할지 여부를 설정 `maxmemory-policy`는 최대 사용 메모리를 초과하게 될때 데이터를 어떻게 삭제할지를 정의한다.
 
 {% code-tabs %}
 {% code-tabs-item title="redis.conf" %}
-```xml
+```markup
 # allkeys-lru 는 가장 오래된 데이터를 지워서 메모리 확보
 maxmemory-policy allkeys-lru
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
-
 
 ```bash
 #설정파일 변경후 재시작
@@ -103,3 +103,4 @@ keys *<검색어>*
 # 모든 key 확인
 keys *
 ```
+

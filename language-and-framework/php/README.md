@@ -4,5 +4,3 @@
 
 {% page-ref page="laravel/" %}
 
-{% page-ref page="codeigniter/" %}
-

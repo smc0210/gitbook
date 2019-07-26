@@ -25,8 +25,6 @@ top
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-
-
 {% tabs %}
 {% tab title="First Tab" %}
 1
