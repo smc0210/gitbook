@@ -10,3 +10,22 @@
 
 {% hint style="success" %}
 {% endhint %}
+
+
+{% code-tabs %}
+{% code-tabs-item title="Bash" %}
+```bash
+ls -al
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+{% tabs %}
+{% tab title="First Tab" %}
+1
+{% endtab %}
+
+{% tab title="Second Tab" %}
+2
+{% endtab %}
+{% endtabs %}

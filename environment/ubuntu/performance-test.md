@@ -29,17 +29,11 @@ top
 
 {% tabs %}
 {% tab title="First Tab" %}
-yap
+1
 {% endtab %}
 
 {% tab title="Second Tab" %}
-{% code-tabs %}
-{% code-tabs-item title="Bash" %}
-```bash
-sudo su
-```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+2
 {% endtab %}
 {% endtabs %}
 
