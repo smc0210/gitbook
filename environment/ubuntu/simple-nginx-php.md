@@ -269,9 +269,89 @@ fastcgi_param   REDIRECT_STATUS         200;
 service nginx restart
 ```
 
-여기까지 했을때 `phpinfo()`를 통해 FPM 적용여부를 확인할 수 있다.
+여기까지 했을때 `phpinfo()`를 통해 FPM 적용여부를 확인할 수 있고 웹으로 접근가능해야 한다.
 
 ![snp](../../.gitbook/assets/snp_7.png)
+
+
+**fpm status 설정**
+
+fpm pool 설정파일에서 `pm.status_path = /status` 부분을 찾아 주석을 해제한다.
+
+```bash
+vi /etc/php/7.2/fpm/pool.d/www.conf
+```
+
+{% code-tabs %}
+{% code-tabs-item title="www.conf" %}
+```apacheconf
+215 ; Example output:
+216 ;   ************************
+217 ;   pid:                  31330
+218 ;   state:                Running
+219 ;   start time:           01/Jul/2011:17:53:49 +0200
+220 ;   start since:          63087
+221 ;   requests:             12808
+222 ;   request duration:     1250261
+223 ;   request method:       GET
+224 ;   request URI:          /test_mem.php?N=10000
+225 ;   content length:       0
+226 ;   user:                 -
+227 ;   script:               /home/fat/web/docs/php/test_mem.php
+228 ;   last request cpu:     0.00
+229 ;   last request memory:  0
+230 ;
+231 ; Note: There is a real-time FPM status monitoring sample web page available
+232 ;       It's available in: /usr/share/php/7.2/fpm/status.html
+233 ;
+234 ; Note: The value must start with a leading slash (/). The value can be
+235 ;       anything, but it may not be a good idea to use the .php extension or it
+236 ;       may conflict with a real PHP file.
+237 ; Default Value: not set
+238 pm.status_path = /status
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+```bash
+service php7.2-fpm restart
+```
+
+
+nginx 설정파일에서 server 블록 안에 아래 구문을 추가해준다
+
+```bash
+vi /etc/nginx/conf.d/default.conf
+```
+
+{% code-tabs %}
+{% code-tabs-item title="default.conf" %}
+```apacheconf
+  1 server {  
+  2     #.. 생략
+  3
+  4     location ~ ^/(status|ping)$ {
+  5         allow 127.0.0.1;
+  6         fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+  7         fastcgi_index index.php;
+  8         include fastcgi_params;
+  9         #fastcgi_pass 127.0.0.1:9000;
+ 10         fastcgi_pass unix:/run/php/php7.2-fpm.sock;
+ 11     }
+ 12     #.. 생략
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+```bash
+service nginx restart
+```
+
+웹에서 `Domain` 혹은 `Ip` 뒤에 /status로 접근하면 아래와 같이 보인다.
+
+> 예) http:test.dev/status
+
+![snp](../../.gitbook/assets/snp_8.png)
 
 ## 5. Laravel Settings
 
@@ -320,5 +400,5 @@ artisan migrate
 
 laravel 5.4버전 이후로 기본 데이터베이스 `character set`을 이모지를 지원하는 `utf8mb4`로 변경했는데 따라서 DB character set이 `utf8`형 일 경우 `Specified key was too long; max key length` 오류가 발생하며 `AppServiceProvider`에 기본 문자열 길이를 제한하여 해결한다.
 
-![snp](../../.gitbook/assets/snp_8.png)
+![](../../.gitbook/assets/snp_9.png)
 
