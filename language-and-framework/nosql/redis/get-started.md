@@ -2,7 +2,6 @@
 
 설치는 [Ubuntu Simple Redis](../../../environment/ubuntu/simple-redis.md) 참조
 
-
 ## `Redis.conf`
 
 ```yaml
@@ -98,3 +97,4 @@ type KEY
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
+

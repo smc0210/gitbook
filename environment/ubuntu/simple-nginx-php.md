@@ -273,7 +273,6 @@ service nginx restart
 
 ![snp](../../.gitbook/assets/snp_7.png)
 
-
 **fpm status 설정**
 
 fpm pool 설정파일에서 `pm.status_path = /status` 부분을 찾아 주석을 해제한다.
@@ -284,7 +283,7 @@ vi /etc/php/7.2/fpm/pool.d/www.conf
 
 {% code-tabs %}
 {% code-tabs-item title="www.conf" %}
-```apacheconf
+```text
 215 ; Example output:
 216 ;   ************************
 217 ;   pid:                  31330
@@ -317,7 +316,6 @@ vi /etc/php/7.2/fpm/pool.d/www.conf
 service php7.2-fpm restart
 ```
 
-
 nginx 설정파일에서 server 블록 안에 아래 구문을 추가해준다
 
 ```bash
@@ -326,7 +324,7 @@ vi /etc/nginx/conf.d/default.conf
 
 {% code-tabs %}
 {% code-tabs-item title="default.conf" %}
-```apacheconf
+```text
   1 server {  
   2     #.. 생략
   3
@@ -349,7 +347,7 @@ service nginx restart
 
 웹에서 `Domain` 혹은 `Ip` 뒤에 /status로 접근하면 아래와 같이 보인다.
 
-> 예) http:test.dev/status
+> 예\) http:test.dev/status
 
 ![snp](../../.gitbook/assets/snp_8.png)
 
