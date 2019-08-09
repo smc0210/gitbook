@@ -195,3 +195,29 @@ composer dump-autoload
 composer로 설치한 라이브러리는 `autoload.php` 에 등록되므로 사용시 일일이 `require`구문을 사용하지 않고 다음 문장 하나만 적어주면 된다. `require 'bendor/autoload.php`
 {% endhint %}
 
+## 4. Composer 속도 향상
+
+### 1. packagist 미러사이트 등록
+
+```bash
+# 국내 미러사이트 등록
+composer config -g repos.packagist composer https://packagist.kr
+
+# 원복
+composer config -g --unset repositories.packagist
+```
+
+
+### 2. Prestissimo
+
+패키지 다운로드를 병렬로 처리해주는 [prestissimo](https://github.com/hirak/prestissimo) 추가 패키지 설치 
+
+공개된 벤치결과에 따르면 `create-project` 로 라라벨 설치시  288초에서 26초로 속도향상이 있다고 한다.
+
+```bash
+# install
+composer global require hirak/prestissimo
+
+# remove
+composer global remove hirak/prestissimo
+```
