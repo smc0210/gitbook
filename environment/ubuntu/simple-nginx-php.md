@@ -32,7 +32,7 @@ cat /proc/cpuinfo | grep processor
 # 자세한 CPU 제원 체크
 cat /proc/cpuinfo
 ```
-
+---
 ## 2. Basic Settings
 
 ```bash
@@ -45,7 +45,7 @@ apt upgrade
 # 시스템 시간 설정 ( Asia - Seoul 순으로 선택)
 dpkg-reconfigure tzdata
 ```
-
+---
 ## 3. Package Repository
 
 ```bash
@@ -74,7 +74,12 @@ rm nginx_signing.key
 
 ![snp](../../.gitbook/assets/snp_2.png)
 
-PPA 개인패키지 저장소를 사용하여 php-7.X 버전 설치
+`apt-cache search php7`를 사용해서 검색시 OS에서 기본적으로 지원하는 PHP버전(보통은 최신버전)을 설치해도 무방할경우 
+`apt install php-{VERSION}`을 통해 설치하면된다.
+
+만약 기본 저장소 외의 버전을 설치하고 싶을 경우 패키지 저장소를 추가해서 설치를 진행한다.
+
+**PPA 개인패키지 저장소를 사용하여 php-7.X 버전 설치**
 
 {% hint style="info" %}
 Ubuntu 제작자중 한명이며 Debian에서 일하고 있는 ondrej 저장소를 이용
@@ -91,7 +96,7 @@ apt-key list
 # 추가된 저장소 갱신
 apt update
 ```
-
+---
 ## 4. Package Install
 
 ### Nginx
@@ -273,6 +278,43 @@ service nginx restart
 
 ![snp](../../.gitbook/assets/snp_7.png)
 
+
+**php-fpm process 설정**
+
+{% code-tabs %}
+{% code-tabs-item title="/etc/php/7.2/fpm/pool.d/www.conf" %}
+```apacheconf
+
+# child process 의 수량을 결정하는 process manager 설정
+# static  (pm.max_children) 설정에 따라 child processes의 수가 고정
+# dynamic child process의 수가 동적으로 조절되며 최소 1개의 process를 가지고 다음 설정들로 제어된다
+#   pm.max_children  최대 child process 수
+#   pm.start_servers 시작 child process 수
+#   pm.min_spare_servers
+#   pm.max_spare_servers
+pm = static
+
+# 동시 요청 수에 대한 제한
+# mpm_prefork를 사용하는 ApacheMaxClients 지시문과 흡사한 기능을함
+# PHP CGI의 PHP_FCGI_CHILDREN 환경변수와 동일
+# 계산식
+#   Total RAM dedicated to the web server / Max child process size
+#   1. free -m 으로 가용 메모리 체크
+#   2. ps --no-headers -o "rss,cmd" -C php-fpm7.2 | awk '{ sum+=$1 } END { printf ("%d%s\n", sum/NR/1024,"Mb")}'
+# 상기 명령어로 fpm process 평균 사용 메모리 측정후 계산
+pm.max_children = 100
+
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+
+fpm 재시작하여 적용
+
+```bash
+service php7.2-fpm restart
+```
+
 **fpm status 설정**
 
 fpm pool 설정파일에서 `pm.status_path = /status` 부분을 찾아 주석을 해제한다.
@@ -350,6 +392,8 @@ service nginx restart
 > 예\) http:test.dev/status
 
 ![snp](../../.gitbook/assets/snp_8.png)
+
+---
 
 ## 5. Laravel Settings
 
