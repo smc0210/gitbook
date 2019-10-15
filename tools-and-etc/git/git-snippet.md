@@ -41,3 +41,12 @@ origin  https://github.com/user/repo2.git (fetch)
 origin  https://github.com/user/repo2.git (push)
 ```
 
+### cache 삭제
+
+gitignore 파일 꼬였거나,,어쨌든 꼬였을때
+
+```bash
+git rm -r --cached .
+
+```
+
