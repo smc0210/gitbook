@@ -25,7 +25,7 @@ Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class
 
 ```php
 // 상기 방법처럼 수동으로 등록하거나 혹은 아래와 같은 방법으로 처리 가능
-// app/Providers/AppServiceProvider.php 
+// app/Providers/AppServiceProvider.php
 
 public function register()
 {
@@ -55,6 +55,12 @@ IntelliJ Preferences &gt; Editor &gt; Code Style &gt; PHP
 
 IDE 기본 제공기능인만큼 기능이 부족해서 codesniffer 와 php-cs-fixer를 사용하기를 권장함
 
+{% hint style="info" %}
+
+기존에는 php cs fixer 사용을 더 권장했지만 PSR-12 릴리즈되면서
+현재시점기준으로(2019-10-16일) code sniffer가 먼저 적용을 해줘서 code sniffer를 사용하는걸 권장한다.
+{% endhint %}
+
 ## 3. Code Sniffer & php-cs-fixer
 
 ![code sniffer pc](../../.gitbook/assets/phpstorm_1.png)
@@ -68,6 +74,8 @@ composer global require "squizlabs/php_codesniffer=*"
 ```
 
 `Preferences` &gt; `Editor` &gt; `Inspections` &gt; `PHP` &gt; `Quality tools` &gt; `PHP Code Sniffer validation` 체크
+
+Coding standard는 `PSR12`로 지정
 
 ### 3.2 Code Sniffer Configure
 
@@ -118,17 +126,25 @@ IDE에 등록하여 사용하는 방식
 
 `Preferences` &gt; `Tools` &gt; `External Tools` &gt; `+` 버튼 클릭
 
-Tool Settings 하단의 항목 작성
+PHP Code Sniffer 하단의 항목 작성
+
+> `Program` : phpcbf 경로 지정 \(터미널에서 which phpcbf\)
+>
+> `Arguments` : --standard=PSR12 $FileDir$/$FileName$
+>
+> `Working directory` : $ProjectFileDir$
+
+PHP CS Fixer Tool Settings 하단의 항목 작성
 
 > `Program` : php-cs-fixer 경로 지정 \(터미널에서 which php-cs-fixer\)
 >
-> `Arguments` : fix --verbose --config={설정파일경로}/.php\_cs $FileDir$/$FileName$
+> `Arguments` : fix --verbose --config={설정파일경로}/.php_cs $FileDir$/$FileName$
 >
 > `Working directory` : $ProjectFileDir$
 
 `Arguments :` diff \(변경된점\), 혹은 dry-run \(실행하지 않고 어떻게 변경될지 알려줌\)등의 옵션을 추가해서 상황에 맞게 사용가능하다
 
-![PHP CS Fixer config &#xCC38;&#xACE0;](../../.gitbook/assets/phpstorm_2.png)
+![PHP CS Fixer config 참고](../../.gitbook/assets/phpstorm_2.png)
 
 {% hint style="info" %}
 `Advanced Options`의 `Open console for tool output`을 체크 해제 하지 않으면 매번 cs-fixer를 실행할때마다 output 창이 열려서 불편하므로 보통은 체크해제 후 사용하지만 fixer가 정상적으로 작동하지 않아 에러메시지를 보고 싶을경우 체크 후 확인하는 용도로 사용한
@@ -142,7 +158,7 @@ Tool Settings 하단의 항목 작성
 
 예\) `Command` + `B` 사용
 
-[.php\_cs config file 다운로드](https://gist.github.com/smc0210/b107f968671012cb454ae01dbdd588d3)
+[.php_cs config file 다운로드](https://gist.github.com/smc0210/b107f968671012cb454ae01dbdd588d3)
 
 `.php_cs 예시`
 
@@ -198,13 +214,13 @@ implicit_flush = On
 
 
 ; 최하단에 하기 추가 (경로설정 주의)
-[XDebug] 
+[XDebug]
 ;; Only Zend OR (!) XDebug
 zend_extension="C:\laragon\bin\php\php-7.1.14-Win32-VC14-x64\ext\php_xdebug-2.6.0-7.1-vc14-x86_64.dll" xdebug.remote_enable=true
-xdebug.remote_host=localhost 
+xdebug.remote_host=localhost
 xdebug.remote_port=8000
-xdebug.remote_handler=dbgp 
-xdebug.profiler_enable=1 
+xdebug.remote_handler=dbgp
+xdebug.profiler_enable=1
 xdebug.profiler_output_dir="C:\laragon\tmp"
 ```
 
@@ -236,7 +252,7 @@ Shell path 란에 입력
 "C:\Program Files\Git\bin\sh.exe" -login -i
 ```
 
-> 그래야 bash\_profile 적용되서 환경변수및 기타 설정을 동일하게 쓸 수 있다.
+> 그래야 bash_profile 적용되서 환경변수및 기타 설정을 동일하게 쓸 수 있다.
 
 **6-1-2.** `Settings` **&gt;** `Version Control` **&gt;** `Git`
 
@@ -247,4 +263,3 @@ C:\Program Files (x86)\Git\bin\git.exe
 
 C:\Program Files\Git\bin\git.exe
 ```
-
