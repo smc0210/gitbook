@@ -66,58 +66,24 @@ powerling font는 ssh접속 프로그램에서 폰트를 적용해줘야 한다 
 brew cask install iterm2
 ```
 
-zsh와 [zsh-completions](https://github.com/zsh-users/zsh-completions)를 설치합니다.
+zsh와 [zsh-completions](https://github.com/zsh-users/zsh-completions)를 설치한다.
 
 ```bash
 brew install zsh zsh-completions
 ```
 
-zsh의 기능을 확장하고 각종 설정을 관리해주는 oh-my-zsh를 설치합니다.
-이때 패스워드를 물어보는데 맞게 입력하면 스크립타가 알아서 기본쉘을 zsh로 변경해줍니다.
+zsh의 기능을 확장하고 각종 설정을 관리해주는 oh-my-zsh를 설치한다
+이때 패스워드를 물어보는데 맞게 입력하면 스크립타가 알아서 기본쉘을 zsh로 변경해준다.
 
 ```bash
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 ```
 
-oh-my-zsh를 쓰는 가장 큰 이유중에 하나인 플러그인을 설치합니다.
-가장 유명한 플러그인인 Syntax-highlighting(문법강조)와 Auto Suggetions(자동완성)플러그인을 예시로 설명합니다.
-
-```bash
-# zsh-syntax-highlighting
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-
-# zsh-autosuggestions
-git clone git://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
-```
-
-플러그인을 설치했으면 zsh 설정파일인 `.zshrc` 파일에 설정을 해줘야 합니다. (안해주면 적용안됨)
-
-```bash
-plugins=(
-  .. 생략
-  zsh-syntax-highlighting
-  zsh-autosuggestions
-)
-```
-
-항상 `.zshrc` 파일을 수정했을땐 터미널을 재시작하거나 `source ~/.zshrc`명령어를 실행해서 설정파일을 다시 불러와야 적용이 됩니다.
-
-자동완성 플러그인을 설치하면 명령어 입력도중 `tab`키를 누르면 자동완성됩니다.
-그 외에 `alias`를 통해 긴 ~~ 명령어를 축약하여 사용할 수 있습니다.
-
-```bash
-# 원래 명령어
-git status
-
-# 축약 명령어
-gst
-```
-
-img!
-
 ## 2. Plugin
 
-### 2-1. Ubuntu
+### 2-1. Basic
+
+oh-my-zsh를 쓰는 가장 큰 이유중에 하나는 어마어마하게 많은 플러그인들과 잘 갖춰진 플러그인 생태계다.
 
 여러가지 플러그인들이 있지만 처음 설치하면 `.zshrc`에 `git`플러그인만 설치되어 있는데 필요한 플러그인은 설치해서 사용가능하다.
 
@@ -132,16 +98,23 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting
 # zsh-autosuggestions
 # 자동완성 기능
 git clone https://github.com/zsh-users/zsh-autosuggestions
+
+## 환경변수를 이용해서 위에 명령어들을 축약해서 해도 무방
+# zsh-syntax-highlighting
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+
+# zsh-autosuggestions
+git clone git://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
 ```
 
-플러그인을 설치했으면 추가를 해준다
+플러그인을 설치했으면 추가를 해준다.
 
 ```bash
 # 플러그인 추가
 vi ~/.zshrc
 ```
 
-하단의 `plugins`목록에 설치한 플러그인을 명시
+하단의 `plugins`목록에 설치한 플러그인을 명시 ( 이거 안해주면 적용안됨 )
 
 ```markup
 plugins=(
@@ -151,8 +124,19 @@ plugins=(
 )
 ```
 
-### 2-2. Mac
+항상 `.zshrc` 파일을 수정했을땐 터미널을 재시작하거나 `source ~/.zshrc`명령어를 실행해서 설정파일을 다시 불러와야 적용이 된다.
 
-## 3. Aliases
+자동완성 플러그인을 설치하면 명령어 입력도중 `tab`키를 누르면 자동완성되는걸 볼수 있고
+틀린 명령어 입력시 빨간색으로 표기되는등 shell상에서 문법강조가 적용되는걸 확인 할 수 잇다.
 
-"\ue0b0 \u00b1 \ue0a0 \u27a6 \u2718 \u26a1 \u2699"
+그 외에 `alias`를 통해 긴 ~~ 명령어를 축약하여 사용할 수 있다.
+
+```bash
+# 원래 명령어
+git status
+
+# 축약 명령어
+gst
+```
+
+img!
