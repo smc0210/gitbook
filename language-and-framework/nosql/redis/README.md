@@ -9,6 +9,7 @@
 * hash
 
 데이터 타입별 Big-O 연산 언급 이쓴ㄴ경우 참고용
+
 > O\(1\) &lt; O\(log n\) &lt; O\(n\) &lt; O\(n log n\) &lt; O\(n²\) &lt; O\(2ⁿ\) &lt; O\(n!\) &lt; O\(nⁿ\)
 
 ### 1. String
@@ -64,8 +65,7 @@
 
 RDB작업이 실패하면 쓰기 거부 상태로 추가 장애 가능성 존재
 
-> 참고) RDB는 redis 서버 장애 요인의 99.9%라고 언급한 [기사](https://www.zdnet.co.kr/view/?no=20131119174125)
-
+> 참고\) RDB는 redis 서버 장애 요인의 99.9%라고 언급한 [기사](https://www.zdnet.co.kr/view/?no=20131119174125)
 
 ### 2. AOF
 

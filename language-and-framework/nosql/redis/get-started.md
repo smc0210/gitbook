@@ -3,6 +3,7 @@
 설치는 [Ubuntu Simple Redis](../../../environment/ubuntu/simple-redis.md) 참조
 
 ## Client Tool
+
 redis client Tool은 여러가지를 사용해본 결과 [luin/medis](https://github.com/luin/medis)가 사용하기에 적절하다.
 
 데이터 확인과 cli 명령뿐만 아니라 제어 가능한 모든 redis 설정까지 확인 및 수정이 가능하다.
@@ -32,18 +33,17 @@ requirepass redis
 ```
 
 | policy | description |
-|---|---|
-| noeviction | 기존 데이터 삭제 안함. 메모리 한계에 도달하면 OOM 오류 반환. 새 데이터 저장되지 않음 | 
+| :--- | :--- |
+| noeviction | 기존 데이터 삭제 안함. 메모리 한계에 도달하면 OOM 오류 반환. 새 데이터 저장되지 않음 |
 | allkeys-lru | LRU로 삭제하여 공간확보하고 새 데이터 저장 |
 | volatile-lru | expire set을 가진 것 중 LRU로 삭제하여 공간확보하고 새 데이터 저장 |
-| allkeys-random |	랜덤으로 삭제하여 공간확보하고 새 데이터 저장 |
-| volatile-random |	expire set을 가진 것 중에서 랜덤으로 삭제하여 공간확보하고 새 데이터 저장 |
-| volatile-ttl |	expire set을 가진 것 중 TTL이 짧은 것부터 삭제하여 공간확보하고 새 데이터 저장 |
+| allkeys-random | 랜덤으로 삭제하여 공간확보하고 새 데이터 저장 |
+| volatile-random | expire set을 가진 것 중에서 랜덤으로 삭제하여 공간확보하고 새 데이터 저장 |
+| volatile-ttl | expire set을 가진 것 중 TTL이 짧은 것부터 삭제하여 공간확보하고 새 데이터 저장 |
 
-- 데이터 보존 용도로는 `noeviction`
-- 캐시 용도로는 `allkeys-lru`를 사용
-- `volatile-` 시리즈는, 메모리 부족한데 expire 대상 없으면 OOM 오류 반환
-
+* 데이터 보존 용도로는 `noeviction`
+* 캐시 용도로는 `allkeys-lru`를 사용
+* `volatile-` 시리즈는, 메모리 부족한데 expire 대상 없으면 OOM 오류 반환
 
 ## Syntax
 

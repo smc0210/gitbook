@@ -11,7 +11,7 @@
     * [Intro & Basic](language-and-framework/javascript/typescript/intro-and-basic.md)
   * [React](language-and-framework/javascript/react/)
     * [React Native](language-and-framework/javascript/react/react-native.md)
-  * [Vue.js](language-and-framework/javascript/vue.js/)
+  * [Vue.js](https://github.com/smc0210/gitbook/tree/3fe565f411c712f9eb96639c070c8fdbccde009d/language-and-framework/javascript/vue.js)
     * [ES6](language-and-framework/javascript/vue.js/es6.md)
     * [Life Cycle](language-and-framework/javascript/vue.js/life-cycle.md)
     * [Component](language-and-framework/javascript/vue.js/component.md)
@@ -92,8 +92,4 @@
   * [Command](tools-and-etc/yarn-and-npm/command.md)
 * [Gulp](tools-and-etc/front-build/gulp.md)
 * [webpack](tools-and-etc/front-build/webpack.md)
-
-
-
-
 

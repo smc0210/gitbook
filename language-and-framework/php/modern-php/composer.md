@@ -207,12 +207,11 @@ composer config -g repos.packagist composer https://packagist.kr
 composer config -g --unset repositories.packagist
 ```
 
-
 ### 2. Prestissimo
 
-패키지 다운로드를 병렬로 처리해주는 [prestissimo](https://github.com/hirak/prestissimo) 추가 패키지 설치 
+패키지 다운로드를 병렬로 처리해주는 [prestissimo](https://github.com/hirak/prestissimo) 추가 패키지 설치
 
-공개된 벤치결과에 따르면 `create-project` 로 라라벨 설치시  288초에서 26초로 속도향상이 있다고 한다.
+공개된 벤치결과에 따르면 `create-project` 로 라라벨 설치시 288초에서 26초로 속도향상이 있다고 한다.
 
 ```bash
 # install
@@ -221,3 +220,4 @@ composer global require hirak/prestissimo
 # remove
 composer global remove hirak/prestissimo
 ```
+

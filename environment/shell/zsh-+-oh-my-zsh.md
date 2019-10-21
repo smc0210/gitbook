@@ -72,8 +72,7 @@ zsh와 [zsh-completions](https://github.com/zsh-users/zsh-completions)를 설치
 brew install zsh zsh-completions
 ```
 
-zsh의 기능을 확장하고 각종 설정을 관리해주는 oh-my-zsh를 설치한다
-이때 패스워드를 물어보는데 맞게 입력하면 스크립타가 알아서 기본쉘을 zsh로 변경해준다.
+zsh의 기능을 확장하고 각종 설정을 관리해주는 oh-my-zsh를 설치한다 이때 패스워드를 물어보는데 맞게 입력하면 스크립타가 알아서 기본쉘을 zsh로 변경해준다.
 
 ```bash
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
@@ -114,7 +113,7 @@ git clone git://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh
 vi ~/.zshrc
 ```
 
-하단의 `plugins`목록에 설치한 플러그인을 명시 ( 이거 안해주면 적용안됨 )
+하단의 `plugins`목록에 설치한 플러그인을 명시 \( 이거 안해주면 적용안됨 \)
 
 ```markup
 plugins=(
@@ -126,8 +125,7 @@ plugins=(
 
 항상 `.zshrc` 파일을 수정했을땐 터미널을 재시작하거나 `source ~/.zshrc`명령어를 실행해서 설정파일을 다시 불러와야 적용이 된다.
 
-자동완성 플러그인을 설치하면 명령어 입력도중 `tab`키를 누르면 자동완성되는걸 볼수 있고
-틀린 명령어 입력시 빨간색으로 표기되는등 shell상에서 문법강조가 적용되는걸 확인 할 수 잇다.
+자동완성 플러그인을 설치하면 명령어 입력도중 `tab`키를 누르면 자동완성되는걸 볼수 있고 틀린 명령어 입력시 빨간색으로 표기되는등 shell상에서 문법강조가 적용되는걸 확인 할 수 잇다.
 
 그 외에 `alias`를 통해 긴 ~~ 명령어를 축약하여 사용할 수 있다.
 
@@ -139,4 +137,7 @@ git status
 gst
 ```
 
-img!
+alias 예시
+
+![](../../.gitbook/assets/zsh1.png)
+

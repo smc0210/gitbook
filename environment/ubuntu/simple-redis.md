@@ -63,7 +63,7 @@ vi /etc/redis/redis.conf
 
 {% code-tabs %}
 {% code-tabs-item title="redis.conf" %}
-```apacheconf
+```text
 # allkeys-lru 는 가장 오래된 데이터를 지워서 메모리 확보
 maxmemory-policy allkeys-lru
 ```
@@ -88,17 +88,15 @@ redis-cli -h <redis 서버 ip> -p <redis port> -a <password>
 
 ## 4. Redis Persistance
 
-|   | RDB  | AOF  | 
-|---|---|---|
-| info  | 특정시점 또는 반복적으로 메모리에 있는 전체 데이터를 디스크에 저장  | 명령이 실행 될 때마다 기록  |   
-| 장점  | 파일크기 작아 로딩시간 빠름  | 텍스트 파일로 백업하므로 손상이 발생해도 수정해볼 여지가 있음   |   
-| 단점  | 백업시점에 따라 데이터 유실 및 바이너리 파일이므로 손상발생시 식별 사실상 불가  | 모든 명령어가 기록되므로 파일 크기가 큼  |   
+|  | RDB | AOF |
+| :--- | :--- | :--- |
+| info | 특정시점 또는 반복적으로 메모리에 있는 전체 데이터를 디스크에 저장 | 명령이 실행 될 때마다 기록 |
+| 장점 | 파일크기 작아 로딩시간 빠름 | 텍스트 파일로 백업하므로 손상이 발생해도 수정해볼 여지가 있음 |
+| 단점 | 백업시점에 따라 데이터 유실 및 바이너리 파일이므로 손상발생시 식별 사실상 불가 | 모든 명령어가 기록되므로 파일 크기가 큼 |
 
-두가지 모드 장단점이 명확하고 서로 대체가 안되는 부분이 있어 공식적으로는 두가지 모드를 함께 쓰기를 권고하지만
-실무에서는 두가지를 모두 안쓰고  별도의 툴을 이용하는 경우도 있다. 예)카카오 
+두가지 모드 장단점이 명확하고 서로 대체가 안되는 부분이 있어 공식적으로는 두가지 모드를 함께 쓰기를 권고하지만 실무에서는 두가지를 모두 안쓰고 별도의 툴을 이용하는 경우도 있다. 예\)카카오
 
-
-### 1. rdb 설정 (Snapshotting)
+### 1. rdb 설정 \(Snapshotting\)
 
 redis-cli 로 접속하여 명령어로 백업도 가능
 
@@ -110,11 +108,11 @@ save
 bgsave
 ```
 
-`redis.conf`에서 설정 ( 아래 설정내용은 전부 redis설치후 기본적으로 작성되어 있는 내용)
+`redis.conf`에서 설정 \( 아래 설정내용은 전부 redis설치후 기본적으로 작성되어 있는 내용\)
 
 {% code-tabs %}
 {% code-tabs-item title="RDB mode" %}
-```apacheconf
+```text
 # 900초 동안 1번 이상 쓰기 작업이 실행되면 RDB 파일에 저장
 save 900 1 
 
@@ -145,9 +143,9 @@ dbfilename dump.rdb
 dir /var/lib/redis
 ```
 {% endcode-tabs-item %}
-{% code-tabs-item title="AOF mode" %}
-```apacheconf
 
+{% code-tabs-item title="AOF mode" %}
+```text
 # yes일 경우 AOF파일을 생성한다.
 appendonly no
 
@@ -163,6 +161,5 @@ appendfsync everysec
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-RDB와 AOF방식 모두 설정되어 있을 경우 
-`appendonly` 가 **yes일경우 AOF파일을 사용**
-**No일 경우 RDB파일을 사용**한다.
+RDB와 AOF방식 모두 설정되어 있을 경우 `appendonly` 가 **yes일경우 AOF파일을 사용** **No일 경우 RDB파일을 사용**한다.
+
