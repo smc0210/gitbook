@@ -37,15 +37,13 @@ php-cs-fixer 설치 [friendsofphp/php-cs-fixer](https://packagist.org/packages/f
 inline 방식
 
 ```text
-# php-cs-fixer option Rule로 변경
-fix --rules=@PSR2,@Symfony,no_unused_imports,indentation_type $FileDir$/$FileName$
+# php-cs-fixer option Rule로 변경fix --rules=@PSR2,@Symfony,no_unused_imports,indentation_type $FileDir$/$FileName$
 ```
 
 config file 방식
 
 ```text
-# config파일로 설정
-fix --config=.php_cs $FileDir$/$FileName$
+# config파일로 설정fix --config=.php_cs $FileDir$/$FileName$
 ```
 
 ## 3. xdebug
@@ -55,19 +53,7 @@ fix --config=.php_cs $FileDir$/$FileName$
 > php.ini
 
 ```markup
-; Off -> On 으로 수정
-implicit_flush = On
-
-
-; 최하단에 하기 추가 (경로설정 주의)
-[XDebug] 
-;; Only Zend OR (!) XDebug
-zend_extension="C:\laragon\bin\php\php-7.1.14-Win32-VC14-x64\ext\php_xdebug-2.6.0-7.1-vc14-x86_64.dll" xdebug.remote_enable=true
-xdebug.remote_host=localhost 
-xdebug.remote_port=8000
-xdebug.remote_handler=dbgp 
-xdebug.profiler_enable=1 
-xdebug.profiler_output_dir="C:\laragon\tmp"
+; Off -> On 으로 수정implicit_flush = On; 최하단에 하기 추가 (경로설정 주의)[XDebug] ;; Only Zend OR (!) XDebugzend_extension="C:\laragon\bin\php\php-7.1.14-Win32-VC14-x64\ext\php_xdebug-2.6.0-7.1-vc14-x86_64.dll" xdebug.remote_enable=truexdebug.remote_host=localhost xdebug.remote_port=8000xdebug.remote_handler=dbgp xdebug.profiler_enable=1 xdebug.profiler_output_dir="C:\laragon\tmp"
 ```
 
 laragon 트레이 아이콘 우클릭 &gt; PHP &gt; Extension 에서 xdebug설정
@@ -91,11 +77,7 @@ laragon 트레이 아이콘 우클릭 &gt; PHP &gt; Extension 에서 xdebug설�
 Shell path 란에 입력
 
 ```bash
-# 32-bit version of Git
-"C:\Program Files (x86)\Git\bin\sh.exe" -login -i
-
-# 64-bit version of Git
-"C:\Program Files\Git\bin\sh.exe" -login -i
+# 32-bit version of Git"C:\Program Files (x86)\Git\bin\sh.exe" -login -i# 64-bit version of Git"C:\Program Files\Git\bin\sh.exe" -login -i
 ```
 
 > 그래야 bash\_profile 적용되서 환경변수및 기타 설정을 동일하게 쓸 수 있다.
@@ -103,10 +85,6 @@ Shell path 란에 입력
 **5-1-2.** `Settings` **&gt;** `Version Control` **&gt;** `Git`
 
 ```bash
-C:\Program Files (x86)\Git\bin\git.exe
-
-# or this if you're using the 64-bit version of Git:
-
-C:\Program Files\Git\bin\git.exe
+C:\Program Files (x86)\Git\bin\git.exe# or this if you're using the 64-bit version of Git:C:\Program Files\Git\bin\git.exe
 ```
 
