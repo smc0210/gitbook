@@ -20,64 +20,7 @@ description: OS에서 기본적으로 제공하지 않는 버전의 mysql 설치
 ### 2. 설치
 
 ```bash
-# root 계정으로 진행
-
-# mysql 유저와 그룹생성
-groupadd mysql
-useradd -g  mysql mysql
-
-# 5.5 버전 다운로드 및 압축해제
-cd /root
-
-wget https://dev.mysql.com/get/Downloads/MySQL-5.5/mysql-5.5.56-linux-glibc2.5-x86_64.tar.gz
-tar -xvf mysql-5.5.56-linux-glibc2.5-x86_64.tar.gz /usr/local
-
-cd /usr/local
-
-mv mysql-5.5.56-linux-glibc2.5-x86_64 mysql
-
-# mysql 그룹/유저 설정
-cd mysql
-chown -R mysql:mysql *
-
-# 필요한 lib 패키지 설치
-apt install libaio1
-
-# install script 실행
-scripts/mysql_install_db --user=mysql
-
-chown -R root .
-chown -R mysql data
-
-cp support-files/my-medium.cnf /etc/my.cnf 
-
-# Start Mysql
-bin/mysqld_safe --user=mysql &
-cp support-files/mysql.server /etc/init.d/mysql.server
-
-# root 패스워드 설정
-bin/mysqladmin -u root password '1234'
-
-# Start mysql seerver
-/etc/init.d/mysql.server start
-
-# Stop mysql server
-/etc/init.d/mysql.server stop
-
-# Check status of mysql
-/etc/init.d/mysql.server status
-
-#Enable myql on startup
-update-rc.d -f mysql.server defaults 
-
-#Disable mysql on startup
-update-rc.d -f mysql.server remove
-
-# 심볼릭 링크
-ln -s /usr/local/mysql/bin/mysql /usr/local/bin/mysql
-
-# 접속
-mysql -uroot -p1234
+# root 계정으로 진행# mysql 유저와 그룹생성groupadd mysqluseradd -g  mysql mysql# 5.5 버전 다운로드 및 압축해제cd /rootwget https://dev.mysql.com/get/Downloads/MySQL-5.5/mysql-5.5.56-linux-glibc2.5-x86_64.tar.gztar -xvf mysql-5.5.56-linux-glibc2.5-x86_64.tar.gz /usr/localcd /usr/localmv mysql-5.5.56-linux-glibc2.5-x86_64 mysql# mysql 그룹/유저 설정cd mysqlchown -R mysql:mysql *# 필요한 lib 패키지 설치apt install libaio1# install script 실행scripts/mysql_install_db --user=mysqlchown -R root .chown -R mysql datacp support-files/my-medium.cnf /etc/my.cnf # Start Mysqlbin/mysqld_safe --user=mysql &cp support-files/mysql.server /etc/init.d/mysql.server# root 패스워드 설정bin/mysqladmin -u root password '1234'# Start mysql seerver/etc/init.d/mysql.server start# Stop mysql server/etc/init.d/mysql.server stop# Check status of mysql/etc/init.d/mysql.server status#Enable myql on startupupdate-rc.d -f mysql.server defaults #Disable mysql on startupupdate-rc.d -f mysql.server remove# 심볼릭 링크ln -s /usr/local/mysql/bin/mysql /usr/local/bin/mysql# 접속mysql -uroot -p1234
 ```
 
 ### 3. 외부 접속 허용

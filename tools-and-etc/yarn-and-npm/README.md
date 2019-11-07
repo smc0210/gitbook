@@ -7,13 +7,7 @@
 ### 1-1. macOS Install
 
 ```bash
-brew install yarn
-
-# Node.js를 제외한 설치 (NVM 같은 버전관리툴 사용시)
-brew install yarn --without-node
-
-# upgrade
-brew upgrade yarn
+brew install yarn# Node.js를 제외한 설치 (NVM 같은 버전관리툴 사용시)brew install yarn --without-node# upgradebrew upgrade yarn
 ```
 
 ### 1-2. Windows Install
@@ -21,11 +15,7 @@ brew upgrade yarn
 [공식사이트](https://yarnpkg.com/en/docs/install#windows-stable)에서 installer를 이용해 설치하거나 다른 패키지 매니저를 통해 설치
 
 ```bash
-npm install -g yarn
-
-choco install yarn
-
-scoop install yarn
+npm install -g yarnchoco install yarnscoop install yarn
 ```
 
 ### 1-3. Path

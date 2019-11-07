@@ -127,35 +127,6 @@ AWS 뿐만 아니라 정보보안 개론에서 중요한 개념중 하나인 **�
 현재 운영-스테이징-개발 서버에 부여되었는 `Role` 인 `tocloudwatchlogs`의 경우가 위에서 언급한 가장 안전하고 권장되는 방법중 하나이다.
 
 ```javascript
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "VisualEditor0",
-            "Effect": "Allow",            // 허용정책
-            "Action": [
-                "logs:CreateLogStream",        // logStream 생성권한
-                "logs:DescribeLogStreams",
-                "logs:PutLogEvents"        // log쓰기 권한
-            ],
-            "Resource": "arn:aws:logs:*:*:*"// 모든 log
-        },
-        {
-            "Sid": "VisualEditor1",
-            "Effect": "Allow",    
-            "Action": "s3:*",            // 모든 S3 액션에 대해 (CRUD)
-            "Resource": [
-                "arn:aws:s3:::wisdom-ec2-log/*",    // wisdom-ec2-log 버킷과
-                "arn:aws:s3:::wisdomelblog/*"    // wisdomelblog 버킷의 모든 파일에 대한
-            ]
-        },
-        {
-            "Sid": "VisualEditor2",
-            "Effect": "Allow",
-            "Action": "logs:CreateLogGroup",
-            "Resource": "arn:aws:logs:*:*:*"
-        }
-    ]
-}
+{    "Version": "2012-10-17",    "Statement": [        {            "Sid": "VisualEditor0",            "Effect": "Allow",            // 허용정책            "Action": [                "logs:CreateLogStream",        // logStream 생성권한                "logs:DescribeLogStreams",                "logs:PutLogEvents"        // log쓰기 권한            ],            "Resource": "arn:aws:logs:*:*:*"// 모든 log        },        {            "Sid": "VisualEditor1",            "Effect": "Allow",                "Action": "s3:*",            // 모든 S3 액션에 대해 (CRUD)            "Resource": [                "arn:aws:s3:::wisdom-ec2-log/*",    // wisdom-ec2-log 버킷과                "arn:aws:s3:::wisdomelblog/*"    // wisdomelblog 버킷의 모든 파일에 대한            ]        },        {            "Sid": "VisualEditor2",            "Effect": "Allow",            "Action": "logs:CreateLogGroup",            "Resource": "arn:aws:logs:*:*:*"        }    ]}
 ```
 

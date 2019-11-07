@@ -24,9 +24,7 @@
 * `List`의 양 극단\(head/tail\)근처의 데이터에 접근은 매우 빠르지만 `O(n)`연산이므로 매우 큰 `List`의 중간에 액세스 하려고 하면 느릴 수 있다.
 
   > ```bash
-  > LPUSH mylist a   # now the list is "a"
-  > LPUSH mylist b   # now the list is "b","a"
-  > RPUSH mylist c   # now the list is "b","a","c" (RPUSH was used this time)
+  > LPUSH mylist a   # now the list is "a"LPUSH mylist b   # now the list is "b","a"RPUSH mylist c   # now the list is "b","a","c" (RPUSH was used this time)
   > ```
 
 ### 3. Set

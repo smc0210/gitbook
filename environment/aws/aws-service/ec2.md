@@ -314,9 +314,7 @@ Auto Scaling을 사용하기 위해서는 먼저 EC2 생성옵션 \(Launch Confi
 > 예\)
 >
 > ```bash
-> # Auto Scaling으로 생성되는 서버들의 소스코드 동기화작업
-> cd /home/{user}/www
-> git pull
+> # Auto Scaling으로 생성되는 서버들의 소스코드 동기화작업cd /home/{user}/wwwgit pull
 > ```
 
 ### Create Auto Scaling Group

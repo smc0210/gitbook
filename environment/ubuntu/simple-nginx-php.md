@@ -26,8 +26,7 @@ free -m
 vmstat -s
 
 # CPU 코어수 체크
-cat /proc/cpuinfo | grep processor | wc -l
-cat /proc/cpuinfo | grep processor
+cat /proc/cpuinfo | grep processor | wc -lcat /proc/cpuinfo | grep processor
 
 # 자세한 CPU 제원 체크
 cat /proc/cpuinfo
@@ -85,9 +84,7 @@ Ubuntu 제작자중 한명이며 Debian에서 일하고 있는 ondrej 저장소�
 {% endhint %}
 
 ```bash
-apt-get install software-properties-common
-
-add-apt-repository ppa:ondrej/php
+apt-get install software-properties-commonadd-apt-repository ppa:ondrej/php
 
 # 추가된 보안키 목록 확인
 apt-key list
@@ -125,7 +122,6 @@ apt install php7.2-fpm
 
 ```text
 php -v
-
 php-fpm7.2 -v
 ```
 
@@ -151,6 +147,7 @@ PHP Default timezone 설정
 
 ```bash
 vi /etc/php/7.2/fpm/php.ini
+
 vi /etc/php/7.2/cli/php.ini
 ```
 
@@ -187,48 +184,7 @@ vi /etc/nginx/conf.d/default.conf
 > `default.conf` 파일을 아리 기본구문으로 변경 \(기존데이터는 백업\)
 
 ```markup
-server {
-    listen       80 default_server;
-    server_name  localhost;
-    root /var/www/public;
-
-
-    location / {
-        index  index.php index.html;
-        try_files $uri $uri/ /index.php?$args;
-    }
-
-    # Allow Lets Encrypt Domain Validation Program
-    location ^~ /.well-known/acme-challenge/ {
-        allow all;
-    }
-
-    # Block dot file (.htaccess .htpasswd .svn .git .env and so on.)
-    location ~ /\. {
-        deny all;
-    }
-
-    # Block (log file, binary, certificate, shell script, sql dump file) access.
-    location ~* \.(log|binary|pem|enc|crt|conf|cnf|sql|sh|key)$ {
-        deny all;
-    }
-
-    # Block access
-    location ~* (composer\.json|contributing\.md|license\.txt|readme\.rst|readme\.md|readme\.txt|copyright|artisan|gulpfile\.js|package\.json|phpunit\.xml)$ {
-        deny all;
-    }
-
-    location ~ [^/]\.php(/|$) {
-        fastcgi_split_path_info ^(.+?\.php)(/.*)$;
-        if (!-f $document_root$fastcgi_script_name) {
-            return 404;
-        }
-
-        fastcgi_pass unix:/run/php/php7.2-fpm.sock;
-        fastcgi_index index.php;
-        include fastcgi_params;
-    }
-}
+server {    listen       80 default_server;    server_name  localhost;    root /var/www/public;    location / {        index  index.php index.html;        try_files $uri $uri/ /index.php?$args;    }    # Allow Lets Encrypt Domain Validation Program    location ^~ /.well-known/acme-challenge/ {        allow all;    }    # Block dot file (.htaccess .htpasswd .svn .git .env and so on.)    location ~ /\. {        deny all;    }    # Block (log file, binary, certificate, shell script, sql dump file) access.    location ~* \.(log|binary|pem|enc|crt|conf|cnf|sql|sh|key)$ {        deny all;    }    # Block access    location ~* (composer\.json|contributing\.md|license\.txt|readme\.rst|readme\.md|readme\.txt|copyright|artisan|gulpfile\.js|package\.json|phpunit\.xml)$ {        deny all;    }    location ~ [^/]\.php(/|$) {        fastcgi_split_path_info ^(.+?\.php)(/.*)$;        if (!-f $document_root$fastcgi_script_name) {            return 404;        }        fastcgi_pass unix:/run/php/php7.2-fpm.sock;        fastcgi_index index.php;        include fastcgi_params;    }}
 ```
 
 **fastcgi\_params 변경**
@@ -240,33 +196,7 @@ vi /etc/nginx/fastcgi_params
 > `fastcgi_params` 파일을 변경
 
 ```text
-fastcgi_param   QUERY_STRING            $query_string;
-fastcgi_param   REQUEST_METHOD          $request_method;
-fastcgi_param   CONTENT_TYPE            $content_type;
-fastcgi_param   CONTENT_LENGTH          $content_length;
-
-fastcgi_param   SCRIPT_FILENAME         $document_root$fastcgi_script_name;
-fastcgi_param   SCRIPT_NAME             $fastcgi_script_name;
-fastcgi_param   PATH_INFO               $fastcgi_path_info;
-fastcgi_param   PATH_TRANSLATED         $document_root$fastcgi_path_info;
-fastcgi_param   REQUEST_URI             $request_uri;
-fastcgi_param   DOCUMENT_URI            $document_uri;
-fastcgi_param   DOCUMENT_ROOT           $document_root;
-fastcgi_param   SERVER_PROTOCOL         $server_protocol;
-
-fastcgi_param   GATEWAY_INTERFACE       CGI/1.1;
-fastcgi_param   SERVER_SOFTWARE         nginx/$nginx_version;
-
-fastcgi_param   REMOTE_ADDR             $remote_addr;
-fastcgi_param   REMOTE_PORT             $remote_port;
-fastcgi_param   SERVER_ADDR             $server_addr;
-fastcgi_param   SERVER_PORT             $server_port;
-fastcgi_param   SERVER_NAME             $server_name;
-
-fastcgi_param   HTTPS                   $https;
-
-# PHP only, required if PHP was built with --enable-force-cgi-redirect
-fastcgi_param   REDIRECT_STATUS         200;
+fastcgi_param   QUERY_STRING            $query_string;fastcgi_param   REQUEST_METHOD          $request_method;fastcgi_param   CONTENT_TYPE            $content_type;fastcgi_param   CONTENT_LENGTH          $content_length;fastcgi_param   SCRIPT_FILENAME         $document_root$fastcgi_script_name;fastcgi_param   SCRIPT_NAME             $fastcgi_script_name;fastcgi_param   PATH_INFO               $fastcgi_path_info;fastcgi_param   PATH_TRANSLATED         $document_root$fastcgi_path_info;fastcgi_param   REQUEST_URI             $request_uri;fastcgi_param   DOCUMENT_URI            $document_uri;fastcgi_param   DOCUMENT_ROOT           $document_root;fastcgi_param   SERVER_PROTOCOL         $server_protocol;fastcgi_param   GATEWAY_INTERFACE       CGI/1.1;fastcgi_param   SERVER_SOFTWARE         nginx/$nginx_version;fastcgi_param   REMOTE_ADDR             $remote_addr;fastcgi_param   REMOTE_PORT             $remote_port;fastcgi_param   SERVER_ADDR             $server_addr;fastcgi_param   SERVER_PORT             $server_port;fastcgi_param   SERVER_NAME             $server_name;fastcgi_param   HTTPS                   $https;# PHP only, required if PHP was built with --enable-force-cgi-redirectfastcgi_param   REDIRECT_STATUS         200;
 ```
 
 ```bash
@@ -279,30 +209,13 @@ service nginx restart
 
 **php-fpm process 설정**
 
-{% code-tabs %}
-{% code-tabs-item title="/etc/php/7.2/fpm/pool.d/www.conf" %}
+{% tabs %}
+{% tab title="/etc/php/7.2/fpm/pool.d/www.conf" %}
 ```text
-# child process 의 수량을 결정하는 process manager 설정
-# static  (pm.max_children) 설정에 따라 child processes의 수가 고정
-# dynamic child process의 수가 동적으로 조절되며 최소 1개의 process를 가지고 다음 설정들로 제어된다
-#   pm.max_children  최대 child process 수
-#   pm.start_servers 시작 child process 수
-#   pm.min_spare_servers
-#   pm.max_spare_servers
-pm = static
-
-# 동시 요청 수에 대한 제한
-# mpm_prefork를 사용하는 ApacheMaxClients 지시문과 흡사한 기능을함
-# PHP CGI의 PHP_FCGI_CHILDREN 환경변수와 동일
-# 계산식
-#   Total RAM dedicated to the web server / Max child process size
-#   1. free -m 으로 가용 메모리 체크
-#   2. ps --no-headers -o "rss,cmd" -C php-fpm7.2 | awk '{ sum+=$1 } END { printf ("%d%s\n", sum/NR/1024,"Mb")}'
-# 상기 명령어로 fpm process 평균 사용 메모리 측정후 계산
-pm.max_children = 100
+# child process 의 수량을 결정하는 process manager 설정# static  (pm.max_children) 설정에 따라 child processes의 수가 고정# dynamic child process의 수가 동적으로 조절되며 최소 1개의 process를 가지고 다음 설정들로 제어된다#   pm.max_children  최대 child process 수#   pm.start_servers 시작 child process 수#   pm.min_spare_servers#   pm.max_spare_serverspm = static# 동시 요청 수에 대한 제한# mpm_prefork를 사용하는 ApacheMaxClients 지시문과 흡사한 기능을함# PHP CGI의 PHP_FCGI_CHILDREN 환경변수와 동일# 계산식#   Total RAM dedicated to the web server / Max child process size#   1. free -m 으로 가용 메모리 체크#   2. ps --no-headers -o "rss,cmd" -C php-fpm7.2 | awk '{ sum+=$1 } END { printf ("%d%s\n", sum/NR/1024,"Mb")}'# 상기 명령어로 fpm process 평균 사용 메모리 측정후 계산pm.max_children = 100
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endtab %}
+{% endtabs %}
 
 fpm 재시작하여 적용
 
@@ -318,36 +231,13 @@ fpm pool 설정파일에서 `pm.status_path = /status` 부분을 찾아 주석�
 vi /etc/php/7.2/fpm/pool.d/www.conf
 ```
 
-{% code-tabs %}
-{% code-tabs-item title="www.conf" %}
+{% tabs %}
+{% tab title="www.conf" %}
 ```text
-215 ; Example output:
-216 ;   ************************
-217 ;   pid:                  31330
-218 ;   state:                Running
-219 ;   start time:           01/Jul/2011:17:53:49 +0200
-220 ;   start since:          63087
-221 ;   requests:             12808
-222 ;   request duration:     1250261
-223 ;   request method:       GET
-224 ;   request URI:          /test_mem.php?N=10000
-225 ;   content length:       0
-226 ;   user:                 -
-227 ;   script:               /home/fat/web/docs/php/test_mem.php
-228 ;   last request cpu:     0.00
-229 ;   last request memory:  0
-230 ;
-231 ; Note: There is a real-time FPM status monitoring sample web page available
-232 ;       It's available in: /usr/share/php/7.2/fpm/status.html
-233 ;
-234 ; Note: The value must start with a leading slash (/). The value can be
-235 ;       anything, but it may not be a good idea to use the .php extension or it
-236 ;       may conflict with a real PHP file.
-237 ; Default Value: not set
-238 pm.status_path = /status
+215 ; Example output:216 ;   ************************217 ;   pid:                  31330218 ;   state:                Running219 ;   start time:           01/Jul/2011:17:53:49 +0200220 ;   start since:          63087221 ;   requests:             12808222 ;   request duration:     1250261223 ;   request method:       GET224 ;   request URI:          /test_mem.php?N=10000225 ;   content length:       0226 ;   user:                 -227 ;   script:               /home/fat/web/docs/php/test_mem.php228 ;   last request cpu:     0.00229 ;   last request memory:  0230 ;231 ; Note: There is a real-time FPM status monitoring sample web page available232 ;       It's available in: /usr/share/php/7.2/fpm/status.html233 ;234 ; Note: The value must start with a leading slash (/). The value can be235 ;       anything, but it may not be a good idea to use the .php extension or it236 ;       may conflict with a real PHP file.237 ; Default Value: not set238 pm.status_path = /status
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endtab %}
+{% endtabs %}
 
 ```bash
 service php7.2-fpm restart
@@ -359,24 +249,13 @@ nginx 설정파일에서 server 블록 안에 아래 구문을 추가해준다
 vi /etc/nginx/conf.d/default.conf
 ```
 
-{% code-tabs %}
-{% code-tabs-item title="default.conf" %}
+{% tabs %}
+{% tab title="default.conf" %}
 ```text
-  1 server {  
-  2     #.. 생략
-  3
-  4     location ~ ^/(status|ping)$ {
-  5         allow 127.0.0.1;
-  6         fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-  7         fastcgi_index index.php;
-  8         include fastcgi_params;
-  9         #fastcgi_pass 127.0.0.1:9000;
- 10         fastcgi_pass unix:/run/php/php7.2-fpm.sock;
- 11     }
- 12     #.. 생략
+  1 server {    2     #.. 생략  3  4     location ~ ^/(status|ping)$ {  5         allow 127.0.0.1;  6         fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;  7         fastcgi_index index.php;  8         include fastcgi_params;  9         #fastcgi_pass 127.0.0.1:9000; 10         fastcgi_pass unix:/run/php/php7.2-fpm.sock; 11     } 12     #.. 생략
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endtab %}
+{% endtabs %}
 
 ```bash
 service nginx restart
@@ -393,28 +272,13 @@ service nginx restart
 ### install
 
 ```bash
-# 1. composer 설치
-curl -s http://getcomposer.org/installer | php && \
-  echo "export PATH=${PATH}:/var/www/vendor/bin" >> ~/.zshrc && \
-  mv composer.phar /usr/local/bin/composer
-
-# 2. 라라벨 인스톨러 설치
-composer global require laravel/installer
-
-# 3. $PATH 에 추가
-export PATH=~/.composer/vendor/bin:$PATH
-
-# 4. laravel
-laravel new test
+# 1. composer 설치curl -s http://getcomposer.org/installer | php && \  echo "export PATH=${PATH}:/var/www/vendor/bin" >> ~/.zshrc && \  mv composer.phar /usr/local/bin/composer# 2. 라라벨 인스톨러 설치composer global require laravel/installer# 3. $PATH 에 추가export PATH=~/.composer/vendor/bin:$PATH# 4. laravellaravel new test
 ```
 
 > storage permission 관련 에러시 아래 실행
 
 ```bash
-chown -R $USER:www-data storage
-chown -R $USER:www-data bootstrap/cache
-chmod -R 775 storage
-chmod -R 775 bootstrap/cache
+chown -R $USER:www-data storagechown -R $USER:www-data bootstrap/cachechmod -R 775 storagechmod -R 775 bootstrap/cache
 ```
 
 라라벨 인스톨러를 통해 설치할경우 `.env`파일이 생성되어 있고 `artisan key:generate` 명령어도 실행되어 있지만 다른 방법\(composer 설치등..\)으로 설치했을 경우 `.env`파일과 라라벨 키를 수동으로 생성해줘야 한다.

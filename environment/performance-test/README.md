@@ -8,22 +8,13 @@ description: 성능 테스트 관련
 
 EC2에 접속해서 커맨드로 점검 가능한 목록
 
-{% code-tabs %}
-{% code-tabs-item title="Bash" %}
+{% tabs %}
+{% tab title="Bash" %}
 ```bash
-uptime
-dmesg | tail
-vmstat 1
-mpstat -P ALL 1
-pidstat 1
-iostat -xz 1
-free -m
-sar -n DEV 1
-sar -n TCP,ETCP 1
-top
+uptimedmesg | tailvmstat 1mpstat -P ALL 1pidstat 1iostat -xz 1free -msar -n DEV 1sar -n TCP,ETCP 1top
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endtab %}
+{% endtabs %}
 
 {% page-ref page="jmeter.md" %}
 

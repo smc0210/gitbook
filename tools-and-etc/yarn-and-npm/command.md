@@ -7,10 +7,7 @@ description: command snippet
 ## NPM
 
 ```bash
-# package install
-npm install [package_name]
-
-npm -i
+# package installnpm install [package_name]npm -i
 ```
 
 ## Yarn
@@ -26,25 +23,19 @@ yarn init
 package install
 
 ```bash
-yarn add [package]
-yarn add [package]@[version]
-yarn add [package]@tag
+yarn add [package]yarn add [package]@[version]yarn add [package]@tag
 ```
 
 Adding a dependency to different categories of dependencies
 
 ```bash
-yarn add [package] --dev
-yarn add [package] --peer
-yarn add [package] --optional
+yarn add [package] --devyarn add [package] --peeryarn add [package] --optional
 ```
 
 Upgrading a dependency
 
 ```bash
-yarn upgrade [package]
-yarn upgrade [package]@[version]
-yarn upgrade [package]@[tag]
+yarn upgrade [package]yarn upgrade [package]@[version]yarn upgrade [package]@[tag]
 ```
 
 Removing a dependency
@@ -69,23 +60,15 @@ yarn install
 
 `yarn run` `package.json` 파일에 있는 `scripts` 영역에 정의 되어있는 커맨드 실행
 
-{% code-tabs %}
-{% code-tabs-item title="package.json" %}
+{% tabs %}
+{% tab title="package.json" %}
 ```javascript
-{
-  "name": "my-package",
-  "scripts": {
-    "build": "babel src -d lib",
-    "test": "jest"
-  }
-}
+{  "name": "my-package",  "scripts": {    "build": "babel src -d lib",    "test": "jest"  }}
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endtab %}
+{% endtabs %}
 
 ```bash
-yarn run test
-
-yarn run test -o --watch
+yarn run testyarn run test -o --watch
 ```
 

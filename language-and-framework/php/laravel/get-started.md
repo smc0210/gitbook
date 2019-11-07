@@ -30,16 +30,7 @@
 Laragon의 경우 extention활성화는 관리 메뉴에서 체크 형식으로 손쉽게 가능하다. 그게 아닌 docker나 로컬 서버를 구축한 경우 `bash` 창에서 명령어로 확인 가능하다.
 
 ```bash
-# Git Bash
-$ php --version # PHP 5.5.30
-$ php -m # Git Bash 에서는 파이프 (`|`) 연산자가 먹지 않아 `grep` 명령을 쓸 수 없다.
-
-# Windows Command Prompt
-$ php --version # PHP 5.5.30
-$ php -m | findstr openssl
-$ php -m | findstr pdo
-$ php -m | findstr mbstring
-$ php -m | findstr tokenizer
+# Git Bash$ php --version # PHP 5.5.30$ php -m # Git Bash 에서는 파이프 (`|`) 연산자가 먹지 않아 `grep` 명령을 쓸 수 없다.# Windows Command Prompt$ php --version # PHP 5.5.30$ php -m | findstr openssl$ php -m | findstr pdo$ php -m | findstr mbstring$ php -m | findstr tokenizer
 ```
 
 #### laravel install
@@ -49,11 +40,7 @@ $ php -m | findstr tokenizer
 [Composer Downdload URL\]\]](https://getcomposer.org/download/) 에서 윈도우즈용 을 다운받아 설치한다. 설치중에 PHP 경로를 각자 로컬에 설치된 php\(laragon일 경우 laragon 내부의 php 경로\)를 잡아준다.
 
 ```bash
-# composer 명령어가 작동하지 않는다면 환경변수를 점검한다.
-$ composer --version
-
-# laravel installer를 global로 설치
-$ composer global require "laravel/installer"
+# composer 명령어가 작동하지 않는다면 환경변수를 점검한다.$ composer --version# laravel installer를 global로 설치$ composer global require "laravel/installer"
 ```
 
 {% hint style="info" %}
@@ -61,12 +48,7 @@ $ composer global require "laravel/installer"
 {% endhint %}
 
 ```bash
-$ laravel new ProjectName
-$ cd ProjectName
-$ php artisan --verison
-
-# laragon일 경우 별도로 서버를 켜줄 필요 없이 정상작동한다 .( 물론 웹서버가 켜져있는 상태에서)
-$ php artisan serve
+$ laravel new ProjectName$ cd ProjectName$ php artisan --verison# laragon일 경우 별도로 서버를 켜줄 필요 없이 정상작동한다 .( 물론 웹서버가 켜져있는 상태에서)$ php artisan serve
 ```
 
 이후 `localhost:8000`으로 접근시 laravel 화면이 보인다면 정상이다.

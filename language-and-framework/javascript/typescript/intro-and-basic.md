@@ -15,12 +15,7 @@ description: Introduction
 `javascript`의 장점이자 단점이기도 한 동적 타이핑에 의한 오류를 사전에 검출하고 파악할 수 있다.
 
 ```javascript
-function sum(a, b) {
-    return a + b
-}
-
-sum(1,2); // 3
-sum('1', '2'); // '12'
+function sum(a, b) {    return a + b}sum(1,2); // 3sum('1', '2'); // '12'
 ```
 
 위와 같은 함수를 작성했다면 그 의도는 `number` 타입 인수를 전달받아서 더한 값을 리턴하는 거지만 아래의 선언부처럼 `string` 타입을 인자값으로 전달하더라도 오류 없이 실행되며 값을 리턴해준다. 그리고 그 리턴 값은 작성자의 의도와는 다른 결과값이고 잡기도 힘들고 에러를 유발하는 원인이 되기도 한다.
@@ -28,11 +23,7 @@ sum('1', '2'); // '12'
 이를 타입스크립트의 정적타입을 이용해 작성한다면 컴파일 단계에서 오류를 발견할 수 있다.
 
 ```javascript
-function sum(a: number, b: number){
-    return a + b;
-}
-
-sum('1','2'); // error message
+function sum(a: number, b: number){    return a + b;}sum('1','2'); // error message
 ```
 
 ### 2-2. Support
@@ -68,11 +59,7 @@ tsc index.ts // done
 [공식문서](https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes.html)의 설치가이드를 보면 npm을 통해 설치하는 가이드만 있는데 `yarn`으로도 가능하다 어떤 패키지 매니저로든 전역적으로 설치를 해준다
 
 ```bash
-npm install -g typescript
-
-yarn global add typescript
-
-tsc -v  // Version 3.0.1
+npm install -g typescriptyarn global add typescripttsc -v  // Version 3.0.1
 ```
 
 ### 3-2. Transpiling

@@ -7,20 +7,13 @@
 ### 1-1. basic
 
 ```php
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', function () {    return view('welcome');});
 ```
 
 `return view('welcome');` 의 **welcome** 은 `resources/views/welcome.blade.php`를 의미한다
 
 ```php
-Route::get('/', function () {
-    return view('errors.503');
-});
-
-// {file?}은 값이 없어도 에러가 나지 않도록 처리
-Route::get('docs/{file?}', 'IndexController@index),
+Route::get('/', function () {    return view('errors.503');});// {file?}은 값이 없어도 에러가 나지 않도록 처리Route::get('docs/{file?}', 'IndexController@index),
 ```
 
 `views` 하위 폴더의 블레이드 엔진은 `.` 또는 `/`로 구분한다.
@@ -28,21 +21,7 @@ Route::get('docs/{file?}', 'IndexController@index),
 ### 1-2. data binding
 
 ```php
-// with\(\)를 이용한 전달방법
-Route::get('/', function () {
-    return view('index')->with([
-        'greeting' => 'Good morning ^^/',
-        'name'     => 'Appkr'
-    ]);
-});
-
-// view()의 두번째 인자로 전달하는 방법
-Route::get('/', function () {
-    return view('index', [
-        'greeting' => 'Ola~',
-        'name'     => 'Laravelians'
-    ]);
-});
+// with\(\)를 이용한 전달방법Route::get('/', function () {    return view('index')->with([        'greeting' => 'Good morning ^^/',        'name'     => 'Appkr'    ]);});// view()의 두번째 인자로 전달하는 방법Route::get('/', function () {    return view('index', [        'greeting' => 'Ola~',        'name'     => 'Laravelians'    ]);});
 ```
 
 ### 1-3. Controller routing
@@ -50,14 +29,7 @@ Route::get('/', function () {
 일반적으로 라우트에서 직접 뷰를 호출하거나 데이터를 직접 넘기지 않고 먼저 컨트롤러를 호출하게 된다 코드이그나이터의 클래스명@메소드와 동일한 방식
 
 ```php
-# indexController 의 index()를 호출
-Route::get('/', 'IndexController@index');
-
-#Name 부여 
-Route::get('posts', [
-    'as'    =>  'posts.index',
-    'uses'  =>  'PostsController@index'
-]);
+# indexController 의 index()를 호출Route::get('/', 'IndexController@index');#Name 부여 Route::get('posts', [    'as'    =>  'posts.index',    'uses'  =>  'PostsController@index']);
 ```
 
 {% hint style="info" %}
@@ -69,11 +41,7 @@ Route::get('posts', [
 `RESTful` 원칙에 맞게 `@method`없이 컨트롤러에 연결시키는 방식
 
 ```php
-# resource route의 경우 자동으로 name이 부여됨
-Route::resource('posts', 'PostsController');
-
-# 하위 resource route 생성 - 
-Route::resource('posts.comments', 'PostCommentController');
+# resource route의 경우 자동으로 name이 부여됨Route::resource('posts', 'PostsController');# 하위 resource route 생성 - Route::resource('posts.comments', 'PostCommentController');
 ```
 
 {% hint style="success" %}
@@ -83,9 +51,7 @@ Route::resource('posts.comments', 'PostCommentController');
 ### 1-5. Route에서 DB query 조회
 
 ```php
-DB::listen(function ($event) {
-    var_dump($event->sql);
-});
+DB::listen(function ($event) {    var_dump($event->sql);});
 ```
 
 ## 2. blade
@@ -97,8 +63,7 @@ DB::listen(function ($event) {
 `echo`와 동일
 
 ```php
-<!-- <?= $hello; ?> -->
-{{ $hello }}
+<!-- <?= $hello; ?> -->{{ $hello }}
 ```
 
 ### 2-2. `{{-- --}}`
@@ -106,28 +71,19 @@ DB::listen(function ($event) {
 HTML 주석으로 컴파일
 
 ```php
-{{-- count(range(1, 10)) --}} <!-- count() 자체가 실행안됨. 즉, 아무것도 출력되지 않음 -->
-<!-- {{  count(range(1, 10)) }} --> <!-- 주석 안에 10이 표시됨 -->
+{{-- count(range(1, 10)) --}} <!-- count() 자체가 실행안됨. 즉, 아무것도 출력되지 않음 --><!-- {{  count(range(1, 10)) }} --> <!-- 주석 안에 10이 표시됨 -->
 ```
 
 ### 2-3. `@foreach`
 
 ```php
-<ul>
-  @foreach($items as $item)
-    <li>{{ $item }}</li>
-  @endforeach
-</ul>
+<ul>  @foreach($items as $item)    <li>{{ $item }}</li>  @endforeach</ul>
 ```
 
 ### 2-4. `@if`
 
 ```php
-@if($itemCount = count($items))
-  <p>There are {{ $itemCount }} items !</p>
-@else
-  <p>There is no item !</p>
-@endif
+@if($itemCount = count($items))  <p>There are {{ $itemCount }} items !</p>@else  <p>There is no item !</p>@endif
 ```
 
 ### 2-5. `@forelse`
@@ -135,11 +91,7 @@ HTML 주석으로 컴파일
 `@foreach`와 `@if` 의 결합
 
 ```php
-@forelse($items as $item)
-  <p>The item is {{ $item }}</p>
-@empty
-  <p>There is no item !</p>
-@endforelse
+@forelse($items as $item)  <p>The item is {{ $item }}</p>@empty  <p>There is no item !</p>@endforelse
 ```
 
 ### 2-6. `@yield`, `@extends`, `@section`, `@include`
@@ -149,53 +101,19 @@ HTML 주석으로 컴파일
 > layout.blade.php
 
 ```markup
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Laravel Toy1 Essential</title>
-    @yield('style')
-</head>
-<body>
-    @yield('content')
-
-    @yield('script')
-
-    @include('footer')
-</body>
-</html>
+<!DOCTYPE html><html lang="en"><head>    <meta charset="UTF-8">    <meta name="viewport" content="width=device-width, initial-scale=1.0">    <meta http-equiv="X-UA-Compatible" content="ie=edge">    <title>Laravel Toy1 Essential</title>    @yield('style')</head><body>    @yield('content')    @yield('script')    @include('footer')</body></html>
 ```
 
 > content.blade.php
 
 ```markup
-@extends('master')
-
-@section('style')
-    <style>
-        body {background:#fefefe;}
-    </style>
-@stop
-
-@section('content')
-    Your content Here !!
-@stop
-
-@section('script')
-    <script>
-        console.log('Hello Blade!');
-    </script>
-@stop
+@extends('master')@section('style')    <style>        body {background:#fefefe;}    </style>@stop@section('content')    Your content Here !!@stop@section('script')    <script>        console.log('Hello Blade!');    </script>@stop
 ```
 
 > footer.blade.php
 
 ```markup
-<footer>
-    <p>This is footer</p>
-</footer>
+<footer>    <p>This is footer</p></footer>
 ```
 
 ### 2-7. Pagination
@@ -203,17 +121,7 @@ HTML 주석으로 컴파일
 > `Route` 예시 - 실제로는 당연히 Controller에 작성한다
 
 ```php
-$posts = App\Post::with('user')->paginate(10);
-``
-
-> `view` 사용예제 - blade - 부트스트랩과 호환된다.
-
-```php
-@if($posts)
-<div class="text-center">
-    {!! $posts->render() !!}
-</div>
-@endif
+$posts = App\Post::with('user')->paginate(10);``> `view` 사용예제 - blade - 부트스트랩과 호환된다.```php@if($posts)<div class="text-center">    {!! $posts->render() !!}</div>@endif
 ```
 
 ## 3. artisan
@@ -221,57 +129,25 @@ $posts = App\Post::with('user')->paginate(10);
 ### 3-1. basic
 
 ```bash
-# tinker 호출
-php artisan tinker
+# tinker 호출php artisan tinker
 ```
 
 ### 3-2. make
 
 ```bash
-# model 생성
-php artisan make:model Post
-
-# Controller 생성
-php artisan make:controller IndexController
-
-# Route 목록 확인
-php artisan route:list
-
-# resource controller 생성
-php artisan make:controller PostsController --resource
+# model 생성php artisan make:model Post# Controller 생성php artisan make:controller IndexController# Route 목록 확인php artisan route:list# resource controller 생성php artisan make:controller PostsController --resource
 ```
 
 ### 3-3. DB migration
 
 ```bash
-# migration 생성
-php artisan make:migration create_posts_table
-
-# migration
-php artisan migrate
-
-# rollback
-php artisan migrate:rollback
-
-# reset - 모든 마이그레이션을 롤백 한 후 데이터베이스 초기화
-php artisan migrate:reset
-
-# refresh - reset 실행 후 마이그레이션을 다시 시도
-php artisan migrate:refresh 
-
-# field 추가 
-php artisan make:migration add_name_to_authors_table
+# migration 생성php artisan make:migration create_posts_table# migrationphp artisan migrate# rollbackphp artisan migrate:rollback# reset - 모든 마이그레이션을 롤백 한 후 데이터베이스 초기화php artisan migrate:reset# refresh - reset 실행 후 마이그레이션을 다시 시도php artisan migrate:refresh # field 추가 php artisan make:migration add_name_to_authors_table
 ```
 
 ### 3-4. Seed
 
 ```bash
-# Seeder 클래스 생성
-$ php artisan make:seed UsersTableSeeder
-$ php artisan make:seed PostsTableSeeder
-
-# Seeding
-$ php artisan db:seed
+# Seeder 클래스 생성$ php artisan make:seed UsersTableSeeder$ php artisan make:seed PostsTableSeeder# Seeding$ php artisan db:seed
 ```
 
 ## 4. tinker \( 계속 추가 \)
@@ -279,43 +155,19 @@ $ php artisan db:seed
 ### 4-. seed
 
 ```bash
-# instance 생성
->>>> factory('App\User')->make();
-
->>>> factory('App\User', 2)->make(); # Instance 2개 생성
+# instance 생성>>>> factory('App\User')->make();>>>> factory('App\User', 2)->make(); # Instance 2개 생성
 ```
 
 ## 5. Query
 
 ```bash
-php artisan tinker
-
-# select
-DB::select('select * from posts');
-
-# insert
-DB::insert('insert into posts(title, body) values(?, ?)', ['Second Title', 'Second Body']);
-
-#update 
-DB::update('update posts set title="Modified Title" where id = ?', [2]);
+php artisan tinker# selectDB::select('select * from posts');# insertDB::insert('insert into posts(title, body) values(?, ?)', ['Second Title', 'Second Body']);#update DB::update('update posts set title="Modified Title" where id = ?', [2]);
 ```
 
 ## 6. Query builder
 
 ```bash
-php artisan tinker
-
-DB::table('posts')->get(); # SELECT * FROM posts
-
-DB::table('posts')->first();
-
-DB::table('posts')->find(2);
-
-DB::table('posts')->where('id', '=', 1)->get(); 
-DB::table('posts')->where('id', 1)->get();
-DB::table('posts')->whereId(1)->get();
-
-DB::table('posts')->select('title')->get();
+php artisan tinkerDB::table('posts')->get(); # SELECT * FROM postsDB::table('posts')->first();DB::table('posts')->find(2);DB::table('posts')->where('id', '=', 1)->get(); DB::table('posts')->where('id', 1)->get();DB::table('posts')->whereId(1)->get();DB::table('posts')->select('title')->get();
 ```
 
 ## 7. Eloquent ORM
@@ -325,8 +177,7 @@ DB::table('posts')->select('title')->get();
 `artisan`을 이용해서 모델을 만들고 확인해보면 모델이 `Eloquent`를 하위에 존재하는걸 볼 수 있다.
 
 ```php
-// 생성된 model 상단선언부
-use Illuminate\Database\Eloquent\Model;
+// 생성된 model 상단선언부use Illuminate\Database\Eloquent\Model;
 ```
 
 {% hint style="info" %}
@@ -336,17 +187,7 @@ use Illuminate\Database\Eloquent\Model;
 ### 7-1. basic
 
 ```bash
-# tinker 진입후
-php artisan tinker
-
-# 생성된 모델을 사용해서 조회
-App\Author::get(); # == DB::table('authors')->get();
-
-# instance 생성후 데이터베이스에 insert
-$author = new App\Author;
-$author->email = 'foo@bar.com';
-$author->password = 'password';
-$author->save(); # 메모리에만 존재하던 인스턴스를 데이터베이스에 저장한다.
+# tinker 진입후php artisan tinker# 생성된 모델을 사용해서 조회App\Author::get(); # == DB::table('authors')->get();# instance 생성후 데이터베이스에 insert$author = new App\Author;$author->email = 'foo@bar.com';$author->password = 'password';$author->save(); # 메모리에만 존재하던 인스턴스를 데이터베이스에 저장한다.
 ```
 
 ### 7-2. basic config
@@ -356,10 +197,7 @@ $author->save(); # 메모리에만 존재하던 인스턴스를 데이터베이�
 > `project/app/User.php`
 
 ```php
-class User extends Model
-{
-    public $timestamps = false;
-}
+class User extends Model{    public $timestamps = false;}
 ```
 
 ### 7-3. create
@@ -372,21 +210,7 @@ class User extends Model
   위 문서에서 `Mass Assignment`로 검색
 
 ```php
-<?php
-
-namespace App;
-
-use Illuminate\Database\Eloquent\Model;
-
-class User extends Model
-{
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = ['name'];
-}
+<?phpnamespace App;use Illuminate\Database\Eloquent\Model;class User extends Model{    /**     * The attributes that are mass assignable.     *     * @var array     */    protected $fillable = ['name'];}
 ```
 
 ### 7-4. Eagar 로딩
@@ -394,13 +218,7 @@ class User extends Model
 N+1 쿼리 문제를 해결
 
 ```php
-// route 내에서 with 키워드로 eagar loaing 사용
-Route::get('posts', function() {
-    // with 키워드로 사용
-    $posts = App\Post::with('user')->get();
-
-    return view('posts.index', compact('posts'));
-});
+// route 내에서 with 키워드로 eagar loaing 사용Route::get('posts', function() {    // with 키워드로 사용    $posts = App\Post::with('user')->get();    return view('posts.index', compact('posts'));});
 ```
 
 {% hint style="danger" %}
@@ -408,13 +226,7 @@ with\(string\|array $relations\) 메소드는 항상 엘로퀀트 모델 바로 
 {% endhint %}
 
 ```php
-// 엘로퀀트를 먼저 사용하고 그 후에 관계가 필요할경우 lazy eagar 로딩을 load키워드로 사용할 수 있다.
-Route::get('posts', function() {
-    $posts = App\Post::get();
-    $posts->load('user');
-
-    return view('posts.index', compact('posts'));
-});
+// 엘로퀀트를 먼저 사용하고 그 후에 관계가 필요할경우 lazy eagar 로딩을 load키워드로 사용할 수 있다.Route::get('posts', function() {    $posts = App\Post::get();    $posts->load('user');    return view('posts.index', compact('posts'));});
 ```
 
 ## 8. Seeding
@@ -430,22 +242,7 @@ Route::get('posts', function() {
 > `database/factories/UserFactory.php` - Factory 정의 예시
 
 ```php
-$factory->define(App\User::class, function (Faker $faker) {
-    return [
-        'name' => $faker->name,
-        'email' => $faker->unique()->safeEmail,
-        'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
-        'remember_token' => str_random(10),
-    ];
-});
-
-$factory->define(App\Post::class, function (Faker $faker) {
-    return [
-        'title'     =>  $faker->sentence,
-        'body'      =>  $faker->paragraph,
-        'user_id'   =>  App\User::all()->random()->id
-    ];
-});
+$factory->define(App\User::class, function (Faker $faker) {    return [        'name' => $faker->name,        'email' => $faker->unique()->safeEmail,        'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret        'remember_token' => str_random(10),    ];});$factory->define(App\Post::class, function (Faker $faker) {    return [        'title'     =>  $faker->sentence,        'body'      =>  $faker->paragraph,        'user_id'   =>  App\User::all()->random()->id    ];});
 ```
 
 {% hint style="info" %}
@@ -459,14 +256,7 @@ $factory->define(App\Post::class, function (Faker $faker) {
 > `database/seeds/UsersTableSeeder`
 
 ```php
-class UsersTableSeeder extends Seeder 
-{
-    public function run() 
-    {
-        App\User::truncate();
-        factory('App\User', 10)->create();
-    }
-}
+class UsersTableSeeder extends Seeder {    public function run()     {        App\User::truncate();        factory('App\User', 10)->create();    }}
 ```
 
 Seeder 클래스 작성후 마스터 Seeder 클래스인 `DatabaseSeeder.php`에 등록한다.
@@ -474,25 +264,7 @@ Seeder 클래스 작성후 마스터 Seeder 클래스인 `DatabaseSeeder.php`에
 > `database/seeds/DatabaseSeeder.php`
 
 ```php
-class DatabaseSeeder extends Seeder
-{
-    public function run()
-    {
-        // FK 제약 무시 - 외래키 연관된 테이블일경우 선언해줌
-        DB::statement('SET FOREIGN_KEY_CHECKS=0');
-        // 모든 모델에 대해 대량할당(MassAssignment)을 허용한다
-        Model::unguard();
-
-        $this->call(UsersTableSeeder::class);
-        $this->command->info('users table seeded');
-
-        $this->call(PostsTableSeeder::class);
-        $this->command->info('posts table seeded');
-
-        Model::reguard();        
-        DB::statement('SET FOREIGN_KEY_CHECKS=1');
-    }
-}
+class DatabaseSeeder extends Seeder{    public function run()    {        // FK 제약 무시 - 외래키 연관된 테이블일경우 선언해줌        DB::statement('SET FOREIGN_KEY_CHECKS=0');        // 모든 모델에 대해 대량할당(MassAssignment)을 허용한다        Model::unguard();        $this->call(UsersTableSeeder::class);        $this->command->info('users table seeded');        $this->call(PostsTableSeeder::class);        $this->command->info('posts table seeded');        Model::reguard();                DB::statement('SET FOREIGN_KEY_CHECKS=1');    }}
 ```
 
 {% hint style="warning" %}
@@ -508,24 +280,7 @@ class DatabaseSeeder extends Seeder
 > `route` 예시
 
 ```php
-Route::post('posts', function(\Illuminate\Http\Request $request) {
-    $rule = [
-        'title' => ['required'],
-        'body' => ['required', 'min:10']
-    ];
-
-    $validator = Validator::make($request->all(), $rule);
-
-    if ($validator->fails()) {
-        return redirect('posts/create')->withErrors($validator)->withInput();
-    }
-
-    return 'Valid & proceed to next job ~';
-});
-
-Route::get('posts/create', function() {
-    return view('posts.create');
-});
+Route::post('posts', function(\Illuminate\Http\Request $request) {    $rule = [        'title' => ['required'],        'body' => ['required', 'min:10']    ];    $validator = Validator::make($request->all(), $rule);    if ($validator->fails()) {        return redirect('posts/create')->withErrors($validator)->withInput();    }    return 'Valid & proceed to next job ~';});Route::get('posts/create', function() {    return view('posts.create');});
 ```
 
 {% hint style="info" %}
@@ -535,31 +290,7 @@ Route::get('posts/create', function() {
 > `view`예시 - blade
 
 ```php
-@extends('master')
-
-@section('content')
-  <h1>New Post</h1>
-  <hr/>
-  <form action="/posts" method="POST">
-    <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
-    <!--  old() 메소드는 helper 함수로 이전 입력값이 Session에 없으면 공백을 반환하고 값이 있을경우에만 반환한다.-->
-    <div>
-      <label for="title">Title : </label>
-      <input type="text" name="title" id="title" value="{{ old('title') }}"/>
-      {!! $errors->first('title', '<span>:message</span>') !!}
-    </div>
-
-    <div>
-      <label for="body">Body : </label>
-      <textarea name="body" id="body" cols="30" rows="10">{{ old('body') }}</textarea>
-      {!! $errors->first('body', '<span>:message</span>') !!}
-    </div>
-
-    <div>
-      <button type="submit">Create New Post</button>
-    </div>
-  </form>
-@stop
+@extends('master')@section('content')  <h1>New Post</h1>  <hr/>  <form action="/posts" method="POST">    <input type="hidden" name="_token" value="{{ csrf_token() }}"/>    <!--  old() 메소드는 helper 함수로 이전 입력값이 Session에 없으면 공백을 반환하고 값이 있을경우에만 반환한다.-->    <div>      <label for="title">Title : </label>      <input type="text" name="title" id="title" value="{{ old('title') }}"/>      {!! $errors->first('title', '<span>:message</span>') !!}    </div>    <div>      <label for="body">Body : </label>      <textarea name="body" id="body" cols="30" rows="10">{{ old('body') }}</textarea>      {!! $errors->first('body', '<span>:message</span>') !!}    </div>    <div>      <button type="submit">Create New Post</button>    </div>  </form>@stop
 ```
 
 {% hint style="info" %}

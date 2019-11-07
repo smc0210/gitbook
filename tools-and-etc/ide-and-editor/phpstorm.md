@@ -9,8 +9,7 @@ IntelliJ 계열 \(PHPStorm 포함\)에서 Laravel 문법에 대한 지원이 아
 ### 1-1. install
 
 ```bash
-# composer package 설치
-composer require --dev barryvdh/laravel-ide-helper
+# composer package 설치composer require --dev barryvdh/laravel-ide-helper
 ```
 
 `config/app.php` 파일의 `providers` 배열에 해당 클래스 추가
@@ -24,15 +23,7 @@ Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class
 {% endhint %}
 
 ```php
-// 상기 방법처럼 수동으로 등록하거나 혹은 아래와 같은 방법으로 처리 가능
-// app/Providers/AppServiceProvider.php
-
-public function register()
-{
-  if($this->app->environment() !== 'production') {
-    $this->app->register(\Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
-  }
-}
+// 상기 방법처럼 수동으로 등록하거나 혹은 아래와 같은 방법으로 처리 가능// app/Providers/AppServiceProvider.phppublic function register(){  if($this->app->environment() !== 'production') {    $this->app->register(\Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);  }}
 ```
 
 {% hint style="info" %}
@@ -78,9 +69,7 @@ Coding standard는 `PSR12`로 지정
 ### 3.2 Code Sniffer Configure
 
 ```bash
-# phpcs 경로 복사
-$ which phpcs
-/Users/{username}/.composer/vendor/bin/phpcs
+# phpcs 경로 복사$ which phpcs/Users/{username}/.composer/vendor/bin/phpcs
 ```
 
 `Preferences` &gt; `Language & Frameworks` &gt; `PHP` &gt; `Quality tools` &gt; `Code Sniffer configuration` 클릭 팝업창이 뜨면 `PHP Code Sniffer path` 란에 위에서 복사한 경로 붙여넣기 후 오른쪽 Validate 체크
@@ -98,11 +87,7 @@ composer global require friendsofphp/php-cs-fixer
 ```
 
 ```bash
-# php-cs-fixer 경로 복사
-$ which php-cs-fixer
-/Users/{username}/.composer/vendor/bin/php-cs-fixer
-
-# php-cs-fixer fixer -h 로 옵션 확인 가능
+# php-cs-fixer 경로 복사$ which php-cs-fixer/Users/{username}/.composer/vendor/bin/php-cs-fixer# php-cs-fixer fixer -h 로 옵션 확인 가능
 ```
 
 `Preferences` &gt; `Language & Frameworks` &gt; `PHP` &gt; `Quality tools` &gt; `PHP CS Fixer configuration` 클릭 팝업창이 뜨면 `PHP CS Fixer path` 란에 위에서 복사한 경로 붙여넣기 후 오른쪽 `Validate` 체크
@@ -112,8 +97,7 @@ $ which php-cs-fixer
 inline 방식
 
 ```bash
-# php-cs-fixer option Rule로 변경
-fix --rules=@PSR2,@Symfony,no_unused_imports,indentation_type $FileDir$/$FileName$
+# php-cs-fixer option Rule로 변경fix --rules=@PSR2,@Symfony,no_unused_imports,indentation_type $FileDir$/$FileName$
 ```
 
 {% hint style="info" %}
@@ -161,43 +145,7 @@ PHP CS Fixer Tool Settings 하단의 항목 작성
 `.php_cs 예시`
 
 ```php
-<?php
-
-// 설정파일 경로는 보통 프로젝트의 루트 경로에 둔다 ( composer.json과 같은 경로)
-use PhpCsFixer\Config;
-use PhpCsFixer\Finder;
-$finder = Finder::create()
-    ->notPath('bootstrap/cache')
-    ->notPath('storage')
-    ->notPath('vendor')
-    ->in(__DIR__)
-    ->name('*.php')
-    ->notName('*.blade.php')
-    ->ignoreDotFiles(true)
-    ->ignoreVCS(true);
-
-// 기본룰은 Symfony와 PSR2를 기본으로 하되 그외 추가적인 옵션들만 배열에 추가
-// 옵션참고 URL
-// https://github.com/FriendsOfPHP/PHP-CS-Fixer
-// https://mlocati.github.io/php-cs-fixer-configurator
-
-$config = Config::create()
-    ->setRules([
-        '@Symfony'                => true,
-        '@PSR2'                   => true,
-        'array_syntax'            => ['syntax' => 'short'],
-        'align_multiline_comment' => ['comment_type'=> 'phpdocs_only'],
-        'array_indentation'       => true,
-        'no_unused_imports'       => true,
-        'binary_operator_spaces'  => [
-            'align_double_arrow' => true,
-            'align_equals'       => true,
-        ],
-        'blank_line_after_opening_tag' => true,
-    ])
-    ->setFinder($finder)
-    ->setUsingCache(false);
-return $config;
+<?php// 설정파일 경로는 보통 프로젝트의 루트 경로에 둔다 ( composer.json과 같은 경로)use PhpCsFixer\Config;use PhpCsFixer\Finder;$finder = Finder::create()    ->notPath('bootstrap/cache')    ->notPath('storage')    ->notPath('vendor')    ->in(__DIR__)    ->name('*.php')    ->notName('*.blade.php')    ->ignoreDotFiles(true)    ->ignoreVCS(true);// 기본룰은 Symfony와 PSR2를 기본으로 하되 그외 추가적인 옵션들만 배열에 추가// 옵션참고 URL// https://github.com/FriendsOfPHP/PHP-CS-Fixer// https://mlocati.github.io/php-cs-fixer-configurator$config = Config::create()    ->setRules([        '@Symfony'                => true,        '@PSR2'                   => true,        'array_syntax'            => ['syntax' => 'short'],        'align_multiline_comment' => ['comment_type'=> 'phpdocs_only'],        'array_indentation'       => true,        'no_unused_imports'       => true,        'binary_operator_spaces'  => [            'align_double_arrow' => true,            'align_equals'       => true,        ],        'blank_line_after_opening_tag' => true,    ])    ->setFinder($finder)    ->setUsingCache(false);return $config;
 ```
 
 ## 4. xdebug
@@ -207,19 +155,7 @@ return $config;
 > php.ini
 
 ```markup
-; Off -> On 으로 수정
-implicit_flush = On
-
-
-; 최하단에 하기 추가 (경로설정 주의)
-[XDebug]
-;; Only Zend OR (!) XDebug
-zend_extension="C:\laragon\bin\php\php-7.1.14-Win32-VC14-x64\ext\php_xdebug-2.6.0-7.1-vc14-x86_64.dll" xdebug.remote_enable=true
-xdebug.remote_host=localhost
-xdebug.remote_port=8000
-xdebug.remote_handler=dbgp
-xdebug.profiler_enable=1
-xdebug.profiler_output_dir="C:\laragon\tmp"
+; Off -> On 으로 수정implicit_flush = On; 최하단에 하기 추가 (경로설정 주의)[XDebug];; Only Zend OR (!) XDebugzend_extension="C:\laragon\bin\php\php-7.1.14-Win32-VC14-x64\ext\php_xdebug-2.6.0-7.1-vc14-x86_64.dll" xdebug.remote_enable=truexdebug.remote_host=localhostxdebug.remote_port=8000xdebug.remote_handler=dbgpxdebug.profiler_enable=1xdebug.profiler_output_dir="C:\laragon\tmp"
 ```
 
 laragon 트레이 아이콘 우클릭 &gt; PHP &gt; Extension 에서 xdebug설정
@@ -243,11 +179,7 @@ laragon 트레이 아이콘 우클릭 &gt; PHP &gt; Extension 에서 xdebug설�
 Shell path 란에 입력
 
 ```bash
-# 32-bit version of Git
-"C:\Program Files (x86)\Git\bin\sh.exe" -login -i
-
-# 64-bit version of Git
-"C:\Program Files\Git\bin\sh.exe" -login -i
+# 32-bit version of Git"C:\Program Files (x86)\Git\bin\sh.exe" -login -i# 64-bit version of Git"C:\Program Files\Git\bin\sh.exe" -login -i
 ```
 
 > 그래야 bash\_profile 적용되서 환경변수및 기타 설정을 동일하게 쓸 수 있다.
@@ -255,10 +187,6 @@ Shell path 란에 입력
 **6-1-2.** `Settings` **&gt;** `Version Control` **&gt;** `Git`
 
 ```bash
-C:\Program Files (x86)\Git\bin\git.exe
-
-# or this if you're using the 64-bit version of Git:
-
-C:\Program Files\Git\bin\git.exe
+C:\Program Files (x86)\Git\bin\git.exe# or this if you're using the 64-bit version of Git:C:\Program Files\Git\bin\git.exe
 ```
 
