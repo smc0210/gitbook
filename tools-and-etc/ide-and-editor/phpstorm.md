@@ -45,7 +45,7 @@ php artisan ide-helper:generate
 
 이때 생성되는 ide-helper 파일은 `.gitignore` 에 등록해서 공유제외
 
-## 2. ~~IDE Custom formatting \(선택사항 - code sniffer 와 cs-fixer로 대체가능 \)~~
+## 2. ~~IDE Custom formatting \(비추 \)~~
 
 ~~IntelliJ Preferences &gt; Editor &gt; Code Style &gt; PHP~~
 
@@ -88,7 +88,9 @@ $ which phpcs
 
 `Preferences` &gt; `Editor` &gt; `Inspections` &gt; `PHP` &gt; `Quality tools` &gt; `PHP Code Sniffer validation` &gt; 우측 설정창의 `Coding standard` `PSR12`로 설정되어 있는지 확인
 
-`Serverity` 는 `ERROR`로 설정 \( Weak Warning 부터는 너무 많은 경고 출력되므로\)
+{% hint style="info" %}
+`레거시 프로젝트의 경우 PSR 체크를 하면 너무 많은 에러가 뜨니 Serverity` 는 `ERROR`로 설정 \( Weak Warning 부터는 너무 많은 경고 출력되므로\)하는 것도 방
+{% endhint %}
 
 ### 3.3 Cs-Fixer install
 
@@ -225,10 +227,6 @@ xdebug.profiler_output_dir="C:\laragon\tmp"
 
 laragon 트레이 아이콘 우클릭 &gt; PHP &gt; Extension 에서 xdebug설정
 
-> chrome 확장도구 설치
-
-[xdebug 크롬확장도구](https://chrome.google.com/webstore/detail/xdebug-helper/eadndfjplgieldjbigjakmdgkmoaaaoc/related)
-
 ## 5. phpunit
 
 [https://phpunit.de/getting-started/phpunit-7.html](https://phpunit.de/getting-started/phpunit-7.html)
@@ -242,6 +240,8 @@ laragon 트레이 아이콘 우클릭 &gt; PHP &gt; Extension 에서 xdebug설�
 **6-1-1.** `Settings` **&gt;** `Tools` **&gt;** `Terminal`
 
 Shell path 란에 입력
+
+#### Windows
 
 ```bash
 # 32-bit version of Git
