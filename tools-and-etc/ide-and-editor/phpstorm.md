@@ -157,7 +157,7 @@ PHP CS Fixer Tool Settings 하단의 항목 작성
 
 `Preferences` &gt; `Keymap` &gt; `PHP CS Fixer` 에 원하는 단축키 지정 후 사용
 
-예\) `Command` + `B` 사용
+예\) ⌥ + F 사용
 
 [.php\_cs config file 다운로드](https://gist.github.com/smc0210/b107f968671012cb454ae01dbdd588d3)
 
@@ -224,8 +224,6 @@ xdebug.remote_handler=dbgp
 xdebug.profiler_enable=1
 xdebug.profiler_output_dir="C:\laragon\tmp"
 ```
-
-laragon 트레이 아이콘 우클릭 &gt; PHP &gt; Extension 에서 xdebug설정
 
 ## 5. phpunit
 
