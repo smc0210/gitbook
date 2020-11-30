@@ -14,7 +14,11 @@ description: 간단한 redis 설치
 > root 계정으로 진행한다
 
 ```bash
-apt-get install redis-server# 상태확인systemctl status redis
+apt-get install redis-server
+
+
+# 상태확인
+systemctl status redis
 ```
 
 아래와 같이 active 상태로 나오면 정상작동
@@ -22,7 +26,14 @@ apt-get install redis-server# 상태확인systemctl status redis
 ![](../../.gitbook/assets/redis_1.png)
 
 ```bash
-# redis 시작systemctl start redis-server.service# redis 재시작systemctl restart redis-server.service# 서버 재시작후 자동으로 redis 시작systemctl enable redis-server.service
+# redis 시작
+systemctl start redis-server.service
+
+# redis 재시작
+systemctl restart redis-server.service
+
+# 서버 재시작후 자동으로 redis 시작
+systemctl enable redis-server.service
 ```
 
 ## 3. redis 설정
@@ -50,22 +61,27 @@ vi /etc/redis/redis.conf
 
 `maxmemory`는 EC2 전체 메모리에서 Redis가 최대 얼마까지 사용할지 여부를 설정 `maxmemory-policy`는 최대 사용 메모리를 초과하게 될때 데이터를 어떻게 삭제할지를 정의한다.
 
-{% tabs %}
-{% tab title="redis.conf" %}
+{% code title="redis.conf" %}
 ```text
-# allkeys-lru 는 가장 오래된 데이터를 지워서 메모리 확보maxmemory-policy allkeys-lru
+# allkeys-lru 는 가장 오래된 데이터를 지워서 메모리 확보
+maxmemory-policy allkeys-lru
 ```
-{% endtab %}
-{% endtabs %}
+{% endcode %}
 
 ```bash
-#설정파일 변경후 재시작systemctl restart redis-server.service# 외부접속 허용여부 확인netstat -nlpt | grep 6379
+#설정파일 변경후 재시작
+systemctl restart redis-server.service
+
+# 외부접속 허용여부 확인
+netstat -nlpt | grep 6379
 ```
 
 외부 EC2에서 Redis에 직접 접속하고 싶을경우 해당 서버에 redis-client 설치
 
 ```bash
-apt install redis-toolsredis-cli -h <redis 서버 ip> -p <redis port> -a <password>
+apt install redis-tools
+
+redis-cli -h <redis 서버 ip> -p <redis port> -a <password>
 ```
 
 ## 4. Redis Persistance
@@ -83,7 +99,11 @@ apt install redis-toolsredis-cli -h <redis 서버 ip> -p <redis port> -a <passwo
 redis-cli 로 접속하여 명령어로 백업도 가능
 
 ```bash
-# 실행중인 redis를 블럭시킨 후 디스크에 저장 (데이터가 클 경우 장애 발생할 수 있음)save# 자식 프로세스를 생성하여 백그라운드에서 디스크에 저장bgsave
+# 실행중인 redis를 블럭시킨 후 디스크에 저장 (데이터가 클 경우 장애 발생할 수 있음)
+save
+
+# 자식 프로세스를 생성하여 백그라운드에서 디스크에 저장
+bgsave
 ```
 
 `redis.conf`에서 설정 \( 아래 설정내용은 전부 redis설치후 기본적으로 작성되어 있는 내용\)
@@ -91,13 +111,50 @@ redis-cli 로 접속하여 명령어로 백업도 가능
 {% tabs %}
 {% tab title="RDB mode" %}
 ```text
-# 900초 동안 1번 이상 쓰기 작업이 실행되면 RDB 파일에 저장save 900 1 # 300초 동안 10번 이상 쓰기 작업이 실행되면 RDB 파일에 저장save 300 10# 60초 동안 10000번 이상 쓰기 작업이 실행되면 RDB 파일에 저장save 60 10000# RDB로 데이터 저장시 오류 발생에 대한처리# yes일 경우 데이터 저장에 실패할 경우 모든 쓰기 요청 거부# no 일 경우 쓰기 요청은 처리하지만 RDB에 데이터가 저장되지 않음stop-writes-on-bgsave-error yes# RDB파일에 대한 압축여부# yes일 경우 LZF압축 사용rdbcompression yes# checksum 여부# yes일  경우 RDB파일에 checksum을 저장하고 redis가 다시 시작할때 checksum을 실행# 이때 Checksum이 같지 않을 경우 Redis를 시작하지 않는다.rdbchecksum yes# dump 파일 이름dbfilename dump.rdb# RDB와 AOF가 저장될 디렉토리 설정dir /var/lib/redis
+# 900초 동안 1번 이상 쓰기 작업이 실행되면 RDB 파일에 저장
+save 900 1 
+
+# 300초 동안 10번 이상 쓰기 작업이 실행되면 RDB 파일에 저장
+save 300 10
+
+# 60초 동안 10000번 이상 쓰기 작업이 실행되면 RDB 파일에 저장
+save 60 10000
+
+# RDB로 데이터 저장시 오류 발생에 대한처리
+# yes일 경우 데이터 저장에 실패할 경우 모든 쓰기 요청 거부
+# no 일 경우 쓰기 요청은 처리하지만 RDB에 데이터가 저장되지 않음
+stop-writes-on-bgsave-error yes
+
+# RDB파일에 대한 압축여부
+# yes일 경우 LZF압축 사용
+rdbcompression yes
+
+# checksum 여부
+# yes일  경우 RDB파일에 checksum을 저장하고 redis가 다시 시작할때 checksum을 실행
+# 이때 Checksum이 같지 않을 경우 Redis를 시작하지 않는다.
+rdbchecksum yes
+
+# dump 파일 이름
+dbfilename dump.rdb
+
+# RDB와 AOF가 저장될 디렉토리 설정
+dir /var/lib/redis
 ```
 {% endtab %}
 
 {% tab title="AOF mode" %}
 ```text
-# yes일 경우 AOF파일을 생성한다.appendonly no# The name of the append only file (default: "appendonly.aof")appendfilename "appendonly.aof"# AOF 파일에 데이터를 저장할 규칙# always   : 쓰기가 발생할때 마다 AOF에 데이터를 저장# everysec : 매 초마다 데이터 저장# no       : fsync 실행하지 않음appendfsync everysec
+# yes일 경우 AOF파일을 생성한다.
+appendonly no
+
+# The name of the append only file (default: "appendonly.aof")
+appendfilename "appendonly.aof"
+
+# AOF 파일에 데이터를 저장할 규칙
+# always   : 쓰기가 발생할때 마다 AOF에 데이터를 저장
+# everysec : 매 초마다 데이터 저장
+# no       : fsync 실행하지 않음
+appendfsync everysec
 ```
 {% endtab %}
 {% endtabs %}

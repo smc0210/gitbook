@@ -30,7 +30,10 @@ description: 소스코드 및 DB 데이터 AWS 환경으로 이전
 `ssh`키를 생성할 경로는 `home/{user}/.ssh` 가 아닌 `root`의 `~/.ssh` 루트로 설정해야 `ssh`등록이 가능하다.
 
 ```bash
-#root 계정으로 전환sudo -i#각자의 github 계정정보로 ssh-key 생성ssh-keygen -t rsa -C "username@email.com"
+#root 계정으로 전환
+sudo -i
+#각자의 github 계정정보로 ssh-key 생성
+ssh-keygen -t rsa -C "username@email.com"
 ```
 
 위와 같이 `ssh`키를 생성할경우 저장할 경로를 묻는데, 편의상 각 사용자의 계정을 따서 `ssh`키를 만든다.
@@ -58,7 +61,9 @@ github 저장소의 `Setting` -&gt; `Deploy keys` 에 등록해준다.
 > 기존에 테스트 용도로 생성되어 있는 `www`경로가 존재할 경우 삭제한 후 `git`저장소 `clone`시 폴더명을 `www`로 명시하여 진행한다.
 
 ```bash
-cd /home/{user}rm -rf www #www 폴더가 존재할 경우만git clone git@github.com:{user}/sample-web.git www
+cd /home/{user}
+rm -rf www #www 폴더가 존재할 경우만
+git clone git@github.com:{user}/sample-web.git www
 ```
 
 기본적으로 `master` 브랜치를 가져오지만 테스트 과정 상에서 별도의 `branch`로 작업을 할 경우는 `remote branch`를 갱신해준다.
@@ -70,7 +75,8 @@ git remote update
 원하는 `branch`로 `checkout`옵션을 `-t`로 하여 로컬 작업트리를 생성함과 동시에 리모트 작업트리를 변경해준 후 소스를 다시 가져온다
 
 ```bash
-git checkout -t origin/developgit pull
+git checkout -t origin/develop
+git pull
 ```
 
 ## 2. DB 데이터 이관
@@ -118,7 +124,8 @@ source path/origin_dump.sql
 RDS와 커넥트가 안될경우 하기 관련 패키지 설치여부를 점검해본다
 
 ```bash
-mysql55-develmysql-devel
+mysql55-devel
+mysql-devel
 ```
 
 ### 2-2. RDS 옵션
@@ -176,6 +183,12 @@ show global variables like 'log_bin_trust_function_creators'
 이때 주의할 점은 함수 생성 시작과 끝의 쿼리문에 반드시 `DELIMITER`를 붙여줘야 에러가 나지 않는다
 
 ```sql
-DELIMITER $$CREATE FUNCTION ....    BEGIN ...        (생략)    RETURN ...END$$DELIMITER ;
+DELIMITER $$
+CREATE FUNCTION ....
+    BEGIN ...
+        (생략)
+    RETURN ...
+END$$
+DELIMITER ;
 ```
 

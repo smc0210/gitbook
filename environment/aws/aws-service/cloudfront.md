@@ -42,7 +42,7 @@ CloudFront 배포\(Distribution\)는 가장 기본적인 단위로 S3의 버킷�
 
 ### 배포 생성
 
-### img1
+![](../../../.gitbook/assets/cf_1.png)
 
 * Web : 일반적인 웹 서버 방식 
 * RTMP : 동영상 실시간 스트리밍 프로토콜
@@ -51,7 +51,7 @@ CloudFront 배포\(Distribution\)는 가장 기본적인 단위로 S3의 버킷�
 
 ### Origin Option
 
-### img2
+![](../../../.gitbook/assets/cf_2.png)
 
 * `Origin Domain Name` : 오리진 도메인 이름으로, 클릭하면 사용할 수 있는 목록이 표시된다.
 * `Origin Path` : 선택한 오리진의 하위 경로를 지정해줄수 있다 \(선택사항\)
@@ -63,7 +63,7 @@ CloudFront 배포\(Distribution\)는 가장 기본적인 단위로 S3의 버킷�
 
 ### Default Cache Behavior Settings
 
-### img3
+![](../../../.gitbook/assets/cf_3.png)
 
 * `Path Pattern` : 파일을 가져올 규칙으로 여기서는 수정할수 없고 배포 생성뒤에 추가가능하다.
 * `Viewer Protocol Policy` : CloudFont 로 보여질 프로토콜 정책
@@ -91,11 +91,11 @@ CloudFront 배포\(Distribution\)는 가장 기본적인 단위로 S3의 버킷�
 
 배포가 완료되기까지 보통 20분 내외의 시간이 소요되며 모두 배포가 완료되면 리스트 창의 `Status`란이 `Deployed`로 변경된다.
 
-### img4
+![](../../../.gitbook/assets/cf_4.png)
 
 ### 배포 및 연동 완료 후 cache 확인하기
 
-### img5
+![](../../../.gitbook/assets/cf_5.png)
 
 연동된 파일에 접근하여 개발자도구를 열어보면 HTTP 헤더를 통해 확인할 수 있다.
 
@@ -103,7 +103,7 @@ CloudFront 배포\(Distribution\)는 가장 기본적인 단위로 S3의 버킷�
 
 오리진 HTTP Header의 캐시 설정 및 기본 유지시간인 24시간 이전에 내용을 갱신하고 싶을 경우 무효화\(`Invalidation`\) 기능을 사용해야 한다.
 
-### img6
+![](../../../.gitbook/assets/cf_6.png)
 
 ### 신청순서
 

@@ -29,19 +29,30 @@ ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"
 [Brew Cask](https://github.com/phinze/homebrew-cask)를 사용해 VirtualBox와 Vagrant 설치.
 
 ```text
-brew tap phinze/homebrew-caskbrew install brew-caskbrew cask install virtualboxbrew cask install vagrant
+brew tap phinze/homebrew-cask
+brew install brew-cask
+brew cask install virtualbox
+brew cask install vagrant
 ```
 
 여기서는 미리 준비한 vagrant 박스를 사용한다: [http://blog.phusion.nl/2013/11/08/docker-friendly-vagrant-boxes/](http://blog.phusion.nl/2013/11/08/docker-friendly-vagrant-boxes/)
 
 ```text
-mkdir mydockerboxcd mydockerboxvagrant init docker https://oss-binaries.phusionpassenger.com/vagrant/boxes/ubuntu-12.04.3-amd64-vbox.boxvagrant upvagrant ssh
+mkdir mydockerbox
+cd mydockerbox
+vagrant init docker https://oss-binaries.phusionpassenger.com/vagrant/boxes/ubuntu-12.04.3-amd64-vbox.box
+vagrant up
+vagrant ssh
 ```
 
 가상 머신 내부에서:
 
 ```text
-sudo su -sh -c "curl https://get.docker.io/gpg | apt-key add -"sh -c "echo deb http://get.docker.io/ubuntu docker main > /etc/apt/sources.list.d/docker.list"apt-get updateapt-get install -y lxc-docker
+sudo su -
+sh -c "curl https://get.docker.io/gpg | apt-key add -"
+sh -c "echo deb http://get.docker.io/ubuntu docker main > /etc/apt/sources.list.d/docker.list"
+apt-get update
+apt-get install -y lxc-docker
 ```
 
 제대로 작동하는 지 확인:
@@ -168,7 +179,8 @@ docker run -d -link CONTAINER:ALIAS -name LINKED user/wordpress
 노출된 포트와 CONTAINER의 별칭이 아래와 같이 LINKED 컨테이너의 환경변수로 나타난다:
 
 ```text
-$ALIAS_PORT_1337_TCP_PORT$ALIAS_PORT_1337_TCP_ADDR
+$ALIAS_PORT_1337_TCP_PORT
+$ALIAS_PORT_1337_TCP_ADDR
 ```
 
 이를 통해 연결할 수 있다.
@@ -204,7 +216,15 @@ docker run -p $HOSTPORT:$CONTAINERPORT -name CONTAINER -t someimage
 Docker가 가상 머신에서 실행중이라면 추가적인 포트포워딩을 해줘야한다. 이러한 설정을 할 때는 Vagrantfile을 통해서 특정 범위의 포트를 노출시켜 동적으로 맵핑하는 게 편리하다.
 
 ```text
-Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|  ...  (49000..49900).each do |port|    config.vm.network :forwarded_port, :host => port, :guest => port  end  ...end
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  ...
+
+  (49000..49900).each do |port|
+    config.vm.network :forwarded_port, :host => port, :guest => port
+  end
+
+  ...
+end
 ```
 
 만약 포트가 어디로 연결되었는지 기억이 안 난다면 `docker port` 명령어를 사용할 수 있다.
@@ -222,7 +242,9 @@ docker port CONTAINER $CONTAINERPORT
 ### 마지막에 실행된 컨테이너의 ID
 
 ```text
-alias dl='docker ps -l -q'docker run ubuntu echo hello worlddocker commit `dl` helloworld
+alias dl='docker ps -l -q'
+docker run ubuntu echo hello world
+docker commit `dl` helloworld
 ```
 
 ### 명령어와 함께 커밋하기
@@ -240,7 +262,11 @@ docker run -i -t ubuntu /bin/bash
 명령어를 사용하거나 아래 명령어를 사용합니다.
 
 ```text
-wget http://stedolan.github.io/jq/download/source/jq-1.3.tar.gztar xzvf jq-1.3.tar.gzcd jq-1.3./configure && make && sudo make installdocker inspect `dl` | jq -r '.[0].NetworkSettings.IPAddress'
+wget http://stedolan.github.io/jq/download/source/jq-1.3.tar.gz
+tar xzvf jq-1.3.tar.gz
+cd jq-1.3
+./configure && make && sudo make install
+docker inspect `dl` | jq -r '.[0].NetworkSettings.IPAddress'
 ```
 
 ### 이미지의 환경 변수 읽어오기

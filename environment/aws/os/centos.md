@@ -51,7 +51,8 @@ uname -a
 CentOS 버전체크
 
 ```bash
-cat /etc/redhat-releasegrep . /etc/*-release
+cat /etc/redhat-release
+grep . /etc/*-release
 ```
 
 하드용량 체크
@@ -131,7 +132,9 @@ chmod 701 /home/domain
 사용자 전환 후 웹 디렉토리 생성
 
 ```bash
-su -l domainmkdir wwwexit
+su -l domain
+mkdir www
+exit
 ```
 
 ### 1-5. 방화벽 설정
@@ -179,13 +182,24 @@ vi /etc/sysconfig/iptables
 `table, chain, match, target, Connectio Tracking, commond` 설정은 상당이 다양하므로 여기서는 아주 간단한 규약만 명시한다.
 
 ```text
-// 특정 IP 허용-A INPUT -s ip 주소 -j ACCEPT// 특정 IP 차단-A INPUT -s ip 주소 -j DROP// 특정 Port 허용-A INPUT -p tcp –dport 443 -j ACCEPT// 특정 Port 차단-A INPUT -p tcp –dport 443 -j DROP
+// 특정 IP 허용
+-A INPUT -s ip 주소 -j ACCEPT
+
+// 특정 IP 차단
+-A INPUT -s ip 주소 -j DROP
+
+// 특정 Port 허용
+-A INPUT -p tcp –dport 443 -j ACCEPT
+
+// 특정 Port 차단
+-A INPUT -p tcp –dport 443 -j DROP
 ```
 
 방화벽 설정을 끝냈다면 설정을 저장하고 방화벽을 재시작해준다.
 
 ```bash
-service iptables saveservice iptables restart
+service iptables save
+service iptables restart
 ```
 
 아래와 같이 나오면 정상이다.
@@ -227,7 +241,31 @@ yum list httpd
 패키지 설치하기
 
 ```bash
-yum groupinstall -y 'Development Tools' \    && yum install -y gcc \            make \            vim \            wget \            tar \            httpd-devel \            libxml2-devel \            bzip2-devel \            openssl-devel \            curl-devel \            gd-devel \            libc-client-devel \            mysql55-devel \            aspell-devel \            libxslt-devel \            epel-release \            libmcrypt-devel \            libmhash-devel \            mysql-devel \            yum-fastestmirror \            netconfig \            ntsysv \            wget \            tcpdump
+yum groupinstall -y 'Development Tools' \
+    && yum install -y gcc \
+            make \
+            vim \
+            wget \
+            tar \
+            httpd-devel \
+            libxml2-devel \
+            bzip2-devel \
+            openssl-devel \
+            curl-devel \
+            gd-devel \
+            libc-client-devel \
+            mysql55-devel \
+            aspell-devel \
+            libxslt-devel \
+            epel-release \
+            libmcrypt-devel \
+            libmhash-devel \
+            mysql-devel \
+            yum-fastestmirror \
+            netconfig \
+            ntsysv \
+            wget \
+            tcpdump
 ```
 
 > 명령어 구분자
@@ -251,7 +289,9 @@ Dns name 혹은 ip로 웹에서 접근하기 위한 작업과 웹 경로를 변�
 아파치 서비스 상태를 체크하고 꺼져있을 경우 부팅시 자동실행을 설정하고, 웹서버를 실행시킨 후 실제 웹에서 테스트 해본다.
 
 ```bash
-chkconfig --listchkconfig httpd onservice httpd start
+chkconfig --list
+chkconfig httpd on
+service httpd start
 ```
 
 ![](../../../.gitbook/assets/os_7.png)
@@ -279,7 +319,8 @@ vi /etc/httpd/conf/httpd.conf
 `virtualhost` 설정이 적혀있는 부분을 찾아서 `NameVirtualHost` 주석을 해제하고 가상호스트 설정파일의 경로를 추가해준다.
 
 ```markup
-NameVirtualHost *:80include /etc/httpd/conf/extra/httpd-vhosts.conf
+NameVirtualHost *:80
+include /etc/httpd/conf/extra/httpd-vhosts.conf
 ```
 
 ![](../../../.gitbook/assets/os_9.png)
@@ -287,7 +328,24 @@ NameVirtualHost *:80include /etc/httpd/conf/extra/httpd-vhosts.conf
 include를 선언해준 경로에 폴더와 파일을 생성해주고 아래와 같이 입력한다.
 
 ```markup
-<VirtualHost *:80>    DocumentRoot /home/domain/www/public_html    # Server* 부분은 추후 Roudte53 연결후 그에 맞게 작성해야 한다.    ServerAdmin dev@test.com    ServerName test.com    ServerAlias www.test.com    # Accec log와 error 로그를 사용자화여 지정    ErrorLog logs/domain.com-error_log    CustomLog logs/domain.com-access_log combined    <Directory "/home/domain/www/public_html">       #Options Indexes FollowSymLinks       Options FollowSymLinks       AllowOverride None       Order allow,deny       Allow from all    </Directory></VirtualHost>
+<VirtualHost *:80>
+    DocumentRoot /home/domain/www/public_html
+    # Server* 부분은 추후 Roudte53 연결후 그에 맞게 작성해야 한다.
+    ServerAdmin dev@test.com
+    ServerName test.com
+    ServerAlias www.test.com
+    # Accec log와 error 로그를 사용자화여 지정
+    ErrorLog logs/domain.com-error_log
+    CustomLog logs/domain.com-access_log combined
+
+    <Directory "/home/domain/www/public_html">
+       #Options Indexes FollowSymLinks
+       Options FollowSymLinks
+       AllowOverride None
+       Order allow,deny
+       Allow from all
+    </Directory>
+</VirtualHost>
 ```
 
 **주의사항**
@@ -307,7 +365,11 @@ service httpd configtest
 위와 같이 `Syntax OK`가 나온다면 정상이고 `Warning` 문구는 현재 `public_html`경로는 생성해주지 않았으니 추후 `git clone`을 해주면 문제 없지만 `PHP` 설치전 웹상에서 바뀐경로를 테스트 해보고 싶다면 임시로 `/home/domain/www`경로 아래에 `public_html` 폴더와 `index.html`파일을 생성해준다.
 
 ```bash
-su -l domaincd /home/domain/wwwmkdir public_htmlcd public_htmlvi index.html
+su -l domain
+cd /home/domain/www
+mkdir public_html
+cd public_html
+vi index.html
 ```
 
 아파치를 재시작 해준다.
@@ -321,7 +383,9 @@ service httpd restart
 웹서버 경로의 권한과 그룹을 맞춰준다.
 
 ```bash
-chmod  711  /home/domainchmod  755  /home/domain/wwwchown domain:apache /home/domain/www
+chmod  711  /home/domain
+chmod  755  /home/domain/www
+chown domain:apache /home/domain/www
 ```
 
 ### 3-4. selinux 설정
@@ -331,7 +395,8 @@ chmod  711  /home/domainchmod  755  /home/domain/wwwchown domain:apache /home/do
 `CentOS` 는 `SELinux`라는 보안강화 모듈이 설치 및 활성화 되어있는데, 이로인해 웹에서 접근시 `permission error`가 뜨니 아래와 같이 조치한다. 기본적으로 웹 소프트웨어 업로드 및 파일 쓰기 기능을 막는 기능이라고 생각하면 된다.
 
 ```bash
-setenforce 0vi /etc/sysconfig/selinux
+setenforce 0
+vi /etc/sysconfig/selinux
 ```
 
 여기서 파일 중간의 `SELINUX`를 `disabled`로 변경해준다.
@@ -347,7 +412,9 @@ ls -alZ /var/www/html
 새로 변경한 `DocumentRoot`의 `SELinux security context` 확인
 
 ```bash
-ls -alZ /home/domain/www#위에서 public_html/index.html 파일을 생성했을 경우 아래 커맨드로 확인ls -alZ /home/domain/www/public_html/
+ls -alZ /home/domain/www
+#위에서 public_html/index.html 파일을 생성했을 경우 아래 커맨드로 확인
+ls -alZ /home/domain/www/public_html/
 ```
 
 현재 `SELinux` 상태 확인
@@ -361,7 +428,8 @@ sestatus
 만약 정상작동하지 않을경우 `httpd-vhost.conf`경로에 선언해준 `log` 를 확인해본다.
 
 ```bash
-tail -f /etc/httpd/logs/domain.com-access_logtail -f /etc/httpd/logs/domain.com-error_log
+tail -f /etc/httpd/logs/domain.com-access_log
+tail -f /etc/httpd/logs/domain.com-error_log
 ```
 
 ## 4. PHP 환경설정
@@ -397,7 +465,11 @@ tar -zxvf php-5.3.29.tar.gz -C /tmp
 64비트 운영체제에서는 특정 모듈 컴파일시 오류가 발생하니 하기 심볼릭 링크를 진행 해주고 설치를 해야한다.
 
 ```bash
-ln -s /usr/lib64/libjpeg.so /usr/lib/libjpeg.so \        && ln -s /usr/lib64/libXpm.so /usr/lib/libXpm.so \        && ln -s /usr/lib64/mysql /usr/lib/mysql \        && ln -s /usr/lib64/libpng.so /usr/lib/libpng.so \        && yum install -y epel-release libmcrypt-devel libmhash-devel
+ln -s /usr/lib64/libjpeg.so /usr/lib/libjpeg.so \
+        && ln -s /usr/lib64/libXpm.so /usr/lib/libXpm.so \
+        && ln -s /usr/lib64/mysql /usr/lib/mysql \
+        && ln -s /usr/lib64/libpng.so /usr/lib/libpng.so \
+        && yum install -y epel-release libmcrypt-devel libmhash-devel
 ```
 
 ### 4-3. php configure 옵션 설정 및 설치
@@ -405,7 +477,58 @@ ln -s /usr/lib64/libjpeg.so /usr/lib/libjpeg.so \        && ln -s /usr/lib64/lib
 `PHP`의 `configure`옵션을 설정해주고 컴파일 및 설치해준다.
 
 ```bash
-cd /tmp/php-5.3.29 \    && ./configure \        --with-apxs2 \        --with-config-file-path=/usr/local/lib/php \        --with-config-file-scan-dir="/usr/local/lib/php/conf.d"\        --disable-posix \        --enable-bcmath \        --enable-calendar \        --enable-exif \        --enable-fastcgi \        --enable-ftp \        --enable-gd-native-ttf \        --enable-libxml \        --enable-magic-quotes \        --enable-mbstring \        --enable-pdo \        --enable-soap \        --enable-sockets \        --enable-wddx \        --enable-zip \        --enable-xdebug \        --with-bz2 \        --with-curl \        --with-curlwrappers \        --with-freetype-dir \        --with-gd --with-gettext \        --with-jpeg-dir \        --with-kerberos \        --with-libxml-dir \        --with-libxml-dir \        --with-mcrypt \        --with-mhash \        --with-mime-magic \        --with-mysql \        --with-mysqli \        --with-openssl \        --with-openssl-dir \        --with-pcre-regex \        --with-pdo-mysql \        --with-pdo-sqlite \        --with-pic \        --with-png-dir \        --with-pspell \        --with-sqlite \        --with-ttf \        --with-xmlrpc \        --with-xpm-dir \        --with-xsl \        --with-zlib \        --with-zlib-dir \    && make && make install \    && cp /tmp/php-5.3.29/php.ini-production /usr/local/lib/php/php.ini
+cd /tmp/php-5.3.29 \
+    && ./configure \
+        --with-apxs2 \
+        --with-config-file-path=/usr/local/lib/php \
+        --with-config-file-scan-dir="/usr/local/lib/php/conf.d"\
+        --disable-posix \
+        --enable-bcmath \
+        --enable-calendar \
+        --enable-exif \
+        --enable-fastcgi \
+        --enable-ftp \
+        --enable-gd-native-ttf \
+        --enable-libxml \
+        --enable-magic-quotes \
+        --enable-mbstring \
+        --enable-pdo \
+        --enable-soap \
+        --enable-sockets \
+        --enable-wddx \
+        --enable-zip \
+        --enable-xdebug \
+        --with-bz2 \
+        --with-curl \
+        --with-curlwrappers \
+        --with-freetype-dir \
+        --with-gd --with-gettext \
+        --with-jpeg-dir \
+        --with-kerberos \
+        --with-libxml-dir \
+        --with-libxml-dir \
+        --with-mcrypt \
+        --with-mhash \
+        --with-mime-magic \
+        --with-mysql \
+        --with-mysqli \
+        --with-openssl \
+        --with-openssl-dir \
+        --with-pcre-regex \
+        --with-pdo-mysql \
+        --with-pdo-sqlite \
+        --with-pic \
+        --with-png-dir \
+        --with-pspell \
+        --with-sqlite \
+        --with-ttf \
+        --with-xmlrpc \
+        --with-xpm-dir \
+        --with-xsl \
+        --with-zlib \
+        --with-zlib-dir \
+    && make && make install \
+    && cp /tmp/php-5.3.29/php.ini-production /usr/local/lib/php/php.ini
 ```
 
 컴파일 및 설치가 완료 됬다면 다운받은 php 압축 파일등을 삭제한다.
@@ -439,7 +562,14 @@ short_open_tah = On
 `mime`타입 관련 설정을 추가해 준다.
 
 ```markup
-<IfModule mime_module>    #    # AddType allows you to add to or override the MIME configuration    # file specified in TypesConfig for specific file types.    #    #AddType application/x-gzip .tgz    AddType application/x-httpd-php .php .html .htm .phtml .inc</IfModule>
+<IfModule mime_module>
+    #
+    # AddType allows you to add to or override the MIME configuration
+    # file specified in TypesConfig for specific file types.
+    #
+    #AddType application/x-gzip .tgz
+    AddType application/x-httpd-php .php .html .htm .phtml .inc
+</IfModule>
 ```
 
 ![](../../../.gitbook/assets/os_13.png)
@@ -447,7 +577,8 @@ short_open_tah = On
 ### 5-2. PHP 설정\(php.ini\)
 
 ```bash
-# php 컴파일 경로의 ini파일을 연다vi /usr/local/lib/php/php.ini
+# php 컴파일 경로의 ini파일을 연다
+vi /usr/local/lib/php/php.ini
 ```
 
 `date.timezone` 부분을 찾아서 주석을 해제후 `Asia/Seoul`로 설정해준다.
@@ -469,7 +600,9 @@ session.gc_divisor
 `session.bug_compat_42` 와 `session.bug_compat_warn` 부분을 찾아서 값을 아래와 같이 변경해준다. 해당 설정은 `register_globals`가 꺼져있음에도 불구하고 전역 영역에서 세션 변수를 초기화할 수 있는 버그를 사전경고 해준다.
 
 ```markup
-session.bug_compat_42 = 1session.bug_compat_warn = 1
+session.bug_compat_42 = 1
+
+session.bug_compat_warn = 1
 ```
 
 ![](../../../.gitbook/assets/os_16.png)
@@ -503,13 +636,16 @@ vi /etc/httpd/conf.d/env.conf
 현재 사용하고 있는 환경변수를 셋팅해준다.
 
 ```markup
-SetEnv DATABASE_CONNECTION rdsSetEnv SERVER_MODE dev
+SetEnv DATABASE_CONNECTION rds
+SetEnv SERVER_MODE dev
 ```
 
 `DirectoryIndex`등의 추가적인 설정파일을 생성 및 셋팅해준다
 
 ```markup
-AddHandler php5-script .php .html .htmAddType text/html .php .html .htmDirectoryIndex index.php index.html index.htm index.php3 index.inc
+AddHandler php5-script .php .html .htm
+AddType text/html .php .html .htm
+DirectoryIndex index.php index.html index.htm index.php3 index.inc
 ```
 
 ![](../../../.gitbook/assets/os_18.png)
@@ -565,7 +701,23 @@ aws cli를 비롯한 sdk 설치 및 설정
 **Python3.6.X 설치**
 
 ```bash
-#다운받을 위치cd /usr/src#공식홈에서 파이썬 압축파일 다운로드wget https://www.python.org/ftp/python/3.6.4/Python-3.6.4.tgztar xzf Python-3.6.4.tgzcd Python-3.6.4./configure --enable-optimizationsmake altinstall#압축파일 삭제rm /usr/src/Python-3.6.4.tgz#심볼릭링크 설정ln -s /usr/src/Python-3.6.4/python /bin/python3
+#다운받을 위치
+cd /usr/src
+
+#공식홈에서 파이썬 압축파일 다운로드
+wget https://www.python.org/ftp/python/3.6.4/Python-3.6.4.tgz
+tar xzf Python-3.6.4.tgz
+
+cd Python-3.6.4
+
+./configure --enable-optimizations
+make altinstall
+
+#압축파일 삭제
+rm /usr/src/Python-3.6.4.tgz
+
+#심볼릭링크 설정
+ln -s /usr/src/Python-3.6.4/python /bin/python3
 ```
 
 **pip설치**
@@ -587,7 +739,14 @@ python3 get-pip.py --user
 실행경로를 `PATH` 변수에 추가한다.
 
 ```bash
-#내보내기 명령을 프로필 스크립트에 추가export PATH=~/.local/bin:$PATH#프로필을 현재 세션에 로드(root 기준)source ~/.bash_profile#pip 버전 확인pip --version
+#내보내기 명령을 프로필 스크립트에 추가
+export PATH=~/.local/bin:$PATH
+
+#프로필을 현재 세션에 로드(root 기준)
+source ~/.bash_profile
+
+#pip 버전 확인
+pip --version
 ```
 
 > 맥이나 기타 사용하는 쉘이 있을경우 거기에 맞게 설정해주면 된다
@@ -601,7 +760,10 @@ python3 get-pip.py --user
 `pip`를 사용해서 `AWS CLI`를 설치한다
 
 ```bash
-pip install awscli --upgrade --user#aws cli 버전확인aws --version
+pip install awscli --upgrade --user
+
+#aws cli 버전확인
+aws --version
 ```
 
 추후 `AWS CLI`를 최신 버전으로 업그레이드 하려면 설치명령을 다시 실행하면 된다
@@ -627,7 +789,12 @@ lsblk
 아마존 공식문서에는 파티션 확장 커맨드를 바로 명시하지만 실제로는 추가 패키지로 설치를 해야한다
 
 ```bash
-yum install cloud-utils-growpartgrowpart /dev/xvda 1 << 이부분은 lsblk로 확인한 볼륨 명을 적어준다.#확인lsblk
+yum install cloud-utils-growpart
+
+growpart /dev/xvda 1 << 이부분은 lsblk로 확인한 볼륨 명을 적어준다.
+
+#확인
+lsblk
 ```
 
 인스턴스를 재부팅한다.
@@ -639,7 +806,20 @@ CloudWatch logs Agent 설치 및 구성
 ### 7-1. CloudWatch Logs 설치 및 구성
 
 ```bash
-# 임시다운로드 경로로 이동cd /usr/src# agent 다운로드curl https://s3.amazonaws.com/aws-cloudwatch/downloads/latest/awslogs-agent-setup.py -Ocurl https://s3.amazonaws.com/aws-cloudwatch/downloads/latest/AgentDependencies.tar.gz -O# AgentDependencies 압축 해제tar xvf AgentDependencies.tar.gz -C /tmp/# python 버전과 리전지정에 주의# python 2.6 ~ 3.5 버전만 지원# 서울리전 endpoint = ap-northeast-2python ./awslogs-agent-setup.py --region ap-northeast-2 --dependency-path /tmp/AgentDependencies
+# 임시다운로드 경로로 이동
+cd /usr/src
+
+# agent 다운로드
+curl https://s3.amazonaws.com/aws-cloudwatch/downloads/latest/awslogs-agent-setup.py -O
+curl https://s3.amazonaws.com/aws-cloudwatch/downloads/latest/AgentDependencies.tar.gz -O
+
+# AgentDependencies 압축 해제
+tar xvf AgentDependencies.tar.gz -C /tmp/
+
+# python 버전과 리전지정에 주의
+# python 2.6 ~ 3.5 버전만 지원
+# 서울리전 endpoint = ap-northeast-2
+python ./awslogs-agent-setup.py --region ap-northeast-2 --dependency-path /tmp/AgentDependencies
 ```
 
 이후 환경설정을 [AWS 가이드 문서](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/QuickStartEC2Instance.html)를 참조하여 작성한다.

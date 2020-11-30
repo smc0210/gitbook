@@ -7,31 +7,54 @@
 > windows 기준 경로 C:\Windows\System32\drivers\etc
 
 ```markup
-127.0.0.1  laravel.course.test127.0.0.1  lumen.course.test
+127.0.0.1  laravel.course.test
+127.0.0.1  lumen.course.test
 ```
 
 ### 도커 이미지 로드
 
 ```bash
-docker rm course# 현재 로드된 이미지 리스트dodcker images# 이미지 리스트에서 삭제(갱신)할 이미지 hash값 복사docker rmi {image hash}docker load -i laravel.tar
+docker rm course
+
+# 현재 로드된 이미지 리스트
+dodcker images
+
+# 이미지 리스트에서 삭제(갱신)할 이미지 hash값 복사
+docker rmi {image hash}
+
+docker load -i laravel.tar
 ```
 
 ### 도커 실행
 
 ```bash
-//docker run -it --name course -p 8000:80 -p 3308:3306 -v /c/Users/course:/usr/local/apache2/htdocs -v C:\Users\MCShin\.ssh:/home/course/.ssh centos7:laravel /bin/bashdocker run -it --name course -p 8000:80 -p 3308:3306 -v D:\wisdom\course:/usr/local/apache2/htdocs -v C:\Users\MCShin\.ssh:/home/course/.ssh centos7:laravel /bin/bash
+//docker run -it --name course -p 8000:80 -p 3308:3306 -v /c/Users/course:/usr/local/apache2/htdocs -v C:\Users\MCShin\.ssh:/home/course/.ssh centos7:laravel /bin/bash
+docker run -it --name course -p 8000:80 -p 3308:3306 -v D:\wisdom\course:/usr/local/apache2/htdocs -v C:\Users\MCShin\.ssh:/home/course/.ssh centos7:laravel /bin/bash
 ```
 
 ### container exec
 
 ```bash
-# 컨테이너가 중지되었을 경우 실행docker start course# exit 시 container down# 종료시 ctrl + p,q 로 종료docker attach course# (권장)docker exec -it -u course course /bin/bash
+# 컨테이너가 중지되었을 경우 실행
+docker start course
+
+# exit 시 container down
+# 종료시 ctrl + p,q 로 종료
+docker attach course
+
+# (권장)
+docker exec -it -u course course /bin/bash
 ```
 
 ### 계정 변경 및 laravel 생성
 
 ```bash
-cd ~/apache2/htdocs// 계정변경 sudo su courselaravel new laravel_testlumen new lumen_test
+cd ~/apache2/htdocs
+
+// 계정변경 
+sudo su course
+laravel new laravel_test
+lumen new lumen_test
 ```
 
 ## 2. laravel basic command
@@ -39,19 +62,36 @@ cd ~/apache2/htdocs// 계정변경 sudo su courselaravel new laravel_testlumen n
 > 라라벨 artisan\(cli\) 기본 커맨드
 
 ```bash
-php artisan make:{command} {name}#controllerphp artisan make:controller UserControllerphp artisan make:controller ExceptionControllerphp artisan make:controller ValidateController#middlewarephp artisan make:middleware Login# help php artisan help
+php artisan make:{command} {name}
+
+#controller
+php artisan make:controller UserController
+php artisan make:controller ExceptionController
+php artisan make:controller ValidateController
+
+#middleware
+php artisan make:middleware Login
+
+# help 
+php artisan help
 ```
 
 > middleware 를 생성한 후 `/app/Http/Kernel.php`에 등록을 해줘야 한다.\(_대소문자 주의_\)
 
 ```php
-protected $routeMiddleware = [    /* ...기존 코드 생략 */    'login' => \App\Http\Middleware\Login::class,]
+protected $routeMiddleware = [
+    /* ...기존 코드 생략 */
+    'login' => \App\Http\Middleware\Login::class,
+]
 ```
 
 > laravel setting
 
 ```bash
-composer install# .env APP_KEY create commandphp artisan key:generate
+composer install
+
+# .env APP_KEY create command
+php artisan key:generate
 ```
 
 ## 3. Route
@@ -61,7 +101,22 @@ composer install# .env APP_KEY create commandphp artisan key:generate
 > `method`, `uri`, \`controller api.php 작성예시
 
 ```php
-Route::put('/welcome', function () {    return view('welcome');});Route::get('/registers/create', 'RegisterController@create');Route::group(['prefix' => '/user', 'middleware' => 'login'], function () {    // Route::get('/', 'UserController@index');    // Route::get('/{id?}', 'UserController@index')->middleware('login');    Route::get('/{id?}', 'UserController@index');    Route::put('/', 'UserController@update');    Route::delete('/', 'UserController@delete');    Route::post('/', 'UserController@store');});Route::get('/validation', 'ValidationController@index');
+Route::put('/welcome', function () {
+    return view('welcome');
+});
+
+Route::get('/registers/create', 'RegisterController@create');
+
+Route::group(['prefix' => '/user', 'middleware' => 'login'], function () {
+    // Route::get('/', 'UserController@index');
+    // Route::get('/{id?}', 'UserController@index')->middleware('login');
+    Route::get('/{id?}', 'UserController@index');
+    Route::put('/', 'UserController@update');
+    Route::delete('/', 'UserController@delete');
+    Route::post('/', 'UserController@store');
+});
+
+Route::get('/validation', 'ValidationController@index');
 ```
 
 ## 4. Controller
@@ -69,7 +124,43 @@ Route::put('/welcome', function () {    return view('welcome');});Route::get('/r
 > `Route`에서 연결된 `Controller` 작성예시
 
 ```php
-class UserController extends Controller{    public function index(Request $request, int $id = null)    {        dd('hello world');        // d('test');        // dd(config('ip', 100));        // $callTop = $this->callTop();        // $callBottom = $this->callBottom();        return $this->response([            'result'  => 'ok',            'message' => trans('resources.ok'),        ]);    }    public function test(Request $request)    {        $users = User::all();        foreach ($users as $user) {            dump($user->toArray());        }    }    private function callTop()    {        dump('callTop called');    }    private function callBottom()    {        dd('callBottom called');    }}
+class UserController extends Controller
+{
+    public function index(Request $request, int $id = null)
+    {
+        dd('hello world');
+        // d('test');
+
+        // dd(config('ip', 100));
+
+        // $callTop = $this->callTop();
+
+        // $callBottom = $this->callBottom();
+
+        return $this->response([
+            'result'  => 'ok',
+            'message' => trans('resources.ok'),
+        ]);
+    }
+
+    public function test(Request $request)
+    {
+        $users = User::all();
+        foreach ($users as $user) {
+            dump($user->toArray());
+        }
+    }
+
+    private function callTop()
+    {
+        dump('callTop called');
+    }
+
+    private function callBottom()
+    {
+        dd('callBottom called');
+    }
+}
 ```
 
 ## 5. Model
@@ -77,29 +168,61 @@ class UserController extends Controller{    public function index(Request $reque
 > `app/` 하위 경로에 모델 생성
 
 ```bash
-# User 모델 생성php artisan make:model User
+# User 모델 생성
+php artisan make:model User
 ```
 
 > `app/User` 작성예시
 
 ```php
-<?phpnamespace App;use Illuminate\Database\Eloquent\Model;class User extends Model{    public $table      = 'users';    public $primaryKey = 'id';    const CREATED_AT   = 'created_at';    const UPDATED_AT   = 'updated_at';    public $fillable = [        'login_id',        'password',    ];}
+<?php
+
+namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+
+class User extends Model
+{
+    public $table      = 'users';
+    public $primaryKey = 'id';
+    const CREATED_AT   = 'created_at';
+    const UPDATED_AT   = 'updated_at';
+    public $fillable = [
+        'login_id',
+        'password',
+    ];
+}
 ```
 
 > `/database/migrations` 폴더 생성 후 `make:migration` 명령어 실행
 
 ```bash
-# app/User.php 기반으로 마이그레이션 php artisan make:migration create_usersphp artisan migrate# db(mysql)접속 후 확인mysql -u homestead -psecret
+# app/User.php 기반으로 마이그레이션 
+php artisan make:migration create_users
+php artisan migrate
+
+# db(mysql)접속 후 확인
+mysql -u homestead -psecret
 ```
 
 ### 번외. rlwrap
 
 ```bash
-# Install rlwrap$ cd /usr/local/src$ wget http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm$ rpm -Uvh epel-release-6-8.noarch.rpm$ yum install rlwrap
+# Install rlwrap
+$ cd /usr/local/src
+$ wget http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
+$ rpm -Uvh epel-release-6-8.noarch.rpm
+$ yum install rlwrap
 ```
 
 ```bash
-# 도커 진입 (attach 로 진입해야함)docker start coursedocker attach course# vim 설정cdvi .bashrc
+# 도커 진입 (attach 로 진입해야함)
+docker start course
+docker attach course
+
+# vim 설정
+cd
+vi .bashrc
 ```
 
 > alias 추가후 적용 \(`source`\)
@@ -115,7 +238,44 @@ alias php="rlwrap php"
 > php artisan tinker 진입후
 
 ```bash
-# ---------------# 추가적인 메소드[get()] 호출 없이 바로 결과값 반환# ---------------# 모든레코드App\User::all()# 첫 레코드App\User::first()# pk = 1 찾기App\User::find(1)# ---------------# get() 메소드까지 써줘야 결과 반환App\User::where('login_id', 'wisdom')->get()App\User::where('id', 1)->get()App\User::orderBy('id', 'desc')->get()App\User::orderBy('id', 'desc')->limit(1)->get()App\User::orderBy('id', 'desc')->take(1)->get() //limit와 동일App\User::orderBy('id', 'desc')->offset(1)->limit(1)->get()#array 형식은 비권장 (AND)App\User::where(['login_id' => 'wisdom', 'password' => 1])->get()#권장 (AND)App\User::where('login_id', 'wisdom')->where('password', 1)->get()# (OR)App\User::where('login_id', 'wisdom')->orWhere('password', 2)->get()# selectApp\User::where('login_id', 'wisdom')->select('password')->get()App\User::where('login_id', 'wisdom')->select('login_id', 'password')->get()# 콜렉션 all()이 아닌 바로 데이터 조회App\User::where('login_id', 'wisdom')->select('login_id', 'password')->first()# like (두번째 파라미터는 operaate)App\User::where('login_id', 'like', 'wisdom%')->get()
+# ---------------
+# 추가적인 메소드[get()] 호출 없이 바로 결과값 반환
+# ---------------
+# 모든레코드
+App\User::all()
+# 첫 레코드
+App\User::first()
+# pk = 1 찾기
+App\User::find(1)
+
+# ---------------
+
+# get() 메소드까지 써줘야 결과 반환
+App\User::where('login_id', 'wisdom')->get()
+App\User::where('id', 1)->get()
+
+App\User::orderBy('id', 'desc')->get()
+App\User::orderBy('id', 'desc')->limit(1)->get()
+App\User::orderBy('id', 'desc')->take(1)->get() //limit와 동일
+App\User::orderBy('id', 'desc')->offset(1)->limit(1)->get()
+
+#array 형식은 비권장 (AND)
+App\User::where(['login_id' => 'wisdom', 'password' => 1])->get()
+#권장 (AND)
+App\User::where('login_id', 'wisdom')->where('password', 1)->get()
+
+# (OR)
+App\User::where('login_id', 'wisdom')->orWhere('password', 2)->get()
+
+# select
+App\User::where('login_id', 'wisdom')->select('password')->get()
+App\User::where('login_id', 'wisdom')->select('login_id', 'password')->get()
+
+# 콜렉션 all()이 아닌 바로 데이터 조회
+App\User::where('login_id', 'wisdom')->select('login_id', 'password')->first()
+
+# like (두번째 파라미터는 operaate)
+App\User::where('login_id', 'like', 'wisdom%')->get()
 ```
 
 {% hint style="info" %}
@@ -123,7 +283,23 @@ alias php="rlwrap php"
 {% endhint %}
 
 ```php
-// Array$users = User::where('login_id', 'wisdom')            ->select('login_id', 'password')            ->get()            ->toArray();foreach ($users as $user) {        //dump($user['login_id'] ?? null);        dump(array_get($user, 'login_id2', 0));}// Collection$users = User::where('login_id', 'wisdom')            ->select('login_id', 'password')            ->get();foreach ($users as $user) {    dump($user->login_id2, $user->password);}
+// Array
+$users = User::where('login_id', 'wisdom')
+            ->select('login_id', 'password')
+            ->get()
+            ->toArray();
+foreach ($users as $user) {    
+    //dump($user['login_id'] ?? null);    
+    dump(array_get($user, 'login_id2', 0));
+}
+
+// Collection
+$users = User::where('login_id', 'wisdom')
+            ->select('login_id', 'password')
+            ->get();
+foreach ($users as $user) {
+    dump($user->login_id2, $user->password);
+}
 ```
 
 ### 6-2. Update & delete
@@ -133,7 +309,8 @@ debug bar get\(\)-&gt;toSql\(\)
 {% endhint %}
 
 ```bash
-App\User::find(1)->update(['password' => '1111'])App\User::find(1)->delete();
+App\User::find(1)->update(['password' => '1111'])
+App\User::find(1)->delete();
 ```
 
 ### 6-3. Accessor
@@ -141,13 +318,22 @@ App\User::find(1)->update(['password' => '1111'])App\User::find(1)->delete();
 > User `Model` `app/User.php`
 
 ```php
-public function getCreatedAtAttribute($value){    //dd($value);    return date('Y-m-d', strtotime($value));}
+public function getCreatedAtAttribute($value)
+{
+    //dd($value);
+    return date('Y-m-d', strtotime($value));
+}
 ```
 
 > User `Controller` `app/Http/Controller/UserController.php`
 
 ```php
-$users = User::where('login_id', 'wisdom1')            ->select('login_id', 'password', 'created_at')            ->get();foreach ($users as $user) {    dump($user->created_at);}
+$users = User::where('login_id', 'wisdom1')
+            ->select('login_id', 'password', 'created_at')
+            ->get();
+foreach ($users as $user) {
+    dump($user->created_at);
+}
 ```
 
 ### 6-4. Mutator
@@ -155,13 +341,18 @@ $users = User::where('login_id', 'wisdom1')            ->select('login_id', 'pas
 > User 모델 `app/User.php`
 
 ```php
-public function setPasswordAttribute($value){    $this->attributes['password'] = ucfirst($value);}
+public function setPasswordAttribute($value)
+{
+    $this->attributes['password'] = ucfirst($value);
+}
 ```
 
 > User `Controller` `app/Http/Controller/UserController.php`
 
 ```php
-User::find(1)            ->update(['password' => 'hello']);        dd(User::find(1));
+User::find(1)
+            ->update(['password' => 'hello']);
+        dd(User::find(1));
 ```
 
 ### 6-5. Relationships
@@ -169,25 +360,69 @@ User::find(1)            ->update(['password' => 'hello']);        dd(User::find
 > Company 모델 `app/Company.php`
 
 ```php
-<?phpnamespace App;use Illuminate\Database\Eloquent\Model;class Company extends Model{    public $fillable = [        'name'    ];}
+<?php
+
+namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Company extends Model
+{
+    public $fillable = [
+        'name'
+    ];
+}
 ```
 
 > User `Model` `app/User.php`
 
 ```php
-public $fillable = [    'company_id', //<-- company_id 추가    'login_id',    'password',];public function company(){    return $this->belongsTo(Company::class, 'company_id','id')        ->select('id', 'name');}
+public $fillable = [
+    'company_id', //<-- company_id 추가
+    'login_id',
+    'password',
+];
+
+public function company()
+{
+    return $this->belongsTo(Company::class, 'company_id','id')
+        ->select('id', 'name');
+}
 ```
 
 > User `Controller` `app/Http/Controller/UserController.php`
 
 ```php
-$users = User::with('company')                    ->where('login_id', 'like', 'wisdom%')                    ->select('id', 'login_id', 'password', 'company_id')                    ->get();foreach ($users as $user) {    dd($user->company->id, $user->company->name );}
+$users = User::with('company')
+                    ->where('login_id', 'like', 'wisdom%')
+                    ->select('id', 'login_id', 'password', 'company_id')
+                    ->get();
+foreach ($users as $user) {
+    dd($user->company->id, $user->company->name );
+}
 ```
 
 > ORM 마저 User.php 모델
 
 ```php
-//public $timestamps = false;public $casts = [    'password' => 'integer',];// 컨트롤러에서 toArray()로 변환시 필요 public $appends = [    'hash',];// 생략...public function getHashAttribute(){    //dd($value);    return 'wisdom_'.$this->password;}
+//public $timestamps = false;
+
+public $casts = [
+    'password' => 'integer',
+];
+
+// 컨트롤러에서 toArray()로 변환시 필요 
+public $appends = [
+    'hash',
+];
+
+// 생략...
+
+public function getHashAttribute()
+{
+    //dd($value);
+    return 'wisdom_'.$this->password;
+}
 ```
 
 > relations
