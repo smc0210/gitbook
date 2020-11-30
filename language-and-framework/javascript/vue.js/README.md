@@ -20,7 +20,26 @@
 ## 2. Getting Start
 
 ```markup
-<html>  <head>    <title>Vue Sample</title>  </head>  <body>    <div id="app">      {{ message }}    </div>    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script>    <script>      new Vue({        el: '#app',        data: {          message: 'Hello Vue.js!'        }      });    </script>  </body></html>
+<html>
+  <head>
+    <title>Vue Sample</title>
+  </head>
+  <body>
+    <div id="app">
+      {{ message }}
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script>
+    <script>
+      new Vue({
+        el: '#app',
+        data: {
+          message: 'Hello Vue.js!'
+        }
+      });
+    </script>
+  </body>
+</html>
 ```
 
 ## 3. [Simple ES6](https://ocaso.gitbook.io/infodoc/language-and-framework/javascript/vue.js/es6)

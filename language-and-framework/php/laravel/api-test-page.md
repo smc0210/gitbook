@@ -41,7 +41,11 @@ Cake successfully retrieved.
 {% endapi-method-response-example-description %}
 
 ```javascript
-{    "name": "Cake's name",    "recipe": "Cake's recipe name",    "cake": "Binary cake"}
+{
+    "name": "Cake's name",
+    "recipe": "Cake's recipe name",
+    "cake": "Binary cake"
+}
 ```
 {% endapi-method-response-example %}
 
@@ -51,7 +55,9 @@ Could not find a cake matching this query.
 {% endapi-method-response-example-description %}
 
 ```javascript
-{    "message": "Ain't no cake like that."}
+{
+    "message": "Ain't no cake like that."
+}
 ```
 {% endapi-method-response-example %}
 {% endapi-method-response %}
