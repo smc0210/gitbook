@@ -184,7 +184,46 @@ vi /etc/nginx/conf.d/default.conf
 > `default.conf` 파일을 아리 기본구문으로 변경 \(기존데이터는 백업\)
 
 ```markup
-server {    listen       80 default_server;    server_name  localhost;    root /var/www/public;    location / {        index  index.php index.html;        try_files $uri $uri/ /index.php?$args;    }    # Allow Lets Encrypt Domain Validation Program    location ^~ /.well-known/acme-challenge/ {        allow all;    }    # Block dot file (.htaccess .htpasswd .svn .git .env and so on.)    location ~ /\. {        deny all;    }    # Block (log file, binary, certificate, shell script, sql dump file) access.    location ~* \.(log|binary|pem|enc|crt|conf|cnf|sql|sh|key)$ {        deny all;    }    # Block access    location ~* (composer\.json|contributing\.md|license\.txt|readme\.rst|readme\.md|readme\.txt|copyright|artisan|gulpfile\.js|package\.json|phpunit\.xml)$ {        deny all;    }    location ~ [^/]\.php(/|$) {        fastcgi_split_path_info ^(.+?\.php)(/.*)$;        if (!-f $document_root$fastcgi_script_name) {            return 404;        }        fastcgi_pass unix:/run/php/php7.2-fpm.sock;        fastcgi_index index.php;        include fastcgi_params;    }}
+server {    
+    listen 80 default_server;    
+    server_name  localhost;
+    root /var/www/public;
+
+    location / {        
+        index  index.php index.html;        
+        try_files $uri $uri/ /index.php?$args;    
+    }    
+
+    # Allow Lets Encrypt Domain Validation Program    
+    location ^~ /.well-known/acme-challenge/ {        
+        allow all;    
+    }    
+
+    # Block dot file (.htaccess .htpasswd .svn .git .env and so on.)    
+    location ~ /\. {        
+        deny all;    
+    }
+
+    # Block (log file, binary, certificate, shell script, sql dump file) access.    
+    location ~* \.(log|binary|pem|enc|crt|conf|cnf|sql|sh|key)$ {        
+        deny all;    
+    }
+
+    # Block access    
+    location ~* (composer\.json|contributing\.md|license\.txt|readme\.rst|readme\.md|readme\.txt|copyright|artisan|gulpfile\.js|package\.json|phpunit\.xml)$ {        
+        deny all;    
+    }
+
+    location ~ [^/]\.php(/|$) {        
+        fastcgi_split_path_info ^(.+?\.php)(/.*)$;        
+        if (!-f $document_root$fastcgi_script_name) {            
+            return 404;        
+        }        
+        fastcgi_pass unix:/run/php/php7.4-fpm.sock;
+        fastcgi_index index.php;        
+        include fastcgi_params;    
+    }
+}
 ```
 
 **fastcgi\_params 변경**
@@ -196,7 +235,32 @@ vi /etc/nginx/fastcgi_params
 > `fastcgi_params` 파일을 변경
 
 ```text
-fastcgi_param   QUERY_STRING            $query_string;fastcgi_param   REQUEST_METHOD          $request_method;fastcgi_param   CONTENT_TYPE            $content_type;fastcgi_param   CONTENT_LENGTH          $content_length;fastcgi_param   SCRIPT_FILENAME         $document_root$fastcgi_script_name;fastcgi_param   SCRIPT_NAME             $fastcgi_script_name;fastcgi_param   PATH_INFO               $fastcgi_path_info;fastcgi_param   PATH_TRANSLATED         $document_root$fastcgi_path_info;fastcgi_param   REQUEST_URI             $request_uri;fastcgi_param   DOCUMENT_URI            $document_uri;fastcgi_param   DOCUMENT_ROOT           $document_root;fastcgi_param   SERVER_PROTOCOL         $server_protocol;fastcgi_param   GATEWAY_INTERFACE       CGI/1.1;fastcgi_param   SERVER_SOFTWARE         nginx/$nginx_version;fastcgi_param   REMOTE_ADDR             $remote_addr;fastcgi_param   REMOTE_PORT             $remote_port;fastcgi_param   SERVER_ADDR             $server_addr;fastcgi_param   SERVER_PORT             $server_port;fastcgi_param   SERVER_NAME             $server_name;fastcgi_param   HTTPS                   $https;# PHP only, required if PHP was built with --enable-force-cgi-redirectfastcgi_param   REDIRECT_STATUS         200;
+fastcgi_param   QUERY_STRING            $query_string;
+fastcgi_param   REQUEST_METHOD          $request_method;
+fastcgi_param   CONTENT_TYPE            $content_type;
+fastcgi_param   CONTENT_LENGTH          $content_length;
+
+fastcgi_param   SCRIPT_FILENAME         $document_root$fastcgi_script_name;
+fastcgi_param   SCRIPT_NAME             $fastcgi_script_name;
+fastcgi_param   PATH_INFO               $fastcgi_path_info;
+fastcgi_param   PATH_TRANSLATED         $document_root$fastcgi_path_info;
+fastcgi_param   REQUEST_URI             $request_uri;
+fastcgi_param   DOCUMENT_URI            $document_uri;
+fastcgi_param   DOCUMENT_ROOT           $document_root;
+fastcgi_param   SERVER_PROTOCOL         $server_protocol;
+
+fastcgi_param   GATEWAY_INTERFACE       CGI/1.1;
+fastcgi_param   SERVER_SOFTWARE         nginx/$nginx_version;
+
+fastcgi_param   REMOTE_ADDR             $remote_addr;
+fastcgi_param   REMOTE_PORT             $remote_port;
+fastcgi_param   SERVER_ADDR             $server_addr;
+fastcgi_param   SERVER_PORT             $server_port;
+fastcgi_param   SERVER_NAME             $server_name;
+fastcgi_param   HTTPS                   $https;
+
+# PHP only, required if PHP was built with --enable-force-cgi-redirect
+fastcgi_param   REDIRECT_STATUS         200;
 ```
 
 ```bash
