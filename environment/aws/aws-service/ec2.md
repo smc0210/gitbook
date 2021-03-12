@@ -52,11 +52,11 @@ EC2 Instance 를 생성한다.
 
 EC2 가상서버에 설치될 운영체제를 선택한다. 이때 미리 준비된 운영체제 이미지\(AMI\)만 사용할 수 있다.
 
-### img1
+![](../../../.gitbook/assets/ec2_1.png)
 
 Quick Start 탭은 AWS에서 가장 많이 사용하는 AMI들을 모아놓은 것으로 일반적인 OS들은 모두 목록에 있다.
 
-### img2
+![](../../../.gitbook/assets/ec2_2.png)
 
 기존 리소스로 만들어 놓은 AMI 를 이용해 EC2 인스턴스를 만들 수도 있다.
 
@@ -66,13 +66,13 @@ Quick Start 탭은 AWS에서 가장 많이 사용하는 AMI들을 모아놓은 �
 
 사용 용도에 맞게 다양한 인스턴스 유형을 제공하고 원하는 유형을 선택한다
 
-### img3
+![](../../../.gitbook/assets/ec2_3.png)
 
 > 사양은 추후 인스턴스 생성 이후에도 정지시킨 후 변경 할수 있다.
 
 #### Step 3. Configure Instance Details
 
-### img4
+![](../../../.gitbook/assets/ec2_4.png)
 
 * `Number of Instances`: 생성할 인스턴스 개수
 * `Purchasing option`: 스팟 인스턴스로 구매할 경우 체크
@@ -92,7 +92,7 @@ Quick Start 탭은 AWS에서 가장 많이 사용하는 AMI들을 모아놓은 �
 
 EC2 인스턴스에 장찰될 스토리지를 설정하며 Root 장치는 반드시 있어야 한다.
 
-### img5
+![](../../../.gitbook/assets/ec2_5.png)
 
 * Type: Root 장치\(Device\)인지 추가 장치인지 설정하는 옵션으로 Root 장치는 EBS만 사용할 수 있다.
 * Device: Linux상에서 표시되는 장치 이름
@@ -109,13 +109,13 @@ EC2 인스턴스에 장찰될 스토리지를 설정하며 Root 장치는 반드
 
 Tag는 거의 모든 AWS 서비스에 존재하는데 Key-Value 형식이며 특별히 제한은 없다. 주로 요금확인과, 리스트에서 구별을 하기위해 최소한 Name 값은 입력을 해주는게 좋다.
 
-### img6
+![](../../../.gitbook/assets/ec2_6.png)
 
 #### Step 6. Configure Security Group
 
 방화벽인 `Security Group`을 설정해준다.
 
-### img7
+![](../../../.gitbook/assets/ec2_7.png)
 
 > **OS단의 방화벽과는 별개의 방화벽**으로 보통 AWS Security Group의 방화벽 혹은 ACL로 보안 정책을 구성했을 경우 OS 단의 방화벽은 사용하지 않는다. 사용해도 무방하지만 관리의 불편함과 사실상 같은 기능을 두번 사용할 필요가 없다.
 
@@ -125,7 +125,7 @@ Tag는 거의 모든 AWS 서비스에 존재하는데 Key-Value 형식이며 특
 
 > key pair를 분실 할경우 해당 key pair를 사용한 모든 자원에 접근할 수 없으니 주의
 
-### img8
+![](../../../.gitbook/assets/ec2_8.png)
 
 ## 2. Images
 
@@ -151,11 +151,11 @@ Tag는 거의 모든 AWS 서비스에 존재하는데 Key-Value 형식이며 특
 
 * EC2 인스턴스로 AMI 생성
 
-### img9
+![](../../../.gitbook/assets/ec2_9.png)
 
 AMI를 만들 EC2 인스턴스를 선택하고 상단의 Actions &gt; Image &gt; Create Image 순으로 누르면 이미 생성 팝업창이 뜬다
 
-### img10
+![](../../../.gitbook/assets/ec2_10.png)
 
 * Image name : AMI 이름으로 보통 원본 인스턴스 이름을 어느정도 표기해 구별해주는 편이 좋다 \(어차피 Name 태그로 구별을 하므로 크게 상관은 없지만 한글로 보거할경우 Name 태그는 안보이므로 가급적 명명규칙대로 \)
 * Image descriptions : 단순 백업 용도인지, 특정용도인지, 테스트용인지 날짜별로 명시를 해주는 편이 좋다.
@@ -164,7 +164,7 @@ AMI를 만들 EC2 인스턴스를 선택하고 상단의 Actions &gt; Image &gt;
 
 > **파일시스템 무결성**을 보장하지 않는다? 쓰기 동작이 완료되지 않은 상태를 파일시스템 무결성이 깨진 상태라고 하는데 대부분은 큰 문제가 없이 복구 가능하지만 만의 하나 파일을 읽을 수 없거나 OS단에 문제가 생길 수 있으며, 재부팅을 하지 않고 AMI를 생성시 이를 보장하지 않는다는 뜻이다.
 
-### img11
+![](../../../.gitbook/assets/ec2_11.png)
 
 AMI생성후 확인해보면 Name 값이 비어있어 구별이 힘드니 `Name Tag`를 별도로 입력해준다.
 
@@ -192,17 +192,17 @@ EC2 인스턴스에 장착해 사용할 수 있는 가상 저장장치로, EC2 �
 
 EBS도 EC2 인스턴스와 마찬가지로 별도로 생성 할 수 있고, 별도로 생성한 EBS Volume을 instance에 붙여서 사용가능하다 EBS 생성은 [EC2 인스턴스 생성 단계](https://github.com/theminda/aws-setting/blob/master/AwsService/ec2.md#step-4-add-storage)와 거의 동일하다.
 
-### img12
+![](../../../.gitbook/assets/ec2_12.png)
 
 EBS Volume 리스트를 보면 모든 목록이 보이는데 `State` 가 `in-use`인 volume들은 현재 EC2 인스턴스에서 사용하고 있는 volume이며 사용가능한\(어디에도 연결되지 않은\) volume은 `avaliable`로 되어있다.
 
-### img13
+![](../../../.gitbook/assets/ec2_13.png)
 
 > EC2 인스턴스에는 최소 한개의 Root Volume이 필요하므로 해당 volume들은 연결된 상태에서는 삭제가 불가능하다.
 
 `avaliable`상태인 volume을 선택한 후 상단의 Action 버튼을 누르면 `Attach Volume`이 활성화 되어있고 인스턴스를 선택하여 연결할 수 있다.
 
-### img14
+![](../../../.gitbook/assets/ec2_14.png)
 
 > 볼륨을 Attach 할경우 마운트 작업이 필요하지만 CentOS 6.X의 경우 추가적으로 volume 확장 작업이 필요하다 볼륨 확장은 [volume 확장 가이드](https://github.com/theminda/aws-setting/blob/master/CentOS-6.9/OS.md#6-3-기타-1) 를 참조
 
@@ -226,7 +226,7 @@ Inbound, outbound, protocol type, port-port range 등은 개념은 기존의 방
 
 EC2에 접속하기 위해 사용하는 암호화된 파일로, AWS에서는 상대적으로 취약한 ID, Password 방식대신 `Key Pairs`을 통한 접속방식을 제공하며, RSA 공개 키 알고리즘\(Public Key Algorithm\)을 사용한다.
 
-### img15
+![](../../../.gitbook/assets/ec2_15.png)
 
 > 해당 알고리즘을 사용하는 키쌍 파일일 경우 Linux나 Mac Os 에서 생성한 키파일을 Import 하여 사용할 수도 있다. 예\) Github에 ssh키를 등록하기 위해 사용하는 `ssh-keygen -t rsa` 같은 명령어로 생성된 키파일을 AWS에서 `Key Pairs`로 사용할 수 있다.
 >
@@ -250,7 +250,7 @@ ELB\(Elastic Load Balancing\)는 부하분산과 고가용성을 제공하는 �
 
 > 기존에는 `L4`와 `L7`를 구분하지 않고 한가지 방식으로만 ELB를 생성했지만\(ELB 내부 설정에서 L4,L7을구분하는 방식\) 현재는 L4, L7을 구분하여 각각 L4는 `Network Load Balancer` L7은 `Application Load Balancer`, 그리고 기존의 혼합된 방식은 `Classic Load Balancer`라는 이름으로 아예 생성 시점부터 구분하도록 변경되었다. 민다는 Classic Load Balancer 사용
 
-### img16
+![](../../../.gitbook/assets/ec2_16.png)
 
 * `Health Check` : EC2 인스턴스가 정상인지 판별하는 기능으로 원하는 값으로 설정할 수 있다 \(예 : HTTP 80 port 로 domain.com/index.php 를 5분간격으로 확인\)
 * `Connection Draining` : `Auto Scaling`과 연결했을 경우 사용자의 요청을을 처리중인 EC2 인스턴스를 바로 삭제하지 않도록 방지하는 기능 \(예: 사용자가 파일을 다운로드 하고 있을경우 다운로드가 완료될때까지 기다리고 그동안 새로운 커넥션은 받지 않는다.\)
@@ -259,7 +259,7 @@ ELB\(Elastic Load Balancing\)는 부하분산과 고가용성을 제공하는 �
 
 #### Step 1: Define Load Balancer
 
-### img17
+![](../../../.gitbook/assets/ec2_17.png)
 
 * `Load Balancer name`: 로드 밸런서 이름\(예: wisdom-web-elb\)
 * `Create LB Inside`: 로드 밸런서가 생성될 VPC. \(VPC를 선택하면 자동으로 해당하는 서브넷 목록들이 하단에 노출된다.\)
@@ -276,7 +276,7 @@ Security Group을 선택하는 단계로 설정자체는 중복된 내용이므�
 
 ELB의 헬스체크 기능 설정 단계
 
-### img18
+![](../../../.gitbook/assets/ec2_18.png)
 
 * `Ping Protocol` : 사용할 프로토콜을 설정 \(HTTP\)
 * `Ping Port` : 포트 번호 \(80포트\)
@@ -290,7 +290,7 @@ ELB의 헬스체크 기능 설정 단계
 
 ELB에 연결할 EC2 인스턴스를 선택한다.
 
-### img19
+![](../../../.gitbook/assets/ec2_19.png)
 
 * `Enable Cross-Zone Load Balancing`: 여러 가용 영역에 생성된 EC2 인스턴스에 부하를 분산하는 옵션으로 2a,2c 두 가용영역에 걸쳐 이중화가 필요할 경우 체크한다.
 * `Enable Connection Draining`: 위에서 언급한 Connection Draining 사용 옵션. 1초부터 3600초\(1시간\)까지 설정할 수 있다.
@@ -321,13 +321,13 @@ Auto Scaling을 사용하기 위해서는 먼저 EC2 생성옵션 \(Launch Confi
 
 ### Create Auto Scaling Group
 
-### img20
+![](../../../.gitbook/assets/ec2_20.png)
 
 위에서 생성한 생성옵션을 선택해준다.
 
 #### Step 1. Configure Auto Scaling group details
 
-### img21
+![](../../../.gitbook/assets/ec2_21.png)
 
 * `Group name`: Auto Scaling 그룹의 이름 \(예: asg-wisdom-web\)
 * `Group size`: 최초에 EC2 인스턴스를 생성할 개수
@@ -347,7 +347,7 @@ Auto Scaling을 사용하기 위해서는 먼저 EC2 생성옵션 \(Launch Confi
 
 #### Step 2. Configure scaling policies
 
-### img22
+![](../../../.gitbook/assets/ec2_22.png)
 
 * `Keep this group at its initial size`: 앞에서 설정한 EC2 인스턴스 개수를 유지
 * `Use scaling policies to adjust the capacity of this group`: 설정한 정책에 따라서 EC2 인스턴스를 조절한다 \(그에 대한 설정은 하단에서\)
@@ -358,7 +358,7 @@ Auto Scaling을 사용하기 위해서는 먼저 EC2 생성옵션 \(Launch Confi
 * 증가 / 감소 조건을 각기 설정 할 수 있고 여러가지 조건을 묶을 수도 있다.
 * CloudWatch Alarm을 여기서 생성할 수도 있고, 이미 생성되어 있는 알람을 불러올 수도 있다.
 
-### img23
+![](../../../.gitbook/assets/ec2_23.png)
 
 위의 예시는 5분내에 CPU 사용량의 측정치가 3번 이상 80%를 초과할 경우 1개의 서버 추가 반대로 5분내에 CPU 사용량 측정치가 3번 5% 이하로 측정될경우 1개의 서버 삭제 설정이다.
 
@@ -366,7 +366,7 @@ Auto Scaling을 사용하기 위해서는 먼저 EC2 생성옵션 \(Launch Confi
 
 Auto Scaling이 작동할때 알림을 받을 구성을 설정하는 단계
 
-### img24
+![](../../../.gitbook/assets/ec2_24.png)
 
 토픽을 생성하여 알림을 받을 메일등을 설정할 수 있고 어떤 단계\( 서버 추가, 삭제등..\)에서 알림을 받을지 설정 가능하다.
 
@@ -374,11 +374,11 @@ Auto Scaling이 작동할때 알림을 받을 구성을 설정하는 단계
 
 ### 기존 리소스와 AutoScaling 그룹 연결
 
-### img25
+![](../../../.gitbook/assets/ec2_25.png)
 
 연결할 EC2 인스턴스를 선택한 후 상단의 Actions &gt; Instance Settings &gt; Attach to Auto Scaling Group 을 차례로 누르면 연결 가능다.
 
 > 이때 주의할점은 Auto Scaling Group의 Desired 값에따라 서버가 삭제될 수도 있으니 Auto Scaling이 어떻게 작동되는지 완벽하게 이해하기 전에는**절대로 운영 및 스테이징 서버로는 테스트 하지 않아야 한다**
 
-### img26
+![](../../../.gitbook/assets/ec2_26.png)
 
