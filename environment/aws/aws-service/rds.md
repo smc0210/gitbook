@@ -47,25 +47,25 @@ EC2와 비슷하게 인스턴스라는 개념이 있으며 여러 사양으로 �
 * `Parameter groups` : DB 세부설정을 한곳에 모아놓은 것으로 해당 메뉴에서 설정을 전부 관리한다
 * `Option groups` : DB 실행 옵션을 한곳에 모아놓은 것으로 Memcached 설정등을 할 수 있다.
 
-### img0
+![](../../../.gitbook/assets/rds_0.png)
 
 위 메뉴의 세가지를 전부 미리 만들어 둔다. \(설정을 하는것이 아닌 단순히 생성만 한다. 세부설정은 추후 DB와 연결 이후에도 가능하다.\)
 
 ### 2-2. Launch DB instance
 
-### img1
+![](../../../.gitbook/assets/rds_1.png)
 
 RDS instance는 Instances 탭의 `Lauanch DB instance`버튼을 클릭해서 생성한다.
 
 ### Step 1. DB Engine select
 
-### img2
+![](../../../.gitbook/assets/rds_2.png)
 
 원하는 DB 엔진을 선택한다. \(상용 라이센스도 지원\)
 
 ### Step 2. Choose use case
 
-### img3
+![](../../../.gitbook/assets/rds_3.png)
 
 Aurora를 사용할게 아니라면 첫번째 항목은 무시하고 `Production` 과 `Dev/Test`항목은 단순히 `Use Multi-AZ Deployment` 와 `Provisioned IOPS Storage` 항목의 자동 사용 여부를 구분하는 것으로 여기서 선택하더라도 다음 스텝에서얼마든지 변경 가능하니 아무거나 선택해도 무방하다.
 
@@ -73,7 +73,7 @@ Aurora를 사용할게 아니라면 첫번째 항목은 무시하고 `Production
 
 #### Instance specifications
 
-### img4
+![](../../../.gitbook/assets/rds_4.png)
 
 * `License model`: mariaDB는 general-public-license만 선택가능
 * `DB Engine Version`: 사용할 엔진 버전. \( MariaDB 10.1.31 \)
@@ -89,9 +89,7 @@ Aurora를 사용할게 아니라면 첫번째 항목은 무시하고 `Production
 
 #### Settings
 
-### img5
-
-\`
+![](../../../.gitbook/assets/rds_5%20%281%29.png)
 
 * `DB instance identifier` : DB 인스턴스의 이름으로 같은 리전 안에서 중복될 수 없다.\( `wisdom-n2-1a`, `wisdom-v2-1a`\)
 * `Master Username`: DB 관리자 계정입니다. \(`wisdom`로 설정\)
@@ -100,7 +98,7 @@ Aurora를 사용할게 아니라면 첫번째 항목은 무시하고 `Production
 
 #### Network & Security
 
-### img6
+![](../../../.gitbook/assets/rds_6.png)
 
 * `VPC` : VPC를 선택 \( `wisdom-vpc` \)
 * `Subnet group` : `Default-VPC`이외의 VPC를 선택했을때만 선택 가능하며, 미리 생성해둔 `Subnet group`을 선택해 준다.
@@ -110,7 +108,7 @@ Aurora를 사용할게 아니라면 첫번째 항목은 무시하고 `Production
 
 #### Database options
 
-### img7
+![](../../../.gitbook/assets/rds_7.png)
 
 * `Database name` : 생성할 DB 이름으로 아무것도 입력하지 않으면 DB인스턴스에 Maria 서버만 실행되고 DB는 생성되지 않는다. \(운영 : n2, 개발 : v2\)
 * `Database port` : 접속 port 설정
@@ -121,26 +119,26 @@ Aurora를 사용할게 아니라면 첫번째 항목은 무시하고 `Production
 
 백업 설정
 
-### img8
+![](../../../.gitbook/assets/rds_8.png)
 
 * `Backup retention period` :  백업 데이터 유지기간으로 최대 35일까지 설정 가능하다
 * `Backup window` : 백업 시간으로 UTC 기준으로 백업을 실시한다. 주로 Maintenace Window 시간과 겹치지 않게 하고 싶을경우 설정한다.
 
 #### Monitoring
 
-### img9
+![](../../../.gitbook/assets/rds_9.png)
 
 `Enable enhanced monitoring` 사용을 활성화 할 경우 여러 프로세스나 쓰레드가 CPU를 어떻게 사용하는지 확인 가능하고 Role을 설정해줘야 한다. \(미리 해당 용도로 만들어 놓은 [rds-monitoring-role](https://console.aws.amazon.com/iam/home?region=ap-northeast-2#/roles/rds-monitoring-role) 사용\)
 
 #### Log exports
 
-### img10
+![](../../../.gitbook/assets/rds_10.png)
 
 `Cloudwatch log` 로 보내고 싶은 로그를 체크한다. `Error log`와 `Slow query log`의 경우 여기서 체크를 해줘도 **parameter group 에서 별도로 활성화를 해줘야 한다.**
 
 #### Maintenace
 
-### img11
+![](../../../.gitbook/assets/rds_11.png)
 
 마이너 버전 자동업그레이드 기능으로, 현재 사용하지 않으므로 비활성화
 
@@ -148,13 +146,13 @@ Aurora를 사용할게 아니라면 첫번째 항목은 무시하고 `Production
 
 ### Endpoint 확인
 
-### img12
+![](../../../.gitbook/assets/rds_12.png)
 
 db 인스턴스의 상세 화면으로 진입후 스크롤을 내리면 Connect 섹션에서 접속가능한 Endpoint를 확인할 수 있다.
 
 ### Details
 
-### img13
+![](../../../.gitbook/assets/rds_13.png)
 
 Details 섹션에서 DB 인스턴스의 설정값들을 상세히 확인할 수 있고 `Modify`버튼을 눌러서 설정값을 변경 할 수 도 있다.
 
@@ -181,17 +179,17 @@ RDS의 복구는 크게 두가지 방식이 있는데, 스냅샷을 통한 새�
 
 #### 스냅샷을 통한 복구
 
-### img14
+![](../../../.gitbook/assets/rds_14.png)
 
 원하는 스냅샷을 선택후 상단 액션 버튼을 누르면 나오는 항목에서 `Restore Snapshot`을 선택하면 된다.
 
 #### 특정시점으로 복구
 
-### img15
+![](../../../.gitbook/assets/rds_15.png)
 
 DB 인스턴스를 선택 후 상단 `Instance actions`버튼을 누르면 나오는 항목에서 `Restore to point in time`을 선택한다.
 
-### img16
+![](../../../.gitbook/assets/rds_16.png)
 
 db 인스턴스 생성이나 스냅샷을 통한 복구와 달리 최상단에 `Restore time`이라는 섹션이 추가되어 있고 여기서 원하는 시점으로 복구 할 수 있다.
 
